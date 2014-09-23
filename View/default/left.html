@@ -1,0 +1,65 @@
+
+<div class="page-sidebar nav-collapse collapse"> 
+    
+    <!-- BEGIN 主菜单列表 -->
+    
+    <ul class="page-sidebar-menu">
+      <li> 
+        
+        <!-- BEGIN 侧边栏显示开关按钮 -->
+        
+        <div class="sidebar-toggler hidden-phone"></div>
+        
+        <!-- END 侧边栏显示开关按钮 --> 
+        
+      </li>
+      <li> 
+        
+        <!-- BEGIN 快速搜索 -->
+        
+        <form class="sidebar-search">
+          <div class="input-box"> <a href="javascript:;" class="remove"></a>
+            <input type="text" placeholder="搜索..." />
+            <input type="button" class="submit" value=" " />
+          </div>
+        </form>
+        
+        <!-- END 快速搜索 --> 
+        
+      </li>
+      <li class="start active "> <a href='http://localhost/crm/controller/system/index.php?menuid=1'> <i class="icon-home"></i> <span class="title">{$re[0]}</span> <span class="selected"></span> </a> </li>
+      <li class="" id="{$pid[1]}" onClick="loadmenu(this)"> <a href="javascript:;"> <i class="icon-cog"></i> <span class="title" id="{$pid[1]}"  >{$re[1]}</span> <span class="arrow "></span> </a>
+        <ul class="sub-menu" id="system{$pid[1]}">
+        </ul>
+      </li>
+      <li class="" id="{$pid[2]}"> <a href="http://localhost/crm/controller/system/index.php?menuid=3"> <i class="icon-user"></i> <span class="title" id="{$pid[2]}">{$re[2]}</span>  </a>
+      </li>
+      <li > <a href="http://localhost/crm/controller/system/index.php?menuid=4"> <i class="icon-table"></i> <span class="title">{$re[3]}</span> </a> </li>
+      <li class="last "> <a href="http://localhost/crm/controller/system/index.php?menuid=5"> <i class="icon-group"></i> <span class="title">{$re[4]}</span> </a> </li>
+    </ul>
+    <div id="aa"></div>
+ <script type="text/javascript">
+		function loadmenu(obj){
+			$.get('http://localhost/crm/controller/left.php','id='+obj.id,function(data){
+					var len=data.length;
+					var html='';
+					var id = "";
+					for(var i=0;i<len;i++){
+						html+="<li><a href='http://localhost/crm/controller/system/index.php?menuid="+data[i].menuid+"'>"+data[i].menuname+"</a></li>";
+					    id=data[i].pid;
+					}
+					$(".sub-menu").empty();
+					$("#system"+id).append(html);
+					$(".start").removeClass("active");
+					$(".start").removeClass("start");
+					$(obj).addClass("active");
+					$(obj).addClass("start");
+				
+				},'json')
+		}
+	</script>    
+    <!-- END 主菜单列表 --> 
+    
+  </div>
+  
+ 
