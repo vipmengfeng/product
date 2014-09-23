@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min2.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+    <script  src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript">
+	   function t1(obj){
+		   if($("#"+obj+"2").val()==111111)
+		   {
+			   has_success(obj);
+			   
+			   }else{
+				   
+				   has_error(obj);
+				   }
+		   
+		   }
+       function has_error(obj){
+                $('#'+obj).removeClass('has-success').addClass('has-error');
+				$('#'+obj).find('span.glyphicon').remove();
+				$('#'+obj).append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+	   }
+	   function has_success(obj){
+            
+                $('#'+obj).removeClass('has-error').addClass('has-success');
+				$('#'+obj).find('span.glyphicon').remove();
+				$('#'+obj).append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
+				        
+			}
+		</script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" role="form">
+        <h2 class="form-signin-heading"><DIV style=" float:right;"></DIV>登录 LOGIN<span style=" float:right;"><img src="image/Preloader_2.gif"></span></h2>
+        <div class="form-group has-feedback" id="username">
+         <!--[if 成功]> <div class="form-group has-success has-feedback">-->
+         <!--[if 失败]> <div class="form-group has-error has-feedback">-->
+        <label class="control-label sr-only" for="username">Hidden label</label>
+        <input type="text" class="form-control" id="username2" onBlur="t1('username')" required autofouc >
+         <!--[if 成功]>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        -->
+        <!--[if 失败]>
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        -->
+        </div>
+        <div class="form-group has-feedback" id="password">
+        <label class="control-label sr-only" for="password">Hidden label</label>
+        <input type="password" class="form-control" id="password2"  onBlur="t1('password')" required>
+       
+        </div>
+         <!--[if 成功]>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        -->
+        <!--[if 失败]>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        -->
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> 记住密码
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">确认登录</button>
+        
+      </form>
+        <input type="submit" name="success" id="success" value="success" onClick="has_success('username');">
+        <input type="submit" name="button" id="button" value="error" onClick="has_error('username');">
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  
+  </body>
+</html>
