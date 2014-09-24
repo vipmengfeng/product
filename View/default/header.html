@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="utf-8" />
-<title>Metronic | Admin Dashboard Template</title>
+<title>MX会员中心-CRM</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
@@ -128,10 +128,10 @@
         
         <!-- BEGIN 用户登录下拉 -->
         
-        <li class="dropdown user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="{$conf['image']}/avatar1_small.jpg" /> <span class="username">用户名</span> <i class="icon-angle-down"></i> </a>
+        <li class="dropdown user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="{$conf['image']}/avatar1_small.jpg" /> <span class="username">{$_SESSION['username']}</span> <i class="icon-angle-down"></i> </a>
           <ul class="dropdown-menu">
             <li><a href="extra_profile.html"><i class="icon-user"></i> 我的资料</a></li>
-            <li><a href="page_calendar.html"><i class="icon-calendar"></i> My Calendar</a></li>
+            <li><a href="page_calendar.html"><i class="icon-calendar"></i>我的日历</a></li>
             <li><a href="inbox.html"><i class="icon-envelope"></i> My Inbox(3)</a></li>
             <li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>
             <li class="divider"></li>

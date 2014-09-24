@@ -67,16 +67,13 @@
 	
 	//修改个人资料
 	if($_GET['file'] == 'modinfo'){
-		$info=$_POST['info'];
+		$info=$_POST;
+		$info['userpwd']=md5($info['userpwd']);
 		$uid=$_SESSION['usernameid'];
-		$data=array(
-			'username'=>$info['username'],
-			'userpwd'=>md5($info['userpwd']),
-			'email'=>$info['email'],
-			'instruct'=>$info['instruct'],
-		);
-		if($db->update(' where id='.$uid, 'crm_user',$data)){
-			echo 1;
+		
+		
+		if($db->update(' where id='.$uid, 'crm_user',$info)){
+			echo "<script>window.location.href='http://www.crm.com/controller/system/index.php?menuid=7'</script>";
 		}else{
 			echo 0;
 		}
