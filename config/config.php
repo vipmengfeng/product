@@ -1,10 +1,10 @@
 <?php
 $conf=array();
 $conf['database']="mysql";
-$conf['dbhost'] = "127.0.0.1";
+$conf['dbhost'] = "192.168.1.103";
 $conf['dbname']	="crm";
-$conf['dbuser']	="root";
-$conf['dbpass']	="";
+$conf['dbuser']	="mxcome";
+$conf['dbpass']	="123456";
 $conf['pre']	 	="crm_";
 $conf['dbcharset']	="utf8";
 $conf['template']='default';

@@ -58,4 +58,11 @@
 			echo 0;
 		}
 	}
+	
+	if($file == 'myform'){
+		if(!empty($_POST)){
+		$chec=$_POST['checkbox1'];
+		$str=implode(",", $chec);
+		}
+	}
 ?>

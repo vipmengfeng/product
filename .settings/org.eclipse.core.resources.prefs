@@ -1,4 +1,3 @@
-#Tue Sep 23 03:01:13 GMT 2014
 eclipse.preferences.version=1
 encoding//View/default/customer/ghkh.html=UTF-8
 encoding//View/default/customer/ghkh_add.html=UTF-8
@@ -14,7 +13,11 @@ encoding//View/default/system/xgzl.html=UTF-8
 encoding//View/default/system/yhgl.html=UTF-8
 encoding//View/default/system/yhgl_add.html=UTF-8
 encoding//View/default/system/yhgl_xiugai.html=UTF-8
+encoding//caches/tpl=UTF-8
+encoding//caches/tpl/customer-ghkh_add.php=UTF-8
+encoding//caches/tpl/customer-ghkh_info.php=UTF-8
 encoding//controller/left.php=UTF-8
 encoding//lib/db_mysql.class.php=UTF-8
 encoding//lib/global.func.php=UTF-8
 encoding//lib/haha.php=UTF-8
+encoding/<project>=UTF-8
