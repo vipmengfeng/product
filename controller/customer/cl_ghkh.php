@@ -46,8 +46,16 @@
 	}
 	
 	if($file == "hqkh"){
-		echo 15646;die;
+		$uid=$_SESSION['usernameid'];
 		$cusid=$_GET['cusid'];
-		echo $cusid;die;
+		$data=array(
+			'uid'=>$uid,
+		);
+		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
+		if($query){
+			echo 1;
+		}else{
+			echo 0;
+		}
 	}
 ?>
