@@ -7,7 +7,7 @@ require ROOT_DIR.'/config/config.php';
 require ROOT_DIR.'/lib/global.func.php';
 require ROOT_DIR.'/lib/db_mysql.class.php';
 require ROOT_DIR.'/lib/file.func.php';
-
+/* this is a test for zend studio */
 $db=new db_mysql();
 
 ?>
