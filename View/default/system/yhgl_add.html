@@ -124,51 +124,33 @@
                 <div class="control-group">
                   <label class="control-label">用户名</label>
                   <div class="controls">
-                    <input class="span6 m-wrap" type="text" placeholder="用户名" disabled />
+                    <input class="span6 m-wrap" type="text" name="info[username]" />
                     <span class="help-inline">公司分配不可修改</span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap" name="info[userpwd]" />
-                    <span class="help-inline">请输入6~12位密码</span> </div>
+                    <input type="password" class="span6 m-wrap" name="info[userpwd]" id="password" onblur="checkpwd()" />
+                    <span class="help-inline" id="mespassword"></span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">确认密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap"  />
+                    <input type="password" class="span6 m-wrap" onblur="checkrpwd()" id="rpassword"  />
+                    <span class="help-inline" id="mesrpassword"></span> 
                   </div>
                 </div>
                <div class="control-group">
                   <label class="control-label">联系方式</label>
                   <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[phone]" />
+                    <input type="text" class="span6 m-wrap" name="info[phone]" onblur="checktel()" id="phone" />
+                      <span class="help-inline" id="mesphone"></span>
                    </div>
-                </div>
-                 <div class="control-group">
-                  <label class="control-label">QQ</label>
-                  <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[QQ]" />
-                   </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">分配的邮箱</label>
-                  <div class="controls">
-                    <div class="input-icon left"> <i class="icon-envelope"></i>
-                      <input class="m-wrap " type="text" name="info[email]" placeholder="企业邮箱" />
-                    </div>
-                  </div>
                 </div>
                 
-                <div class="control-group">
-                  <label class="control-label">个人说明</label>
-                  <div class="controls">
-                    <textarea class="span6 m-wrap" rows="3" name="info[instruct]"></textarea>
-                  </div>
-                </div>
                 <div class="form-actions">
                   <button type="submit" class="btn blue">确认添加</button>
-                  <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=6');" >取消添加</button>
+                  <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消添加</button>
                 </div>
               </form>
               
@@ -192,7 +174,8 @@
   <!-- END PAGE --> 
   
 </div>
-
+<script type="text/javascript" src="{$conf['js']}/register.js">
+</script>
 <!-- END CONTAINER --> 
 
 <!-- BEGIN FOOTER --> 
