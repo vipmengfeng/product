@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN" class="no-js" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="dist/mxindex.css" rel="stylesheet">
+    <script type="text/javascript" src="dist/js/template/maivl.js?2014-03-07-1"></script>
+    
+    <script type="text/javascript" src="dist/js/swipe.js?2014-03-07-1"></script>
+    
+    <script type="text/javascript" src="dist/js/zepto.js?2014-03-07-1"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+	<script src="dist/js/ie-emulation-modes-warning.js"></script>
+    
+    <!--[if lt IE 9]><script src="dist/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="dist/js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+<body onselectstart="return true;" ondragstart="return false;">
+<!--顶部菜单--> 
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+     <div class="container" >
+  		
+            <center >迈迅网络科技有限公司</center>
+     </div>
+</div>
+<!--顶部菜单 结束-->
+<!--轮换-->
+
+<div style="-webkit-transform:translate3d(0,0,0); margin-top:50px;" >
+		<div id="banner_box" class="box_swipe">
+			<ul>
+                <li>
+                    <a onClick="return false;">
+                        <img src="image/explorations1.jpg" alt="1"  style=" width:100%; height:252px;"/>
+                    </a>
+                </li>
+                <li>
+                    <a onClick="return false;">
+                         <img src="image/explorations1.jpg" alt="2" style=" width:100%;  height:252px;"/>
+                    </a>
+                </li>
+                <li>
+                    <a onClick="return false;">
+                         <img src="image/explorations1.jpg" alt="3"  style=" width:100%; height:252px;"/>
+                    </a>
+                </li>
+                <li>
+                    <a onClick="return false;">
+                          <img src="image/explorations1.jpg" alt="4"  style=" width:100%; height:252px;"/>
+                    </a>
+                </li>
+			</ul>
+            <ol>
+                <li class="on"></li>
+                <li ></li>
+                <li ></li>
+                <li ></li>
+            </ol>
+		</div>
+	</div>
+		<script>
+		$(function(){
+			new Swipe(document.getElementById('banner_box'), {
+				speed:500,
+				auto:3000,
+				callback: function(){
+					var lis = $(this.element).next("ol").children();
+					lis.removeClass("on").eq(this.index).addClass("on");
+				}
+			});
+		});
+	</script>
+<!--轮换 结束--> 
+<!--杂
+<div class="progress " >
+<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+    <span class="sr-only">60% Complete</span>
+  </div>
+</div>
+
+-->
+<div class="container" style="margin-top:10px;">
+<div class="row">
+<div class="col-xs-12 col-sm-6 col-md-6"><div class="well "><b>迈迅网络科技</b>以营销为主，重新定义您的网站及办公模式。我们致力于为您开发国内外<b>高端形象网站</b>，<b>OA内部办公系统</b>，<b>手机移动应用</b>开发，帮助您整合资源、提高工作效率、迅速迈入互联网。</div></div>
+<div class="col-xs-12 col-sm-6 col-md-6"> <div class="well ">目前，迈迅的服务区域已涵盖中国大陆，港澳台，日韩以及欧美地区。无论您是机关单位，上实集团亦或中小企业及个人团体，都将获得高品质的产品与服务，迈迅来让您感受前所未的惊喜与震撼。</div></div></div>
+</div>
+<hr/>
+<div class="container bgdcolor " >
+	<div class="row " >
+        <div class="col-xs-12 col-sm-6 col-md-3 ">
+             <h2>网站建设</h2>
+              <div class="tupian"><img src="image/explorations1.jpg" class="img-rounded"></div>
+             <p>迈迅网络为您提供专业的微信公众平台定制开发与微信营销策划。更低廉的成本，更高级的营销。</p><p>我们可以根据您的需求进行微信公众平台二次开发，让您实现便捷服务，领先竞争对手！</p>
+             <p><a class="btn btn-primary" href="#" role="button">查看详细 &raquo;</a></p>
+        </div>
+    	<div class="col-xs-12 col-sm-6 col-md-3">
+         	 <h2>管理系统</h2>
+              <div class="tupian"><img src="image/explorations2.jpg" class="img-rounded"></div>
+             <p>迈迅网络为您提供专业的微信公众平台定制开发与微信营销策划。更低廉的成本，更高级的营销。</p><p>我们可以根据您的需求进行微信公众平台二次开发，让您实现便捷服务，领先竞争对手！</p>
+             <p><a class="btn btn-primary" href="#" role="button">查看详细 &raquo;</a></p>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+             <h2>微信营销</h2>
+              <div class="tupian"><img src="image/explorations3.jpg" class="img-rounded"></div>
+             <p>迈迅网络为您提供专业的微信公众平台定制开发与微信营销策划。更低廉的成本，更高级的营销。</p><p>我们可以根据您的需求进行微信公众平台二次开发，让您实现便捷服务，领先竞争对手！</p>
+             <p><a class="btn btn-primary" href="#" role="button">查看详细 &raquo;</a></p>
+        </div>
+    	<div class="col-xs-12 col-sm-6 col-md-3">
+         	 <h2>移动APP</h2>
+             <div class="tupian"><img src="image/explorations4.jpg" class="img-rounded"></div>
+             <p>迈迅网络为您提供专业的微信公众平台定制开发与微信营销策划。更低廉的成本，更高级的营销。</p><p>我们可以根据您的需求进行微信公众平台二次开发，让您实现便捷服务，领先竞争对手！</p>
+             <p><a class="btn btn-primary" href="#" role="button">查看详细 &raquo;</a></p>
+        </div>
+    </div>
+</div>
+<!--底部菜单-->    
+<div class="navbar-fixed-bottom bgcl">
+ 	<div class="container">
+			<div class="bottombtn active">
+            <a href="index.html" class="col-xs-3 text-center ">
+            <i class="glyphicon glyphicon-home "></i>
+            <span class="glyphicon-class">首页</span>
+            </a>
+         	</div>
+
+			<div class="bottombtn">
+            <a href="product_list.html" class="col-xs-3 text-center ">
+            <i class="glyphicon glyphicon-list"></i>
+            <span class="glyphicon-class">产品</span>
+            </a> 
+			</div>
+            
+			<div class="bottombtn">
+            <a href="anli.html" class="col-xs-3 text-center">
+            <i class="glyphicon glyphicon-star"></i>
+        	<span class="glyphicon-class">案例</span>
+            </a>
+			</div>
+			
+            <div class="bottombtn">
+            <a href="lianxi.html" class="col-xs-3 text-center">
+            <i class="glyphicon glyphicon-send"></i>
+            <span class="glyphicon-class">联系</span>
+            </a>
+            </div>
+
+    </div>
+</div>
+<div class=" modal-footer" style=" text-align:center; margin-bottom:40px;">@迈迅网络科技有限公司</div>
+<!--底部菜单 结束--> 
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="dist/js/jquery-1.9.1.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
