@@ -14,7 +14,7 @@
   <!-- BEGIN PAGE -->
   
   <div class="page-content"> 
-    
+<script type="text-javascript" src="{$conf['js']}/register.js"></script>    
     <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
     
     <div id="portlet-config" class="modal hide">
@@ -114,7 +114,7 @@
               
               <!-- BEGIN FORM-->
               
-              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal">
+              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal" onsubmit="return checkall()">
                 <div class="control-group">
                   <label class="control-label">真实姓名</label>
                   <div class="controls">
@@ -124,8 +124,9 @@
                 <div class="control-group">
                   <label class="control-label">用户名</label>
                   <div class="controls">
-                    <input class="span6 m-wrap" type="text" placeholder="用户名" disabled />
-                    <span class="help-inline">公司分配不可修改</span> </div>
+                    <input class="span6 m-wrap" type="text"  name="info[username]"  id="username"/>
+					
+                    <span class="help-inline" id="mesname">可自行分配，一经分配无法修改</span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">密码</label>
@@ -139,31 +140,12 @@
                     <input type="password" class="span6 m-wrap"  />
                   </div>
                 </div>
-               <div class="control-group">
-                  <label class="control-label">联系方式</label>
-                  <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[phone]" />
-                   </div>
-                </div>
-                 <div class="control-group">
-                  <label class="control-label">QQ</label>
-                  <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[QQ]" />
-                   </div>
-                </div>
                 <div class="control-group">
                   <label class="control-label">分配的邮箱</label>
                   <div class="controls">
                     <div class="input-icon left"> <i class="icon-envelope"></i>
                       <input class="m-wrap " type="text" name="info[email]" placeholder="企业邮箱" />
                     </div>
-                  </div>
-                </div>
-                
-                <div class="control-group">
-                  <label class="control-label">个人说明</label>
-                  <div class="controls">
-                    <textarea class="span6 m-wrap" rows="3" name="info[instruct]"></textarea>
                   </div>
                 </div>
                 <div class="form-actions">
