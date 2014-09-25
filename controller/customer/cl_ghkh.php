@@ -62,7 +62,10 @@
 	if($file == 'myform'){
 		if(!empty($_POST)){
 		$chec=$_POST['checkbox1'];
+		$uid=$_SESSION['usernameid'];
 		$str=implode(",", $chec);
+		$sql="UPDATE crm_customer SET uid = '$uid' WHERE cusid in ($str)";
+		echo $sql;
 		}
 	}
 ?>
