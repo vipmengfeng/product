@@ -21,7 +21,6 @@ header("Content-type: text/html; charset=utf-8");
 		
 	}	
 
-
 function fora($arr){
 $cache="";
 	foreach($arr as $k=>$v){
