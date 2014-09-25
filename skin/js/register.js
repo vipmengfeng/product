@@ -30,7 +30,8 @@ function checkname()  //检查用户名
     }
     if(i>=myname.length)
     {
-       $.get("register.php",{username:myname},function(data){
+    	
+       $.get("cl_yhgl.php?file=checkhaha",{username:myname},function(data){
 			if(data == "ok"){
 			 myDivname.innerHTML = "<font color='red'>√</font>";
 				 return true;

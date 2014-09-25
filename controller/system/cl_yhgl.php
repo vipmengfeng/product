@@ -1,6 +1,7 @@
 <?php
 	require '../../ini.php';
 	require '../left.php';
+	
 	if($_GET['file'] == 'add'){
 		include template('yhgl_add','system');
 	}
@@ -29,7 +30,7 @@
 		$info['username']=trim($info['username']);
 		if($db->add('crm_user',$info)){
 			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
-			
+			logs("add", "customer", $info['username']);
 		}else{
 			echo "<script language=\"javascript\">alert('删除失败');</script>";	
 		}	
@@ -86,5 +87,17 @@
 				echo "<script language=\"javascript\">alert('删除失败');</script>";
 				}
 		}
+	}
+	
+	if($_GET['file'] == 'checkhaha'){
+		$username=$_GET['username'];
+		$sql="SELECT * FROM crm_user WHERE username='$username'";	
+		$query=$db->get_one($sql);
+		if(empty($query)){
+			echo "ok";
+		}else {
+			echo "no";
+		}
+		
 	}
 ?>

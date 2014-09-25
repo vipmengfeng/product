@@ -67,8 +67,12 @@ class db_mysql {
 		//echo $sql;
 		if(strpos($sql, 'SELECT ') !== false && strpos($sql, ' LIMIT ') === false) $sql .= ' LIMIT 0,1';
 		$query = $this->query($sql);
-		$r = $this->fetch_array($query);
-		$this->free_result($query);
+			if(!empty($query)){
+			$r=$this->fetch_array($query);
+		  $this->free_result($query);
+		   }else{
+			$r = "";	
+		}
 		return $r;
 	}
 	

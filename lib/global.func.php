@@ -1158,9 +1158,9 @@ function logs($way,$method,$get){
 	$content=array();
 	if($way == "add"){//如果你是添加信息
 	if($method == "member"){
-		$sql="SELECT cusid FROM   客户表  where 公司名称=$get";
+		$sql="SELECT cusid FROM crm_customer  where cusname=$get";
 	}else{
-		$sql="SELECT id FROM   用户表  where 用户账户=$get";
+		$sql="SELECT id FROM crm_user  where username=$get";
 	}
 		$re=$db->get_one($sql);
 		if($method == "member"){
@@ -1185,9 +1185,10 @@ function logs($way,$method,$get){
 		}
 	$content['way']=$way;
 	$content['method']=$method;
-	$content['userid']=$_SESSION['userid'];
+	$content['userid']=$_SESSION['usernameid'];
+	$content['uname']=$_SESSION['username'];
 	$content['time']=time();//修改的时间
-	$db->add("记录表的名称",$content); //入库
+	$db->add("crm_logs",$content); //入库
 	}
 }
 
