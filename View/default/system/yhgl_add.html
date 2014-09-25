@@ -1,3 +1,4 @@
+
 {template 'header'} 
 
 <!-- END HEADER --> 
@@ -14,7 +15,7 @@
   <!-- BEGIN PAGE -->
   
   <div class="page-content"> 
-<script type="text-javascript" src="{$conf['js']}/register.js"></script>    
+    
     <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
     
     <div id="portlet-config" class="modal hide">
@@ -39,47 +40,6 @@
         <div class="span12"> 
           
           <!-- BEGIN STYLE CUSTOMIZER -->
-          
-          <div class="color-panel hidden-phone">
-            <div class="color-mode-icons icon-color"></div>
-            <div class="color-mode-icons icon-color-close"></div>
-            <div class="color-mode">
-              <p>THEME COLOR</p>
-              <ul class="inline">
-                <li class="color-black current color-default" data-style="default"></li>
-                <li class="color-blue" data-style="blue"></li>
-                <li class="color-brown" data-style="brown"></li>
-                <li class="color-purple" data-style="purple"></li>
-                <li class="color-grey" data-style="grey"></li>
-                <li class="color-white color-light" data-style="light"></li>
-              </ul>
-              <label> <span>Layout</span>
-                <select class="layout-option m-wrap small">
-                  <option value="fluid" selected>Fluid</option>
-                  <option value="boxed">Boxed</option>
-                </select>
-              </label>
-              <label> <span>Header</span>
-                <select class="header-option m-wrap small">
-                  <option value="fixed" selected>Fixed</option>
-                  <option value="default">Default</option>
-                </select>
-              </label>
-              <label> <span>Sidebar</span>
-                <select class="sidebar-option m-wrap small">
-                  <option value="fixed">Fixed</option>
-                  <option value="default" selected>Default</option>
-                </select>
-              </label>
-              <label> <span>Footer</span>
-                <select class="footer-option m-wrap small">
-                  <option value="fixed">Fixed</option>
-                  <option value="default" selected>Default</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          
           <!-- END BEGIN STYLE CUSTOMIZER --> 
           
           <!-- BEGIN PAGE TITLE & BREADCRUMB-->
@@ -114,7 +74,7 @@
               
               <!-- BEGIN FORM-->
               
-              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal" onsubmit="return checkall()">
+              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal">
                 <div class="control-group">
                   <label class="control-label">真实姓名</label>
                   <div class="controls">
@@ -124,33 +84,33 @@
                 <div class="control-group">
                   <label class="control-label">用户名</label>
                   <div class="controls">
-                    <input class="span6 m-wrap" type="text"  name="info[username]"  id="username"/>
-					
-                    <span class="help-inline" id="mesname">可自行分配，一经分配无法修改</span> </div>
+                    <input class="span6 m-wrap" type="text" name="info[username]" />
+                    <span class="help-inline">公司分配不可修改</span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap" name="info[userpwd]" />
-                    <span class="help-inline">请输入6~12位密码</span> </div>
+                    <input type="password" class="span6 m-wrap" name="info[userpwd]" id="password" onblur="checkpwd()" />
+                    <span class="help-inline" id="mespassword"></span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">确认密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap"  />
+                    <input type="password" class="span6 m-wrap" onblur="checkrpwd()" id="rpassword"  />
+                    <span class="help-inline" id="mesrpassword"></span> 
                   </div>
                 </div>
-                <div class="control-group">
-                  <label class="control-label">分配的邮箱</label>
+               <div class="control-group">
+                  <label class="control-label">联系方式</label>
                   <div class="controls">
-                    <div class="input-icon left"> <i class="icon-envelope"></i>
-                      <input class="m-wrap " type="text" name="info[email]" placeholder="企业邮箱" />
-                    </div>
-                  </div>
+                    <input type="text" class="span6 m-wrap" name="info[phone]" onblur="checktel()" id="phone" />
+                      <span class="help-inline" id="mesphone"></span>
+                   </div>
                 </div>
+                
                 <div class="form-actions">
                   <button type="submit" class="btn blue">确认添加</button>
-                  <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=6');" >取消添加</button>
+                  <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消添加</button>
                 </div>
               </form>
               
@@ -174,7 +134,8 @@
   <!-- END PAGE --> 
   
 </div>
-
+<script type="text/javascript" src="{$conf['js']}/register.js">
+</script>
 <!-- END CONTAINER --> 
 
 <!-- BEGIN FOOTER --> 
