@@ -26,20 +26,12 @@
 	
 	if($_GET['file'] == 'adduser'){
 		$info=$_POST['info'];
-		$data=array(
-			'username'=>$info['username'],
-			'userpwd'=>md5($info['userpwd']),
-			'email'=>$info['email'],
-			'type'=>$info['type'], 
-			'instruct'=>$info['instruct'],
-		);
-		
-		if($db->add('crm_user',$data)){
-			
-			echo 1;	
+		$info['username']=trim($info['username']);
+		if($db->add('crm_user',$info)){
+			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
 			
 		}else{
-			echo 0;	
+			echo "<script language=\"javascript\">alert('删除失败');</script>";	
 		}	
 		//$db->message("add", "member", $data['username']);
 	}
@@ -75,7 +67,7 @@
 		if($db->update(' where id='.$uid, 'crm_user',$info)){
 			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
 		}else{
-			echo 0;
+			echo "<script language=\"javascript\">alert('更新失败');</script>";
 		}
 	}
 	

@@ -107,9 +107,17 @@
                       <span class="help-inline" id="mesphone"></span>
                    </div>
                 </div>
-                
+                 <div class="control-group">
+                      <label class="control-label">分配的邮箱</label>
+                      <div class="controls">
+                      	<div class="input-icon left">
+                      	<i class="icon-envelope"></i>
+                      	<input class="m-wrap " type="text" placeholder="企业邮箱" name="info['email']" />    
+                         </div>
+                      </div>
+                 </div>
                 <div class="form-actions">
-                  <button type="submit" class="btn blue">确认添加</button>
+                  <button type="submit" class="btn blue" onclick="checkall()">确认添加</button>
                   <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消添加</button>
                 </div>
               </form>
