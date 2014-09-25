@@ -251,7 +251,8 @@
 
 											<td class="hidden-480">{$v['cusinfo']}</td>
 
-											<td class="hidden-480"><a href="{$conf['log_out']}/controller/my/cl_my.php?file=fangqi&id={$v['cusid']}&name={$v['cusname']}" class="btn mini red">放弃</a> </td>
+											<td class="hidden-480"><a href="{$conf['log_out']}/controller/my/cl_my.php?file=fangqi&id={$v['cusid']}&name={$v['cusname']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=add&id={$v[cusid]}" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=add&id={$v[cusid]}" class="btn mini yellow">跟进记录</a>
+											</td>
 
 										</tr>
 										{/loop}
