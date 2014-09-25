@@ -65,7 +65,7 @@
 		include template("extra_lock");
 	}
 	
-	//ÐÞ¸Ä¸öÈË×ÊÁÏ
+	//ï¿½Þ¸Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if($_GET['file'] == 'modinfo'){
 		$info=$_POST;
 		$info['userpwd']=md5($info['userpwd']);
@@ -73,10 +73,26 @@
 		
 		
 		if($db->update(' where id='.$uid, 'crm_user',$info)){
-			echo "<script>window.location.href='http://www.crm.com/controller/system/index.php?menuid=7'</script>";
+			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
 		}else{
 			echo 0;
 		}
+	}
 	
+	//åˆ é™¤
+	if($_GET['file'] == 'myform'){
+		if(!empty($_POST)){
+			$chec=$_POST['checkbox1'];
+			$str=implode(",", $chec);
+			$data=array(
+					"disable"=>"0",
+			);
+			$query=$db->update(" where id in ($str)", "crm_user" ,$data);
+			if($query){
+				echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
+			}else {
+				echo "<script language=\"javascript\">alert('åˆ é™¤å¤±è´¥');</script>";
+				}
+		}
 	}
 ?>
