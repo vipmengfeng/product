@@ -1,0 +1,47 @@
+li{list-style: none;}
+.bgdcolor{height:auto; padding-bottom:50px;}
+.bgcl{ background:#666;}
+center{ line-height:50px; font-size:18px; color:#999;}
+.bottombtn a{ padding-top:5px; padding-bottom:5px; color:#333; color:#CCC; text-decoration:none; line-height:10px; font-size:18px;}
+.bottombtn a span{ font-size:12px; color:#ccc; margin-top:6px;}
+.active a{ background:#333; color:#fff;}
+.active a span{ color:#fff;}
+
+.tupian{ margin-bottom:10px;}
+.tupian img{max-width:100%; height:auto; }
+
+.glyphicon-class{display: block;
+text-align: center;
+word-wrap: break-word; color:#FFF;}
+
+.box_swipe{
+    overflow:hidden;
+    position:relative;
+}
+.box_swipe ul{
+    -webkit-padding-start: 0px;
+}
+
+.box_swipe>ol{
+    height:20px;
+    position: relative;
+    z-index:10;
+    margin-top:-25px;
+    text-align:right;
+    padding-right:15px;
+    background-color:rgba(0,0,0,0.3);
+}
+.box_swipe>ol>li{
+    display:inline-block;
+    margin:5px 0;
+    width:8px;
+    height:8px;
+    background-color:#757575;
+    border-radius: 8px;
+}
+.box_swipe>ol>li.on{
+    background-color:#ffffff;
+}
+
+
+
