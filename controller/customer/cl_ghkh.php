@@ -15,6 +15,7 @@
 			'ctype'=>$info['cprocess'], 
 			'cusinfo'=>$info['cusinfo'],
 			'conditions'=>$info['condition'],
+			'inputtime'=>time(),
 		);
 		if($db->add('crm_customer',$data)){
 			echo 1;	
@@ -56,6 +57,38 @@
 			echo 1;
 		}else{
 			echo 0;
+		}
+	}
+	
+	if($file == 'myform'){
+		if(!empty($_POST)){
+			$chec=$_POST['checkbox1'];
+			$uid=$_SESSION['usernameid'];
+			$str=implode(",", $chec);
+			
+			if($_POST['hidden'] == 'huoqu'){
+				$data=array(
+						"uid"=>$uid,
+				);
+				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
+				if($query){
+					echo "<script language=\"javascript\">window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');</script>";
+				}else {
+					echo "<script language=\"javascript\">alert('获取失败')</script>";
+				}
+			}
+			if($_POST['hidden'] == 'del'){
+				$data=array(
+					"disable"=>"0",
+				);
+				$query=$db->update(" where cusid in($str)", "crm_customer" ,$data);
+				if($query){
+					echo "<script language=\"javascript\">window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');</script>";
+				}else {
+					echo "<script language=\"javascript\">alert('删除失败')</script>";
+				}			
+			}
+		
 		}
 	}
 ?>

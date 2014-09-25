@@ -7,7 +7,7 @@
 		$sql="select * from ".$table_pre.'menu where pid='.$id;
 		$query=$db->query($sql);
 		$res=array();
-		while($row=mysql_fetch_assoc($query)){
+		while(($row=mysql_fetch_assoc($query))==true){
 			$res[]=$row;
 		}
 		echo json_encode($res);

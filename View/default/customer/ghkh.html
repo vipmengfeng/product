@@ -189,14 +189,15 @@
 								<div class="clearfix">
 
 									<div class="btn-group"><a href="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=add" class="btn blue"><i class="icon-plus"></i> 添加新用户</a> </div>
-                                    <div class="btn-group"> <a href="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=huoqu" class="btn green"><i class="icon-share"></i> 获取选中客户</a> </div>
-									<div class="btn-group"> <a href="#" class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
+                                    <div class="btn-group"> <a href="#" onclick="subform('huoqu')" class="btn green"><i class="icon-share"></i> 获取选中客户</a> </div>
+									<div class="btn-group"> <a href="#" onclick="subform('del')" class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
 									
 
 								</div>
-
+								<form action="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=myform" method="post" id="myform" name="myform">
+								<input type="hidden" value="" name="hidden" id="hide">
 								<table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
-
+	
 									<thead>
 
 										<tr>
@@ -209,6 +210,8 @@
 											<th class="hidden-480">联系方式</th>
 
 											<th class="hidden-480">公司介绍</th>
+											
+											<th class="hidden-480">添加时间</th>
 
 											<th class="hidden-480">操作</th>
 
@@ -217,10 +220,14 @@
 									</thead>
 
 									<tbody>
-
+									
+										
 										{loop $r $k $v}
+										
 										<tr>
-											<td><input type="checkbox" id="select" class="checkboxes" name="id" value="{$v['cusid']}" /></td>
+											
+											<td><input type="checkbox" class="checkboxes"  name="checkbox1[]" value="{$v['cusid']}" /></td>
+											
 											<td><a href="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}">{$v['cusname']}</a></td>
 
 											<td>{$v['connecter']}</td>
@@ -230,16 +237,16 @@
 											<td class="hidden-480">{$v['cusinfo']}</td>
 
 											<td class="hidden-480"><a href="#" class="btn mini red">放弃</a> </td>
-
+										
 										</tr>
 										{/loop}
-
 										
 
 									</tbody>
 
 								</table>
-
+								</form>
+										
 							</div>
 
 						</div>
@@ -266,14 +273,24 @@
 
 	<!-- BEGIN FOOTER -->
 	<script type="text/javascript">
-		function checkall(obj){
-			var objcheck=obj.checked;
-			var chec=document.getElementsByName("id");
-			var len=chec.length;
-			for(var i=0;i<len;i++){
-				chec[i].checked=objcheck;
+	function checkall(obj){
+		var objcheck=obj.checked;
+		var chec=document.getElementsByName("checkbox1[]");
+		var len=chec.length;
+		for(var i=0;i<len;i++){
+			
+			if(objcheck == true){
+				$(chec[i]).parent().addClass("checked");  
+			}else{
+				$(chec[i]).parent().removeClass("checked");  
 			}
 		}
+	}
+	
+	function subform(obj){
+		$("#hide").val(obj);
+		$("#myform").submit();
+	}
 	</script>
 
 {template "footer"}
