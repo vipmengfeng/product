@@ -81,7 +81,7 @@
 				$data=array(
 					"disable"=>"0",
 				);
-				$query=$db->update(" where cusid in($str)", "crm_customer" ,$data);
+				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
 					echo "<script language=\"javascript\">window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');</script>";
 				}else {
