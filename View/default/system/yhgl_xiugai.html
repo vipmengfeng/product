@@ -115,12 +115,7 @@
               
               <!-- BEGIN FORM-->
               <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=moduser&id={$r['id']}" method="post" class="form-horizontal">
-                <div class="control-group">
-                  <label class="control-label">用户名</label>
-                  <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[name]" value="{$r['username']}" />
-                    <span class="help-inline">不得输入殊符号</span> </div>
-                </div>
+                
                 <div class="control-group">
                   <label class="control-label">用户名</label>
                   <div class="controls">
@@ -130,7 +125,7 @@
                 <div class="control-group">
                   <label class="control-label">密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap" name="info[pwd]" />
+                    <input type="password" class="span6 m-wrap" name="info[userpwd]" />
                     <span class="help-inline">请输入6~12位密码</span> </div>
                 </div>
                 <div class="control-group">
@@ -140,6 +135,18 @@
                   </div>
                 </div>
                 <div class="control-group">
+                  <label class="control-label">联系方式</label>
+                  <div class="controls">
+                    <input type="text" class="span6 m-wrap" name="info[phone]" value="{$r['phone']}" />
+                    <span class="help-inline">不得输入殊符号</span> </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">QQ</label>
+                  <div class="controls">
+                    <input type="text" class="span6 m-wrap" name="info[QQ]" value="{$r['QQ']}" />
+                    <span class="help-inline">不得输入殊符号</span> </div>
+                </div>
+                <div class="control-group">
                   <label class="control-label">分配的邮箱</label>
                   <div class="controls">
                     <div class="input-icon left"> <i class="icon-envelope"></i>
@@ -147,43 +154,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="control-group">
-                  <label class="control-label">Default Dropdown</label>
-                  <div class="controls">
-                    <select class="span6 m-wrap" name="info[type]" data-placeholder="Choose a Category" tabindex="1">
-                      <option value="">{$r['type']}</option>
-                      <option value="Category 1">Category 1</option>
-                      <option value="Category 2">Category 2</option>
-                      <option value="Category 3">Category 5</option>
-                      <option value="Category 4">Category 4</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">Radio Buttons</label>
-                  <div class="controls">
-                    <label class="radio">
-                      <input type="radio" name="optionsRadios1" value="option1" />
-                      Option 1 </label>
-                    <label class="radio">
-                      <input type="radio" name="optionsRadios1" value="option2" checked />
-                      Option 2 </label>
-                    <label class="radio">
-                      <input type="radio" name="optionsRadios1" value="option2" />
-                      Option 3 </label>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">Checkbox</label>
-                  <div class="controls">
-                    <label class="checkbox">
-                      <input type="checkbox" value="" />
-                      Checkbox 1 </label>
-                    <label class="checkbox">
-                      <input type="checkbox" value="" />
-                      Checkbox 2 </label>
-                  </div>
-                </div>
+               
                 <div class="control-group">
                   <label class="control-label">个人说明</label>
                   <div class="controls">
