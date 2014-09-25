@@ -1,3 +1,4 @@
+
 {template 'header'} 
 
 <!-- END HEADER --> 
@@ -39,47 +40,6 @@
         <div class="span12"> 
           
           <!-- BEGIN STYLE CUSTOMIZER -->
-          
-          <div class="color-panel hidden-phone">
-            <div class="color-mode-icons icon-color"></div>
-            <div class="color-mode-icons icon-color-close"></div>
-            <div class="color-mode">
-              <p>THEME COLOR</p>
-              <ul class="inline">
-                <li class="color-black current color-default" data-style="default"></li>
-                <li class="color-blue" data-style="blue"></li>
-                <li class="color-brown" data-style="brown"></li>
-                <li class="color-purple" data-style="purple"></li>
-                <li class="color-grey" data-style="grey"></li>
-                <li class="color-white color-light" data-style="light"></li>
-              </ul>
-              <label> <span>Layout</span>
-                <select class="layout-option m-wrap small">
-                  <option value="fluid" selected>Fluid</option>
-                  <option value="boxed">Boxed</option>
-                </select>
-              </label>
-              <label> <span>Header</span>
-                <select class="header-option m-wrap small">
-                  <option value="fixed" selected>Fixed</option>
-                  <option value="default">Default</option>
-                </select>
-              </label>
-              <label> <span>Sidebar</span>
-                <select class="sidebar-option m-wrap small">
-                  <option value="fixed">Fixed</option>
-                  <option value="default" selected>Default</option>
-                </select>
-              </label>
-              <label> <span>Footer</span>
-                <select class="footer-option m-wrap small">
-                  <option value="fixed">Fixed</option>
-                  <option value="default" selected>Default</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          
           <!-- END BEGIN STYLE CUSTOMIZER --> 
           
           <!-- BEGIN PAGE TITLE & BREADCRUMB-->
@@ -114,85 +74,52 @@
               
               <!-- BEGIN FORM-->
               
-              <form action="http://localhost/crm/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal">
+              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal" onsubmit="return checkall()">
                 <div class="control-group">
-                  <label class="control-label">用户名</label>
+                  <label class="control-label">真实姓名</label>
                   <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[username]" />
-                    <span class="help-inline">不得输入殊符号</span> </div>
+                    <input type="text" class="span6 m-wrap" name="info[realname]" />
+                    <span class="help-inline">请根据实情填写</span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">用户名</label>
                   <div class="controls">
-                    <input class="span6 m-wrap" type="text" placeholder="用户名" disabled />
-                    <span class="help-inline">公司分配不可修改</span> </div>
+                    <input class="span6 m-wrap" type="text" name="info[username]" id="username" onblur="checkname()"/>
+                    <span class="help-inline" id="mesname">公司分配不可修改</span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap" name="info[userpwd]" />
-                    <span class="help-inline">请输入6~12位密码</span> </div>
+                    <input type="password" class="span6 m-wrap" name="info[userpwd]" id="password" onblur="checkpwd()" />
+                    <span class="help-inline" id="mespassword"></span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">确认密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap" name="info[repwd]" />
+                    <input type="password" class="span6 m-wrap" onblur="checkrpwd()" id="rpassword"  />
+                    <span class="help-inline" id="mesrpassword"></span> 
                   </div>
                 </div>
-                <div class="control-group">
-                  <label class="control-label">分配的邮箱</label>
+               <div class="control-group">
+                  <label class="control-label">联系方式</label>
                   <div class="controls">
-                    <div class="input-icon left"> <i class="icon-envelope"></i>
-                      <input class="m-wrap " type="text" name="info[email]" placeholder="企业邮箱" />
-                    </div>
-                  </div>
+                    <input type="text" class="span6 m-wrap" name="info[phone]" onblur="checktel()" id="phone" />
+                      <span class="help-inline" id="mesphone"></span>
+                   </div>
                 </div>
-                <div class="control-group">
-                  <label class="control-label">Default Dropdown</label>
-                  <div class="controls">
-                    <select class="span6 m-wrap" name="info[type]" data-placeholder="Choose a Category" tabindex="1">
-                      <option value="">Select...</option>
-                      <option value="Category 1">Category 1</option>
-                      <option value="Category 2">Category 2</option>
-                      <option value="Category 3">Category 5</option>
-                      <option value="Category 4">Category 4</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">Radio Buttons</label>
-                  <div class="controls">
-                    <label class="radio">
-                      <input type="radio" name="optionsRadios1" value="option1" />
-                      Option 1 </label>
-                    <label class="radio">
-                      <input type="radio" name="optionsRadios1" value="option2" checked />
-                      Option 2 </label>
-                    <label class="radio">
-                      <input type="radio" name="optionsRadios1" value="option2" />
-                      Option 3 </label>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">Checkbox</label>
-                  <div class="controls">
-                    <label class="checkbox">
-                      <input type="checkbox" value="" />
-                      Checkbox 1 </label>
-                    <label class="checkbox">
-                      <input type="checkbox" value="" />
-                      Checkbox 2 </label>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">个人说明</label>
-                  <div class="controls">
-                    <textarea class="span6 m-wrap" rows="3" name="info[instruct]"></textarea>
-                  </div>
-                </div>
+                 <div class="control-group">
+                      <label class="control-label">分配的邮箱</label>
+                      <div class="controls">
+                      	<div class="input-icon left">
+                      	<i class="icon-envelope"></i>
+                      	<input class="m-wrap " type="text" placeholder="企业邮箱" name="info['email']" onblur="checkemail()" id="email" />
+                      	   <span class="help-inline" id="mesemail"></span>    
+                         </div>
+                      </div>
+                 </div>
                 <div class="form-actions">
-                  <button type="submit" class="btn blue">确认添加</button>
-                  <button type="button" class="btn" onClick="window.location.reload('http://localhost/crm/controller/system/index.php?menuid=6');" >取消添加</button>
+                  <button type="submit" class="btn blue" onclick="checkall()">确认添加</button>
+                  <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消添加</button>
                 </div>
               </form>
               
@@ -216,7 +143,8 @@
   <!-- END PAGE --> 
   
 </div>
-
+<script type="text/javascript" src="{$conf['js']}/register.js">
+</script>
 <!-- END CONTAINER --> 
 
 <!-- BEGIN FOOTER --> 

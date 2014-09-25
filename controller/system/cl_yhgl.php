@@ -26,20 +26,12 @@
 	
 	if($_GET['file'] == 'adduser'){
 		$info=$_POST['info'];
-		$data=array(
-			'username'=>$info['username'],
-			'userpwd'=>md5($info['userpwd']),
-			'email'=>$info['email'],
-			'type'=>$info['type'], 
-			'instruct'=>$info['instruct'],
-		);
-		
-		if($db->add('crm_user',$data)){
-			
-			echo 1;	
+		$info['username']=trim($info['username']);
+		if($db->add('crm_user',$info)){
+			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
 			
 		}else{
-			echo 0;	
+			echo "<script language=\"javascript\">alert('删除失败');</script>";	
 		}	
 		//$db->message("add", "member", $data['username']);
 	}
@@ -65,21 +57,34 @@
 		include template("extra_lock");
 	}
 	
-	//�޸ĸ�������
+	//�޸ĸ�������
 	if($_GET['file'] == 'modinfo'){
-		$info=$_POST['info'];
+		$info=$_POST;
+		$info['userpwd']=md5($info['userpwd']);
 		$uid=$_SESSION['usernameid'];
-		$data=array(
-			'username'=>$info['username'],
-			'userpwd'=>md5($info['userpwd']),
-			'email'=>$info['email'],
-			'instruct'=>$info['instruct'],
-		);
-		if($db->update(' where id='.$uid, 'crm_user',$data)){
-			echo 1;
+		
+		
+		if($db->update(' where id='.$uid, 'crm_user',$info)){
+			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
 		}else{
-			echo 0;
+			echo "<script language=\"javascript\">alert('更新失败');</script>";
 		}
+	}
 	
+	//删除
+	if($_GET['file'] == 'myform'){
+		if(!empty($_POST)){
+			$chec=$_POST['checkbox1'];
+			$str=implode(",", $chec);
+			$data=array(
+					"disable"=>"0",
+			);
+			$query=$db->update(" where id in ($str)", "crm_user" ,$data);
+			if($query){
+				echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
+			}else {
+				echo "<script language=\"javascript\">alert('删除失败');</script>";
+				}
+		}
 	}
 ?>

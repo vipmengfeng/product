@@ -18,6 +18,7 @@ class db_mysql {
 	 */
 	 function __construct(){
 		global $conf;
+		
 		$this->connect($conf['dbhost'], $conf['dbuser'], $conf['dbpass'], $conf['dbname'], $conf['dbcharset'], $pconnect = 0);
 	 	$this->select_db($conf['dbname']);
 	 
@@ -116,7 +117,7 @@ class db_mysql {
 		$sqlk = substr($sqlk, 1);
         $sqlv = substr($sqlv, 1);
 		$sql ="INSERT INTO $table ($sqlk) VALUES ($sqlv) ";
-		echo $sql;die;
+		//echo $sql;die;
 		if($this->query($sql)){
 			return "right";
 		}else{
@@ -166,7 +167,7 @@ class db_mysql {
 			$sqla = substr($sqla, 1);
 			$sql .=$sqla;
 			$sql .= $where;
-			//echo $sql;
+			//echo $sql;die;
 			if($this->query($sql)){
 			return "right";
 		    }else{

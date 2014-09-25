@@ -46,79 +46,13 @@
 
 						<!-- BEGIN STYLE CUSTOMIZER -->
 
-						<div class="color-panel hidden-phone">
-
-							<div class="color-mode-icons icon-color"></div>
-
-							<div class="color-mode-icons icon-color-close"></div>
-
-							<div class="color-mode">
-								<label>
-
-									<span>Layout</span>
-
-									<select class="layout-option m-wrap small">
-
-										<option value="fluid" selected>Fluid</option>
-
-										<option value="boxed">Boxed</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Header</span>
-
-									<select class="header-option m-wrap small">
-
-										<option value="fixed" selected>Fixed</option>
-
-										<option value="default">Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Sidebar</span>
-
-									<select class="sidebar-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Footer</span>
-
-									<select class="footer-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-							</div>
-
-						</div>
 
 
 						<!-- BEGIN 网页的标题和面包屑-->
 
 						<h3 class="page-title">
 
-							系统管理 
+							修改资料
 
 						</h3>
 
@@ -128,13 +62,13 @@
 
 								<i class="icon-home"></i>
 
-								<a href="index.html">Home</a> 
+								<a href="index.html">员工中心</a> 
 
 								<i class="icon-angle-right"></i>
 
 							</li>
 
-							<li><a href="#">Dashboard</a></li>
+							<li><a href="#">修改资料</a></li>
 							<!-- BEGIN 日期-->
 							<li class="pull-right no-text-shadow">
 
@@ -180,29 +114,15 @@
                             
                                             <!-- BEGIN FORM-->
                             			
-                                            <form method="post" action="http://localhost/crm/controller/system/cl_yhgl.php?file=modinfo" class="form-horizontal">
-                            									
+                                            <form method="post" action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=modinfo" class="form-horizontal">
+
                                                 <div class="control-group">
                             
                                                     <label class="control-label">用户名</label>
                             
                                                     <div class="controls">
                             
-                                                        <input type="text" class="span6 m-wrap" name="info[username]" value="{$query['username']}" />
-                            
-                                                        <span class="help-inline">不得输入殊符号</span>
-                            
-                                                    </div>
-                            
-                                                </div>
-                            
-                                                <div class="control-group">
-                            
-                                                    <label class="control-label">用户名</label>
-                            
-                                                    <div class="controls">
-                            
-                                                      <input class="span6 m-wrap" type="text" placeholder="用户名" disabled />
+                                                      <input class="span6 m-wrap" type="text"   placeholder="{$query['username']}" disabled />
                             
                                                         <span class="help-inline">公司分配不可修改</span>
                             
@@ -216,9 +136,9 @@
                             
                                                     <div class="controls">
                             
-                                                        <input type="password" name=info[userpwd] class="span6 m-wrap" />
+                                                        <input type="password" name="userpwd" class="span6 m-wrap" />
                             
-                                                        <span class="help-inline">请输入6~12位密码</span>
+                                                        <span class="help-inline" style="color:red">不修改密码可不必填写</span>
                             
                                                     </div>
                             
@@ -236,7 +156,28 @@
                             
                                                 </div>
                                                 
+                                                   <div class="control-group">
                             
+                                                    <label class="control-label">联系方式</label>
+                            
+                                                    <div class="controls">
+                            
+                                                        <input type="text" class="span6 m-wrap" name="phone" value="{$query['phone']}"/>
+                            
+                                                    </div>
+                            
+                                                </div>
+                                                <div class="control-group">
+                            
+                                                    <label class="control-label">QQ</label>
+                            
+                                                    <div class="controls">
+                            
+                                                        <input type="text" class="span6 m-wrap" name="QQ" value="{$query['QQ']}"/>
+                            
+                                                    </div>
+                            
+                                                </div>												
                                              
                                               <div class="control-group">
                             
@@ -248,7 +189,7 @@
                             
                                                             <i class="icon-envelope"></i>
                             
-                                                          <input class="m-wrap " name="info[email]" type="text" placeholder="企业邮箱" value="{$query['email']}" />    
+                                                          <input class="m-wrap " name="email" type="text" placeholder="企业邮箱" value="{$query['email']}" />    
                             
                                                         </div>
                             
@@ -262,7 +203,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <textarea class="span6 m-wrap" name="info[instruct]" rows="3">{$query['instruct']}</textarea>
+                                                        <textarea class="span6 m-wrap" name="instruct" rows="3">{$query['instruct']}</textarea>
                             
                                                     </div>
                             
@@ -272,7 +213,7 @@
                             
                                                     <button type="submit" class="btn blue">确认修改</button>
                             
-                                                    <button type="button" class="btn" onClick="window.location.reload('http://localhost/crm/controller/system/index.php?menuid=6');" >取消修改</button>                            
+                                                    <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=6');" >取消修改</button>                            
                             
                                                 </div>
                             

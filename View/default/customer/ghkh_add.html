@@ -186,7 +186,7 @@
                             
                                             <!-- BEGIN FORM-->
                             
-                                            <form action="http://localhost/crm/controller/customer/cl_ghkh.php?file=addcus" method="post" class="form-horizontal">
+                                            <form action="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=addcus" method="post" class="form-horizontal">
                             
                                                 <div class="control-group">
                             
@@ -201,14 +201,14 @@
                                                     </div>
                             
                                                 </div>
-                            
+                 
                                                 <div class="control-group">
                             
                                                     <label class="control-label">用户名</label>
                             
                                                     <div class="controls">
                             
-                                                      <input class="span6 m-wrap" type="text" placeholder="用户名" disabled />
+                                                      <input class="span6 m-wrap" type="text" placeholder="{$_SESSION['username']}" disabled />
                             
                                                         <span class="help-inline">公司分配不可修改</span>
                             
@@ -217,6 +217,7 @@
                                                 </div>
                                                 
                                                 <div class="control-group">
+
                             
                                                     <label class="control-label">联系人</label>
                             
@@ -239,36 +240,7 @@
                             
                                                     </div>
                             
-                                                </div>
-                                                
-                            
-                                             
-                                             
-                                              
-                                              <div class="control-group">
-
-										<label class="control-label">跟进程度</label>
-
-										<div class="controls">
-
-											<select class="span6 m-wrap" name="info[cprocess]" data-placeholder="Choose a Category" tabindex="1">
-
-												<option value="">Select...</option>
-
-												<option value="Category 1">Category 1</option>
-
-												<option value="Category 2">Category 2</option>
-
-												<option value="Category 3">Category 5</option>
-
-												<option value="Category 4">Category 4</option>
-
-											</select>
-
-										</div>
-
-									</div>
-                                    
+                                                </div>                                  
                                     		
                                               <div class="control-group">
                             
@@ -283,7 +255,7 @@
                                               </div>
                                                <div class="control-group">
                             
-                                                <label class="control-label">详谈情况</label>
+                                                <label class="control-label">初谈情况</label>
                             
                                                     <div class="controls">
                             
@@ -292,12 +264,41 @@
                                                     </div>
                             
                                               </div>
+                         <div class="control-group">
+
+										<label class="control-label">跟进状态</label>
+
+										<div class="controls">
+
+											<select class="span6 m-wrap" data-placeholder="Choose a Category" tabindex="1">
+
+												<option value="">请选择</option>
+												<option value="Category 1">初次接触</option>
+												<option value="Category 2">深度开发</option>
+												<option value="Category 3">已成单</option>
+												<option value="Category 4">维护关系</option>
+												<option value="Category 4">续签客户</option>
+
+											</select>
+
+										</div>
+
+									</div>
+							<div class="control-group">
                             
+                                                <label class="control-label">通话记录</label>
+                            
+                                                    <div class="controls">
+													<label >记录1：</label>
+                                                       <input type="text" class="span6 m-wrap" name="info[cphone]" />
+                                                    </div>
+                            
+                                              </div>
                                                 <div class="form-actions">
                             
                                                     <button type="submit" class="btn blue">确认添加</button>
                             
-                                                    <button type="button" class="btn" onClick="window.location.reload('http://localhost/crm/controller/system/index.php?menuid=5');" >取消添加</button>                            
+                                                    <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');" >取消添加</button>                            
                             
                                                 </div>
                             

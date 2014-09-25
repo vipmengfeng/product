@@ -14,7 +14,7 @@
 			echo 0;	
 		}
 	}
-	
+	//
 	if(!empty($_POST)){ 
 		//template('index','system');
 		$username=$_POST['username2'];
