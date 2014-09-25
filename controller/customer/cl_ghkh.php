@@ -72,7 +72,7 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
-					echo "<script language=\"javascript\">window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');</script>";
+					echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=5'</script>";
 				}else {
 					echo "<script language=\"javascript\">alert('获取失败')</script>";
 				}
@@ -83,7 +83,7 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
-					echo "<script language=\"javascript\">window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');</script>";
+					echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=5'</script>";
 				}else {
 					echo "<script language=\"javascript\">alert('删除失败')</script>";
 				}			
