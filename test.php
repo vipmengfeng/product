@@ -1,6 +1,5 @@
 <?php
-header("Content-type: text/html; charset=utf-8");
-	require "ini.php";
+
 	function caches($name,$arr="",$path=""){
 	  global $db;
 		$content="";
@@ -12,11 +11,10 @@ header("Content-type: text/html; charset=utf-8");
 		$arr=unserialize($re['content']);
 	}
 		$content .=fora($arr);
-		echo fora($arr,$cache);	
 		$content =substr($content,0,-1);
 		$content .= ") ?>";
-		file_put_contents("caches.php",$content,LOCK_EX);
-		return $name;
+		file_put_contents($path."/".$name.".php",$content,LOCK_EX);
+		
 		
 		
 	}	

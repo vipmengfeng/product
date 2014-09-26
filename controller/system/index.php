@@ -1,7 +1,6 @@
 <?php
 	require '../../ini.php';
 	require '../left.php';
-	
 	 $id=$_GET['menuid'];
 	if($id==1) {
 		require 'sy.php';

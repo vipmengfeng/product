@@ -1,7 +1,7 @@
 <?php
 	require '../../ini.php';
 	require '../left.php';
-	
+
 	if($_GET['file'] == 'add'){
 		include template('yhgl_add','system');
 	}
