@@ -20,11 +20,10 @@
 	}
 	
 	if($_GET['file'] == 'sel'){
-		$select=$_POST['hide'];
+		$select=serialize($_POST['hide']);
 		$sql="SELECT * FROM crm_customer where uid=0 and disable=1 and ctype='$select'";
-		echo $sql;die;
+		echo $sql;
 		$r=$db->get_all($sql);
-		echo $r;die;
 		print_r($r);die;
 	}
 	

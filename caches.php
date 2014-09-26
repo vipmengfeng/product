@@ -6,7 +6,7 @@ header("Content-type: text/html; charset=utf-8");
 	//print_r($arr);
 	
 	caches("menu",$arr,"caches/caches_common");
-
+	caches("status","","caches/caches_common");
 
 
 ?>

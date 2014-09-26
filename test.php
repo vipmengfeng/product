@@ -1,12 +1,13 @@
 <?php
 
-	function caches($name,$arr="",$path=""){
+	function caches($name,$arr="",$path="caches/caches_common"){
 	  global $db;
 		$content="";
 		$content .="<?php ";
 		$content .="$".$name."=array(";
 	  if(empty($arr)){
 		$sql="SELECT * FROM crm_caches where name='$name'";
+		
 		$re=$db->get_one($sql);
 		$arr=unserialize($re['content']);
 	}
@@ -44,7 +45,7 @@ $cache="";
 	  
            return $cache;
 }
-	$haha=caches("hh");
+
 
 
 
