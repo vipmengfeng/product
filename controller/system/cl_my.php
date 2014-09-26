@@ -1,6 +1,7 @@
 <?php
 	require '../../ini.php';
-	//require '../left.php';
+	require '../left.php';
+	require ROOT_DIR."/caches/caches_common/status.php";
 	if($_GET['file'] == 'fangqi'){
 		$cusid=$_GET['id'];
 		$name=$_GET['name'];
@@ -10,23 +11,24 @@
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query){
-			//$message=$db->message('update', 'member', $name);
-			//if($message){
-				echo 1;
-		//	}
+			//$logs=logs('update', 'member', $name);
+			//if($logs){
+				echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=5'</script>";
+			//}
 		}else{
-			echo 0;
+			echo "<script language=\"javascript\">alert('放弃失败')</script>";
 		}
 	}
 	
 	if($_GET['file'] == 'sel'){
 		$select=$_POST['hide'];
-		$sql="SELECT * FROM crm_customer where uid=0 and disable=1 and ctype='$select'";
-		echo $sql;die;
+		$sql="SELECT * FROM crm_customer where uid=0 and disable=1 and ctype=$select";
 		$r=$db->get_all($sql);
-		echo $r;die;
-		print_r($r);die;
+		include template('wdkh','my');
 	}
 	
+	if($_GET['file'] == 'mod'){
+		
+	}
 	
 ?>

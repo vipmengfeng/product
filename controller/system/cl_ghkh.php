@@ -72,9 +72,9 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
-					echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=5'</script>";
+					echo 1;
 				}else {
-					echo "<script language=\"javascript\">alert('获取失败')</script>";
+					echo 0;
 				}
 			}
 			if($_POST['hidden'] == 'del'){
@@ -83,9 +83,9 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
-					echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=5'</script>";
+					echo 1;
 				}else {
-					echo "<script language=\"javascript\">alert('删除失败')</script>";
+					echo 0;
 				}			
 			}
 		

@@ -188,7 +188,7 @@
 
 								<div class="clearfix">
 
-									<div class="btn-group"><a href="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=add" class="btn blue"><i class="icon-plus"></i> 添加新用户</a> </div>
+									<div class="btn-group"><a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add" class="btn blue"><i class="icon-plus"></i> 添加新用户</a> </div>
                                     <div class="btn-group"> <a href="#" onclick="subform('huoqu')" class="btn green"><i class="icon-share"></i> 获取选中客户</a> </div>
 									<div class="btn-group"> <a href="#" onclick="subform('del')" class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
 									
@@ -228,7 +228,7 @@
 											
 											<td><input type="checkbox" class="checkboxes"  name="checkbox1[]" value="{$v['cusid']}" /></td>
 											
-											<td><a href="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}">{$v['cusname']}</a></td>
+											<td><a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}">{$v['cusname']}</a></td>
 
 											<td>{$v['connecter']}</td>
 
@@ -236,6 +236,7 @@
 
 											<td class="hidden-480">{$v['cusinfo']}</td>
 
+											<td class="hidden-480">{$v['inputtime']}</td>
 											<td class="hidden-480"><a href="#" class="btn mini red">放弃</a> </td>
 										
 										</tr>
