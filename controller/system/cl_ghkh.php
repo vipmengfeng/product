@@ -1,6 +1,8 @@
 <?php 
 	require '../../ini.php';
+	require ROOT_DIR.'/check.php';
 	require '../left.php';
+	
 	$file=$_GET['file'];
 	if($file == 'add'){
 		include template("ghkh_add","customer");

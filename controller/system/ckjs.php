@@ -1,6 +1,7 @@
 <?php
 	require '../../ini.php';
 	require '../left.php';
+	require ROOT_DIR.'/check.php';
 	if($_POST){
 		$re=$db->del("crm_role",$_POST['roleid'],"roleid");
 	}else{

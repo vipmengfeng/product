@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 define('IN_MXphp',1);
 define('ROOT_DIR', str_replace("\\", '/', dirname(__FILE__)));
 define('MXphp_CHMOD',1);

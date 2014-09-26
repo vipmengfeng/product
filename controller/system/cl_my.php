@@ -1,6 +1,8 @@
 <?php
 	require '../../ini.php';
-	//require '../left.php';
+	require ROOT_DIR.'/check.php';
+	require '../left.php';
+	
 	if($_GET['file'] == 'fangqi'){
 		$cusid=$_GET['id'];
 		$name=$_GET['name'];
