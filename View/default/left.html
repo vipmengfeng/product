@@ -30,10 +30,10 @@
 
 	  {loop $menu  $k $v}
 {if $v['href'] != ""}
-				<li class="start"onclick="next(this)" title="{$v['name']}">
+				<li class="start"onclick="next(this)" >
 				<a href="{$conf['log_out']}{$v['href']}">
 {else}
-		          <li onclick="next(this)" title="{$v['name']}" class="open">
+		          <li onclick="next(this)"  class="open">
 				  <a href="javascript:void(0)">
 {/if}
 	  <i class="icon-{$v[icon]}"></i> <span class="title">{$v[menuname]}</span> 
