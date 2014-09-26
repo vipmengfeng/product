@@ -121,7 +121,6 @@ class db_mysql {
 		$sqlk = substr($sqlk, 1);
         $sqlv = substr($sqlv, 1);
 		$sql ="INSERT INTO $table ($sqlk) VALUES ($sqlv) ";
-		//echo $sql;die;
 		if($this->query($sql)){
 			return "right";
 		}else{
@@ -142,16 +141,23 @@ class db_mysql {
 	
 	
 	//返回值的怎么给？
-	function del($where="",$table,$condition){
-		if(is_array($condition)){
-			foreach($condition as $k=>$v){
-				$sql = "DELETE  FROM $table WHERE $k=$v $where";
-				$this->query($sql);
-			}		
-		}else{
-			$sql = "DELETE * FROM $table WHERE $condition $where";
-			$this->query($sql);
+	function del($table,$condition,$where){
+
+	if(is_array($condition)){
+		foreach($condition as $k=>$v){
+			$way .= $v.",";
+		
 		}
+	
+	}
+		$way = substr($way,0,-1);
+		$sql="DELETE FROM $table WHERE $where in ($way)";
+			if($this->query($sql)){
+				return "ok";
+			}else{
+				return "no";
+			}
+
 	}
 	
 	/*更新数据

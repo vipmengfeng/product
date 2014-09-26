@@ -1,7 +1,13 @@
 <?php
 	require '../../ini.php';
+
+	require ROOT_DIR.'/check.php';
 	require '../left.php';
+	
 	require ROOT_DIR."/caches/caches_common/status.php";
+
+	
+
 	if($_GET['file'] == 'fangqi'){
 		$cusid=$_GET['id'];
 		$name=$_GET['name'];
