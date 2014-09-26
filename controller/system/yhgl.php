@@ -1,11 +1,8 @@
 <?php
-	global $conf;
+	require '../../ini.php';
+	require '../left.php';
 	$table_pre=$conf['pre'];
 	$sql="select * from ".$table_pre.'user where disable=1';
-	$query=mysql_query($sql);
-	$res=array();
-		while(($row=mysql_fetch_assoc($query))==true){
-			$res[]=$row;
-		}
+	$res=$db->get_all($sql);
 	include template('yhgl','system');
 ?>

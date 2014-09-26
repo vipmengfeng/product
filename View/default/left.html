@@ -31,7 +31,7 @@
 	  {loop $menu  $k $v}
 {if $v['href'] != ""}
 				<li class="start"onclick="next(this)" >
-				<a href="{$v[href]}">
+				<a href="{$conf['log_out']}/controller/system/{$v[href]}">
 {else}
 		          <li onclick="next(this)">
 				  <a href="javascript:void(0)">
@@ -41,7 +41,7 @@
 	<span class="arrow"></span></a>   
 	  <ul class="sub-menu" style="display:block">
 		   {loop $v['next'] $a $b}  
-		  <li><a href="{$b[href]}">{$b[menuname]}</a></li>
+		  <li><a href="{$conf['log_out']}/controller/system/{$b[href]}">{$b[menuname]}</a></li>
 		  {/loop}
         </ul>
 		

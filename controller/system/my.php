@@ -1,6 +1,6 @@
 <?php 
-	//$uid=$_SESSION['id'];
-	//$sql="select * from ".$table_pre."customer where uid=".$uid;
+	require '../../ini.php';
+	require '../left.php';
 	$uid=$_SESSION['usernameid'];
 	$sql="select * from ".$table_pre."customer where disable=1 and uid=".$uid;
 	$r=$db->get_all($sql);
