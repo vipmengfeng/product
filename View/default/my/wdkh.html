@@ -183,25 +183,26 @@
 								</div>
 
 							</div>
-
+							<form id="myform" name="myform" action="{$conf['log_out']}/controller/my/cl_my.php?file=sel" method="post">
+								<input type="hidden" name="hide" id="hide" value="" />
+							</form>
 							<div class="portlet-body">
-                            
+                            	
                                 <div class="clearfix">
                                 
-                                    
-                                    <select class="span2 m-wrap" data-placeholder="Choose a Category" tabindex="1">
+                                    <select class="span2 m-wrap" data-placeholder="Choose a Category" id="sel" onchange="sel(this)" tabindex="1">
                                     
                                         <option value="">---跟进状态---</option>
                                     
-                                        <option value="Category 1">初次接触</option>
+                                        <option value="初次接触">初次接触</option>
                                     
-                                        <option value="Category 2">深度开发</option>
+                                        <option value="深度开发">深度开发</option>
                                     
-                                        <option value="Category 3">已成单</option>
+                                        <option value="已成单">已成单</option>
                                     
-                                        <option value="Category 4">维护关系</option>
+                                        <option value="维护关系">维护关系</option>
                                         
-                                        <option value="Category 5">续签客户</option>
+                                        <option value="续签客户">续签客户</option>
                                     
                                     </select>
                                    <div class="input-append date date-picker" data-date="2012-12-01" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
@@ -214,11 +215,11 @@
                                     
                                     </div>    
                                    <div class="btn-group"> <a href="#" class="btn green"><i class="icon-screenshot"></i> 确认筛选</a> </div>
-                                   
+                          
 
                                 </div>
                                 
-
+      
 								<table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
 
 									<thead>
@@ -281,11 +282,20 @@
 		</div>
 
 		<!-- END PAGE -->
-
 	</div>
 
 	<!-- END CONTAINER -->
 
 	<!-- BEGIN FOOTER -->
-
+	<script type="text/javascript">
+	function sel(obj){
+			var selval=$("#sel").val();
+			$("#hide").val(selval);
+			$("#myform").submit();
+			/*$.get("{$conf['log_out']}/controller/my/cl_my.php?file=sel",{selval:selval},function(data){
+				alert(data);
+			});*/
+		}
+		
+	</script>
 	{template "footer"}
