@@ -27,37 +27,37 @@
         <!-- END 快速搜索 --> 
         
       </li>
-      <li class="start active "> <a href='{$conf['log_out']}/controller/system/index.php?menuid=1'> <i class="icon-home"></i> <span class="title">{$re[0]}</span> <span class="selected"></span> </a> </li>
-      <li class="" id="{$pid[1]}" onClick="loadmenu(this)"> <a href="javascript:;"> <i class="icon-cog"></i> <span class="title" id="{$pid[1]}"  >{$re[1]}</span> <span class="arrow "></span> </a>
-        <ul class="sub-menu" id="system{$pid[1]}">
+
+	  {loop $menu  $k $v}
+{if $v['href'] != ""}
+				<li class="start"onclick="next(this)" title="{$data['name']}">
+				<a href="{$conf['log_out']}{$v['href']}">
+{else}
+		          <li onclick="next(this)" title="{$data['name']}" class="open">
+				  <a href="javascript:void(0)">
+{/if}
+	  <i class="icon-{$v[icon]}"></i> <span class="title">{$v[menuname]}</span> 
+	 {if is_array($v['next'])}
+	<span class="arrow"></span></a>   
+	  <ul class="sub-menu" style="display:block">
+		   {loop $v['next'] $a $b}  
+		  <li><a href="{$b['href']}">{$b[menuname]}</a></li>
+		  {/loop}
         </ul>
+		
+		 {else}                        
+					<span class="selected"></span>
+					</a>
+	{/if}
+	</li>
+	   
+	  {/loop}
+
+        
       </li>
-      <li class="" id="{$pid[2]}"> <a href="{$conf['log_out']}/controller/system/index.php?menuid=3"> <i class="icon-user"></i> <span class="title" id="{$pid[2]}">{$re[2]}</span>  </a>
-      </li>
-      <li > <a href="{$conf['log_out']}/controller/system/index.php?menuid=4"> <i class="icon-table"></i> <span class="title">{$re[3]}</span> </a> </li>
-      <li class="last "> <a href="{$conf['log_out']}/controller/system/index.php?menuid=5"> <i class="icon-group"></i> <span class="title">{$re[4]}</span> </a> </li>
     </ul>
     <div id="aa"></div>
- <script type="text/javascript">
-		function loadmenu(obj){
-			$.get('{$conf['log_out']}/controller/left.php','id='+obj.id,function(data){
-					var len=data.length;
-					var html='';
-					var id = "";
-					for(var i=0;i<len;i++){
-						html+="<li><a href='{$conf['log_out']}/controller/system/index.php?menuid="+data[i].menuid+"'>"+data[i].menuname+"</a></li>";
-					    id=data[i].pid;
-					}
-					$(".sub-menu").empty();
-					$("#system"+id).append(html);
-					$(".start").removeClass("active");
-					$(".start").removeClass("start");
-					$(obj).addClass("active");
-					$(obj).addClass("start");
-				
-				},'json')
-		}
-	</script>    
+  
     <!-- END 主菜单列表 --> 
     
   </div>

@@ -11,6 +11,26 @@ function daddslashes($string) {
 	return $string;
 }
 
+function get_list($id){
+	global $conf,$db;
+	$list=array();
+	$sql="SELECT * FROM ".$conf['pre']."menu where pid='$id'";
+	$list=$db->get_all($sql);
+	
+	foreach($list as $key=>$value){
+      $sql2="SELECT * FROM ".$conf['pre']."menu where pid='$value[menuid]'";
+	  $list2=$db->get_all($sql2);
+	  if(!empty($list2)){
+		$list[$key]['next']=$list2;
+	 }else{
+		 $list[$key]['next']="";
+	}
+     }
+	return $list;
+	
+}
+
+
 function dstripslashes($string) {
 	if(!is_array($string)) return stripslashes($string);
 	foreach($string as $key => $val) $string[$key] = dstripslashes($val);
