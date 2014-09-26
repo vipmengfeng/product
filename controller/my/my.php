@@ -1,6 +1,5 @@
 <?php 
-	//$uid=$_SESSION['id'];
-	//$sql="select * from ".$table_pre."customer where uid=".$uid;
+	require '../../caches/caches_common/status.php';
 	$uid=$_SESSION['usernameid'];
 	$sql="select * from ".$table_pre."customer where disable=1 and uid=".$uid;
 	$r=$db->get_all($sql);
