@@ -114,7 +114,6 @@
                 <div class="btn-group"> <a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=add" class="btn blue"><i class="icon-plus"></i> 添加新用户</a> </div>
                
                 <div class="btn-group"> <a href="#" onclick="subform()"  class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
-                
                
               </div>
            <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=myform" method="post" id="myform" name="myform">
@@ -140,9 +139,12 @@
                  {/loop}
                  
                 </tbody>
+				
               </table>
            	</form>
+			{template "page"}
             </div>
+			
           </div>
           
           <!-- END EXAMPLE TABLE PORTLET--> 
@@ -157,6 +159,7 @@
     <!-- END PAGE CONTAINER--> 
 
    <script type="text/javascript">
+
    function checkall(obj){
 		var objcheck=obj.checked;
 		var chec=document.getElementsByName("checkbox1[]");
@@ -173,7 +176,7 @@
    function subform(){
 		$("#myform").submit();
 	}
-   
+
    </script>
   </div>
   

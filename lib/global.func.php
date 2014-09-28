@@ -1322,4 +1322,40 @@ function back($arr){
 		$re=$db->get_one($sql);
 		return $re['menuid'];
 	}
+	
+	function page($sql,$page = "1",$pagesize = "10"){
+		global $db;
+		$total=count($db->get_all($sql));
+		$pages=ceil($total/$pagesize);
+		if($page <= "1"){
+		   $page =1;
+		 $result['front']=1;
+		 }else{
+		 $result['front']=$page-1;
+		 }
+		if($page >= $pages){
+		 $page =$pages;
+		 $result['next']=$pages;
+		 }else{
+		 $result['next']=$page+1;
+		 }
+		$start=($page-1)*$pagesize;
+		
+		$sel=$sql .=" LIMIT $start,$pagesize";
+		$result['content']=$db->get_all($sel);
+		$result['count']=range(1,$pages);
+		$result['total']=$pages;
+		if($page == "1"){
+		 $result['front']=1;
+		 }else{
+		 $result['front']=$page-1;
+		 }
+		if($page >= $pages){
+		 $result['next']=$pages;
+		 }else{
+		 $result['next']=$page+1;
+		 }
+		
+		return $result;
+	}
 ?>
