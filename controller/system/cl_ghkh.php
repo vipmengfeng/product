@@ -2,28 +2,33 @@
 	require '../../ini.php';
 	require ROOT_DIR.'/check.php';
 	require '../left.php';
-	
+	require ROOT_DIR."/caches/caches_common/status.php";
 	$file=$_GET['file'];
 	if($file == 'add'){
+		$action= $_GET['action'];
 		include template("ghkh_add","customer");
 	}
 	
 	if($_GET['file'] == 'addcus'){
-		$info=$_POST['info'];
-		$data=array(
-			'cusname'=>$info['cusname'],
-			'connecter'=>$info['connecter'],
-			'cphone'=>$info['cphone'],
-			'ctype'=>$info['cprocess'], 
-			'cusinfo'=>$info['cusinfo'],
-			'conditions'=>$info['condition'],
-			'inputtime'=>time(),
-		);
-		if($db->add('crm_customer',$data)){
-			echo 1;	
+		if($_GET['action'] == 'xiugai'){
+			$info=$_POST['info'];
+			$info['changetime']=time();
+			if($db->add('crm_customer',$info)){
+				echo 1;
+			}else{
+				echo 0;
+			}
 		}else{
-			echo 0;	
-		}	
+		$info=$_POST['info'];
+			$info['changetime']=time();
+			$info['cjilu']=$_POST['cjilu'];
+			if($db->add('crm_customer',$info)){
+				echo 1;
+			}else{
+				echo 0;
+			}
+		}
+		
 	}
 	
 	if($file == "ghkh_info"){

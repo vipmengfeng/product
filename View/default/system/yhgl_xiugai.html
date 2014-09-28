@@ -119,48 +119,38 @@
                 <div class="control-group">
                   <label class="control-label">用户名</label>
                   <div class="controls">
-                    <input class="span6 m-wrap" type="text" placeholder="用户名" disabled />
+                    <input class="span6 m-wrap" type="text" placeholder="{$r['username']}" disabled />
                     <span class="help-inline">公司分配不可修改</span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap" name="info[userpwd]" />
-                    <span class="help-inline">请输入6~12位密码</span> </div>
+                    <input type="password" class="span6 m-wrap" name="userpwd" id="password" onblur="checkpwd()" />
+                    <span class="help-inline" id="mespassword" style="color:red">不修改密码可不必填写</span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">确认密码</label>
                   <div class="controls">
-                    <input type="password" class="span6 m-wrap" name="repwd" />
+                    <input type="password" class="span6 m-wrap" name="repwd" id="rpassword" onblur="checkrpwd()" />
+                    <span class="help-inline" id="mesrpassword">不得输入殊符号</span>
                   </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">联系方式</label>
                   <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[phone]" value="{$r['phone']}" />
-                    <span class="help-inline">不得输入殊符号</span> </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">QQ</label>
-                  <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[QQ]" value="{$r['QQ']}" />
-                    <span class="help-inline">不得输入殊符号</span> </div>
+                    <input type="text" class="span6 m-wrap" name="phone" id="phone" value="{$r['phone']}" onblur="checktel()" />
+                    <span class="help-inline" id="mesphone">不得输入殊符号</span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">分配的邮箱</label>
                   <div class="controls">
                     <div class="input-icon left"> <i class="icon-envelope"></i>
-                      <input class="m-wrap " type="text" placeholder="企业邮箱" value="{$r['email']}" name="info[email]" />
+                      <input class="m-wrap " type="text" placeholder="企业邮箱" id="email" value="{$r['email']}" name="email" onblur="checkemail()" />
+                       <span class="help-inline" id="mesemail">不得输入殊符号</span>
                     </div>
                   </div>
                 </div>
                
-                <div class="control-group">
-                  <label class="control-label">个人说明</label>
-                  <div class="controls">
-                    <textarea class="span6 m-wrap" rows="3" name="info[instruct]">{$r['instruct']}</textarea>
-                  </div>
-                </div>
                 <div class="form-actions">
                   <button type="submit" class="btn blue">保存修改</button>
                   <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=6');" >取消修改</button>
@@ -187,7 +177,7 @@
   <!-- END PAGE --> 
   
 </div>
-
+<script type="text/javascript" src="{$conf['js']}/register.js"></script>
 <!-- END CONTAINER --> 
 
 <!-- BEGIN FOOTER --> 

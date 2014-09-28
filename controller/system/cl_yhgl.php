@@ -39,16 +39,20 @@
 	}
 	
 	if($_GET['file'] == 'moduser'){
-		$info=$_POST['info'];
 		$id=$_GET['id'];
-		$data=array(
-			'username'=>$info['name'],
-			'userpwd'=>md5($info['pwd']),
-			'email'=>$info['email'],
-			'type'=>$info['type'], 
-			'instruct'=>$info['instruct'],
-		);
-		if($db->update(' where id='.$id,'crm_user',$data)){
+		if(empty($_POST['userpwd'])){
+			$info=array(
+				'phone'=>$_POST['phone'],
+				'email'=>$_POST['email'],
+			);
+		}else{
+			$info=array(
+					'userpwd'=>md5($_POST['userpwd']),
+					'phone'=>$_POST['phone'],
+					'email'=>$_POST['email'],
+			);
+		}
+		if($db->update(' where id='.$id,'crm_user',$info)){
 			echo 1;	
 		}else{
 			echo 0;	
@@ -61,11 +65,23 @@
 	
 	//�޸ĸ�������
 	if($_GET['file'] == 'modinfo'){
-		$info=$_POST;
-		$info['userpwd']=md5($info['userpwd']);
 		$uid=$_SESSION['usernameid'];
-		
-		
+		if(empty($_POST['userpwd'])){
+			$info=array(
+				'phone'=>$_POST['phone'],
+				'QQ'=>$_POST['QQ'],
+				'email'=>$_POST['email'],
+				'instruct'=>$_POST['instruct']
+			);
+		}else{
+			$info=array(
+					'userpwd'=>md5($_POST['userpwd']),
+					'phone'=>$_POST['phone'],
+					'QQ'=>$_POST['QQ'],
+					'email'=>$_POST['email'],
+					'instruct'=>$_POST['instruct']
+			);
+		}
 		if($db->update(' where id='.$uid, 'crm_user',$info)){
 			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
 		}else{

@@ -186,7 +186,7 @@
                             
                                             <!-- BEGIN FORM-->
                             
-                                            <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus" method="post" class="form-horizontal">
+                                            <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}" method="post" class="form-horizontal">
                             
                                                 <div class="control-group">
                             
@@ -194,7 +194,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <input type="text" class="span6 m-wrap" name="info[cusname]" />
+                                                        <input type="text" class="span6 m-wrap" name="info[cusname]" id="username" />
                             
                                                         <span class="help-inline">不得输入殊符号</span>
                             
@@ -236,8 +236,8 @@
                             
                                                     <div class="controls">
                             
-                                                        <input type="text" class="span6 m-wrap" name="info[cphone]" />
-                            
+                                                        <input type="text" class="span6 m-wrap" name="info[cphone]" id="phone" onblur="checktel()" />
+                            							     <span class="help-inline" id="mesphone"></span>
                                                     </div>
                             
                                                 </div>                                  
@@ -259,7 +259,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <textarea class="span6 m-wrap" rows="3" name="info[condition]"></textarea>
+                                                        <textarea class="span6 m-wrap" rows="3" name="info[conditions]"></textarea>
                             
                                                     </div>
                             
@@ -270,35 +270,40 @@
 
 										<div class="controls">
 
-											<select class="span6 m-wrap" data-placeholder="Choose a Category" tabindex="1">
+											<select class="span6 m-wrap" data-placeholder="Choose a Category" name="info[ctype]" tabindex="1">
 
-												<option value="">请选择</option>
-												<option value="Category 1">初次接触</option>
-												<option value="Category 2">深度开发</option>
-												<option value="Category 3">已成单</option>
-												<option value="Category 4">维护关系</option>
-												<option value="Category 4">续签客户</option>
+												<option value="">---跟进状态---</option>
+												 <option value="0">{$status[0]}</option>
+                                    
+		                                        <option value="1">{$status[1]}</option>
+		                                    
+		                                        <option value="2">{$status[2]}</option>
+		                                    
+		                                        <option value="3">{$status[3]}</option>
+		                                        
+		                                        <option value="4">{$status[4]}</option>
 
 											</select>
 
 										</div>
 
 									</div>
-							<div class="control-group">
+									
+										<div class="control-group" id="jilu" {if $action == 'xiugai' }style="display:none"{/if}>
                             
                                                 <label class="control-label">通话记录</label>
                             
                                                     <div class="controls">
 													<label >记录1：</label>
-                                                       <input type="text" class="span6 m-wrap" name="info[cphone]" />
+                                                       <input type="text" class="span6 m-wrap" name="cjilu" />
                                                     </div>
                             
                                               </div>
                                                 <div class="form-actions">
                             
-                                                    <button type="submit" class="btn blue">确认添加</button>
+                                                    <button type="submit" class="btn blue">确认</button>
                             
-                                                    <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');" >取消添加</button>                            
+                                                    <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');" >取消</button>                            
                             
                                                 </div>
                             
@@ -326,9 +331,9 @@
 		<!-- END PAGE -->
 
 	</div>
-
 	<!-- END CONTAINER -->
 
 	<!-- BEGIN FOOTER -->
-
+<script type="text/javascript" src="{$conf['js']}/register.js">
+</script>
 {template "footer"}

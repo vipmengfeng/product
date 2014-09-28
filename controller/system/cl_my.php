@@ -34,7 +34,8 @@
 	}
 	
 	if($_GET['file'] == 'mod'){
-		
+		$hidden=$_POST['hidden'];
+		echo $hidden;
 	}
 	
 ?>

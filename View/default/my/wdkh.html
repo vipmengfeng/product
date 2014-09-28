@@ -250,7 +250,7 @@
 
 											<td class="hidden-480">{$v['cusinfo']}</td>
 
-											<td class="hidden-480"><a href="{$conf['log_out']}/controller/system/cl_my.php?file=fangqi&id={$v['cusid']}&name={$v['cusname']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&id={$v[cusid]}" onclick="subform(mod)" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&id={$v[cusid]}" onclick="subform(log)" class="btn mini yellow">跟进记录</a>
+											<td class="hidden-480"><a href="{$conf['log_out']}/controller/system/cl_my.php?file=fangqi&id={$v['cusid']}&name={$v['cusname']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id={$v[cusid]}" onclick="subform(mod)" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id={$v[cusid]}" onclick="subform(log)" class="btn mini yellow">跟进记录</a>
 											</td>
 
 										</tr>
@@ -286,7 +286,7 @@
 
 
 </form>
-<form id="submyform" name="sub myform" action="{$conf['log_out']}/controller/system/cl_my.php?file=submyform" method="post">
+<form id="submyform" name="submyform" action="{$conf['log_out']}/controller/system/cl_my.php?file=submyform" method="post">
 <input type="hidden" name="hidden" id="hidden" value="" /></form>
 	<!-- END CONTAINER -->
 
