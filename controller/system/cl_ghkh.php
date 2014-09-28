@@ -20,12 +20,17 @@
 		if($_GET['action'] == 'xiugai'){
 			$info=$_POST['info'];
 			$info['changetime']=time();
-			if($db->add('crm_customer',$info)){
-				echo 1;
+			$cusid=$_GET['id'];
+			if($db->update(" where cusid=$cusid",'crm_customer',$info)){
+				$url="{$conf['log_out']}/controller/system/my.php";
+				$content="修改成功";
+				include template("jump");
 			}else{
-				echo 0;
+				$url="{$conf['log_out']}/controller/system/ghkh.php";
+				$content="修改失败";
+				include template("jump");
 			}
-		}else{
+		}else if($_GET['action'] == 'jilu'){
 		$info=$_POST['info'];
 			$info['changetime']=time();
 			$info['cjilu']=$_POST['cjilu'];
@@ -33,6 +38,18 @@
 				echo 1;
 			}else{
 				echo 0;
+			}
+		}else{
+			$info=$_POST['info'];
+			$info['inputtime']=time();
+			if($db->add('crm_customer',$info)){
+				$url="{$conf['log_out']}/controller/system/ghkh.php";
+				$content="添加成功";
+				include template("jump");
+			}else{
+				$url="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add";
+				$content="添加失败";
+				include template("jump");
 			}
 		}
 		
@@ -54,9 +71,13 @@
 			'ctype'=>$info['ctype'], 
 		);
 		if($db->add('crm_customer',$data)){
-			echo 1;	
+			$url="{$conf['log_out']}/controller/system/yhgl.php";
+			$content="添加成功";
+			include template("jump");
 		}else{
-			echo 0;	
+			$url="{$conf['log_out']}/controller/system/cl_yhgl.php";
+			$content="添加失败";
+			include template("jump");
 		}	
 	}
 	
@@ -68,9 +89,13 @@
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query){
-			echo 1;
+			$url="{$conf['log_out']}/controller/system/ghkh.php";
+			$content="获取成功";
+			include template("jump");
 		}else{
-			echo 0;
+			$url="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid=$cusid";
+			$content="获取失败";
+			include template("jump");
 		}
 	}
 	
@@ -86,9 +111,13 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
-					echo 1;
+					$url="{$conf['log_out']}/controller/system/ghkh.php";
+					$content="获取成功";
+					include template("jump");
 				}else {
-					echo 0;
+					$url="{$conf['log_out']}/controller/system/ghkh.php";
+					$content="获取失败";
+					include template("jump");
 				}
 			}
 			if($_POST['hidden'] == 'del'){
@@ -97,9 +126,13 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
-					echo 1;
+					$url="{$conf['log_out']}/controller/system/ghkh.php";
+					$content="删除成功";
+					include template("jump");
 				}else {
-					echo 0;
+					$url="{$conf['log_out']}/controller/system/ghkh.php";
+					$content="删除失败";
+					include template("jump");
 				}			
 			}
 		

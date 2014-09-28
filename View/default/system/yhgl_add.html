@@ -74,7 +74,7 @@
               
               <!-- BEGIN FORM-->
               
-              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal" onsubmit="return checkall()">
+              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal" onsubmit="return checkalls()">
                 <div class="control-group">
                   <label class="control-label">真实姓名</label>
                   <div class="controls">
@@ -112,13 +112,13 @@
                       <div class="controls">
                       	<div class="input-icon left">
                       	<i class="icon-envelope"></i>
-                      	<input class="m-wrap " type="text" placeholder="企业邮箱" name="info['email']" onblur="checkemail()" id="email" />
+                      	<input class="m-wrap " type="text" placeholder="企业邮箱" name="info[email]" onblur="checkemail()" id="email" />
                       	   <span class="help-inline" id="mesemail"></span>    
                          </div>
                       </div>
                  </div>
                 <div class="form-actions">
-                  <button type="submit" class="btn blue" onclick="checkall()">确认添加</button>
+                  <button type="submit" class="btn blue">确认添加</button>
                   <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消添加</button>
                 </div>
               </form>
@@ -144,6 +144,15 @@
   
 </div>
 <script type="text/javascript" src="{$conf['js']}/register.js">
+function checkalls()  //检查所有
+{
+    if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail())
+    {
+        return true;
+    }
+    return false;
+}
+ 
 </script>
 <!-- END CONTAINER --> 
 
