@@ -186,7 +186,7 @@
                             
                                             <!-- BEGIN FORM-->
                             
-                                            <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}" method="post" class="form-horizontal">
+                                            <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}" method="post" class="form-horizontal" onsubmit="return checkalls()">
                             
                                                 <div class="control-group">
                             
@@ -273,15 +273,9 @@
 											<select class="span6 m-wrap" data-placeholder="Choose a Category" name="info[ctype]" tabindex="1">
 
 												<option value="">---跟进状态---</option>
-												 <option value="0">{$status[0]}</option>
-                                    
-		                                        <option value="1">{$status[1]}</option>
-		                                    
-		                                        <option value="2">{$status[2]}</option>
-		                                    
-		                                        <option value="3">{$status[3]}</option>
-		                                        
-		                                        <option value="4">{$status[4]}</option>
+												{loop $status $k $val}
+                                        <option value="{$k}">{$val}</option>
+                                    	{/loop}
 
 											</select>
 
@@ -335,5 +329,19 @@
 
 	<!-- BEGIN FOOTER -->
 <script type="text/javascript" src="{$conf['js']}/register.js">
+
 </script>
+<script type="text/javascript">
+function checkalls()  //检查所有
+{
+	alert(54);
+    if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail())
+    {
+        return true;
+    }
+    return false;
+}
+ 
+</script>
+
 {template "footer"}

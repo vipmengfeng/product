@@ -30,10 +30,14 @@
 		$info=$_POST['info'];
 		$info['username']=trim($info['username']);
 		if($db->add('crm_user',$info)){
-			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
-			logs("add", "customer", $info['username']);
+			$url="{$conf['log_out']}/controller/system/yhgl.php";
+			$content="添加成功";
+			include template("jump");
 		}else{
-			echo "<script language=\"javascript\">alert('删除失败');</script>";	
+			$url="{$conf['log_out']}/controller/system/cl_yhgl.php?file=add";
+			$content="添加失败";
+			include template("jump");
+			
 		}	
 		//$db->message("add", "member", $data['username']);
 	}
@@ -53,9 +57,14 @@
 			);
 		}
 		if($db->update(' where id='.$id,'crm_user',$info)){
-			echo 1;	
+			$url="{$conf['log_out']}/controller/system/yhgl.php";
+			$content="修改成功";
+			include template("jump");
 		}else{
-			echo 0;	
+			$url="{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id=$id";
+			$content="修改失败";
+			include template("jump");
+			
 		}	
 	}
 	
@@ -83,9 +92,14 @@
 			);
 		}
 		if($db->update(' where id='.$uid, 'crm_user',$info)){
-			echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
+			$url="{$conf['log_out']}/controller/system/xgzl.php?file=mod&id=$uid";
+			$content="修改成功";
+			include template("jump");
 		}else{
-			echo "<script language=\"javascript\">alert('更新失败');</script>";
+			$url="{$conf['log_out']}/controller/system/xgzl.php?file=mod&id=$uid";
+			$content="修改失败";
+			include template("jump");
+			
 		}
 	}
 	
@@ -99,9 +113,13 @@
 			);
 			$query=$db->update(" where id in ($str)", "crm_user" ,$data);
 			if($query){
-				echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'</script>";
+				$url="{$conf['log_out']}/controller/system/yhgl.php";
+				$content="删除成功";
+				include template("jump");
 			}else {
-				echo "<script language=\"javascript\">alert('删除失败');</script>";
+				$url="{$conf['log_out']}/controller/system/yhgl.php";
+				$content="删除失败";
+				include template("jump");
 				}
 		}
 	}

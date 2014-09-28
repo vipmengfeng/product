@@ -187,22 +187,17 @@
 							<div class="portlet-body">
                             	
                                 <div class="clearfix">
-                                
-                                    <select class="span2 m-wrap" data-placeholder="Choose a Category" id="sel" onchange="sel(this)" tabindex="1">
+                                <form id="myform" name="myform" action="{$conf['log_out']}/controller/system/my.php" method="post">
+                                    <select class="span2 m-wrap" data-placeholder="Choose a Category" id="sel" name="hide" onchange="sel(this)" tabindex="1">
                                     
                                         <option value="">---跟进状态---</option>
-                                    
-                                        <option value="0">{$status[0]}</option>
-                                    
-                                        <option value="1">{$status[1]}</option>
-                                    
-                                        <option value="2">{$status[2]}</option>
-                                    
-                                        <option value="3">{$status[3]}</option>
-                                        
-                                        <option value="4">{$status[4]}</option>
+                                        <option value="">全部</option>
+                                    	{loop $status $k $val}
+                                        <option value="{$k}" {if $select == $k}selected{/if}>{$val}</option>
+                                    	{/loop}
                                     
                                     </select>
+                                  
                                    <div class="input-append date date-picker" data-date="2012-12-01" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                     
                                         <input class="m-wrap m-ctrl-medium date-picker" readonly size="16" type="text" value="" /><span class="add-on"><i class="icon-calendar"></i></span>
@@ -212,9 +207,9 @@
                                         <input class="m-wrap m-ctrl-medium date-picker" readonly size="16" type="text" value="" /><span class="add-on"><i class="icon-calendar"></i></span>
                                     
                                     </div>    
-                                   <div class="btn-group"> <a href="#" class="btn green"><i class="icon-screenshot"></i> 确认筛选</a> </div>
+                                   <div class="btn-group"> <a href="#" class="btn green" onclick="sel()"><i class="icon-screenshot"></i> 确认筛选</a> </div>
                           
-
+  </form>
                                 </div>
                                 
       
@@ -281,11 +276,10 @@
 
 		<!-- END PAGE -->
 	</div>
-<form id="myform" name="myform" action="{$conf['log_out']}/controller/system/cl_my.php?file=sel" method="post">
-<input type="hidden" name="hide" id="hide" value="" />
 
 
-</form>
+
+
 <form id="submyform" name="submyform" action="{$conf['log_out']}/controller/system/cl_my.php?file=submyform" method="post">
 <input type="hidden" name="hidden" id="hidden" value="" /></form>
 	<!-- END CONTAINER -->
@@ -306,8 +300,7 @@
 		}
 	}
 	function sel(obj){
-			var selval=$("#sel").val();
-			$("#hide").val(selval);
+
 			$("#myform").submit();
 		}
 	function subform(obj){

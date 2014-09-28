@@ -1,0 +1,70 @@
+/* CSS Document */
+body,div,p,ul,li,ol,span,table,tr,td,h1,h2,h3,h4,h5,h6,img{ margin:0 auto; padding:0; font-family:Arial,宋体; font-size:12px; color:#6b6b6b; list-style:none; list-style-type:none;}
+body{ background:#f2f2f2;}
+a{ text-decoration:none; color:#6b6b6b; cursor:pointer;}
+a:hover{text-decoration:none; color:#06C;}
+img,form,fieldset,input{ border:none; display:inline;}
+input,button,select,textarea{outline:none;}
+textarea{resize:none;}
+
+/*注册成功*/
+.zccg{ height:256px; margin-top:20px; }
+.zccg h1{ display:block; font-size:50px;  font-weight:100; font-family:微软雅黑; color:#d4d4d4;   text-shadow: rgba(176,176,176,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -1px; text-align:center; padding-top:30px; margin-bottom:5px; }
+.zccg p{ line-height:24px; text-align:center;}
+/*蓝色按钮*/
+ .lightblue {
+ color: #fff;
+ background:#97da32; /* Old browsers */
+}
+/*蓝色按钮*/
+.button{
+	cursor:pointer;
+	width:270px;
+	height:40px;
+	line-height:40px;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px rgba(255,255,255,.22);
+	font:18px /38px Arial, 微软雅黑;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-transition: all 0.15s ease;
+	-moz-transition: all 0.15s ease;
+	-o-transition: all 0.15s ease;
+	-ms-transition: all 0.15s ease;
+	transition: all 0.15s ease;
+}
+
+ .button:hover {
+  -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
+  -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
+  box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
+   text-decoration: none;
+ text-shadow: 1px 1px 1px rgba(255,255,255,.22);
+ color:#fff;
+ }
+
+ .button:active {
+  -webkit-box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
+  -moz-box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
+  box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
+   text-decoration: none;
+ text-shadow: 1px 1px 1px rgba(255,255,255,.22);
+  color:#54a117;
+ }
+ .blue {
+ color: #fff;
+ background: #2a5db0; /* Old browsers */
+/* W3C */
+}
+.tupian{ text-align:center; margin:40px;}
+.tupian img{ border-radius:100%;}
+.wenzi{ width:500px; line-height:30px;}
+.wenzi p{ text-align:left; line-height:22px;}
+.wenzi h2{ text-align:center;}
+.wenzi h3{ text-align:center;  font-size:14px;}
+.wenzi h4{ text-align:center;}
+.wenzi h4 a{ margin-left:5px; margin-right:5px;}
