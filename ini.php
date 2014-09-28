@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+date_default_timezone_set("Asia/Shanghai");
 define('IN_MXphp',1);
 define('ROOT_DIR', str_replace("\\", '/', dirname(__FILE__)));
 define('MXphp_CHMOD',1);
