@@ -1295,4 +1295,31 @@ function back($arr){
 
 	}
 
+	function priv($first,$next){
+		global $db;
+		$sql="SELECT * from crm_menu WHERE menuid in ($first)";
+		$query=$db->query($sql);
+		$menu1=array();
+		while($re=$db->fetch_array($query)){			
+			$menu[$re['menuid']]=$re;
+		}
+		$sql2="SELECT * from crm_menu WHERE menuid in ($next)";
+	
+		$query2=$db->query($sql2);
+		
+		while($re2=$db->fetch_array($query2)){
+
+			 $menu[$re2['pid']]['next'][$re2['menuid']]=$re2;
+		}
+
+		return $menu;
+	}
+	
+	function admin_priv($priv){
+	    global $db;
+		$href=$priv.".php";
+		$sql="SELECT menuid from crm_menu WHERE href='$href'";
+		$re=$db->get_one($sql);
+		return $re['menuid'];
+	}
 ?>
