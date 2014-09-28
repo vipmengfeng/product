@@ -2,7 +2,14 @@
 	require '../../ini.php';
 	require ROOT_DIR.'/check.php';
 	require '../left.php';
+
 	require ROOT_DIR."/caches/caches_common/status.php";
+
+	$priv=admin_priv("ghkh");
+	if(!in_array($priv,$first_priv) && !in_array($priv,$next_priv)){
+		echo "您没有此操作的权限";die;
+	}
+
 	$file=$_GET['file'];
 	if($file == 'add'){
 		$action= $_GET['action'];
