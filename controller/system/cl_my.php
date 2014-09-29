@@ -19,16 +19,18 @@
 		$name=$_GET['name'];
 		//echo $name;
 		$data=array(
-			"disable"=>0,
+			"uid"=>0,
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query){
-			//$logs=logs('update', 'member', $name);
-			//if($logs){
-				echo "<script language=\"javascript\">javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=5'</script>";
-			//}
+			logs("update", "give", $cusid);
+			$url="{$conf['log_out']}/controller/system/my.php";
+			$content="放弃成功";
+			include template("jump");
 		}else{
-			echo "<script language=\"javascript\">alert('放弃失败')</script>";
+			$url="{$conf['log_out']}/controller/system/my.php";
+			$content="放弃失败";
+			include template("jump");
 		}
 	}
 	

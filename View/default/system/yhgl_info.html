@@ -139,7 +139,7 @@
 
 						<h3 class="page-title">
 
-							Typography <small>texts, headers, list and more</small>
+							系统管理
 
 						</h3>
 
@@ -149,7 +149,7 @@
 
 								<i class="icon-home"></i>
 
-								<a href="index.html">Home</a> 
+								<a href="{$conf['log_out']}/controller/system/yhgl.php">员工中心</a> 
 
 								<i class="icon-angle-right"></i>
 
@@ -157,13 +157,13 @@
 
 							<li>
 
-								<a href="#">UI Features</a>
+								<a href="#">员工信息</a>
 
 								<i class="icon-angle-right"></i>
 
 							</li>
 
-							<li><a href="#">Typography</a></li>
+						
 
 						</ul>
 
@@ -256,7 +256,7 @@
 												<div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
 
 													<ul class="feeds">
-
+														{loop $log  $keys $val}
 														<li>
 
 															<a href="#">
@@ -279,7 +279,7 @@
 
 																			<div class="desc">
 
-																				New user registered
+																				{$val['user']}{$val['way']}{$val['return']}
 
 																			</div>
 
@@ -293,7 +293,7 @@
 
 																	<div class="date">
 
-																		Just now
+																		{date("Y-m-d H:i:s",$val['time'])}
 
 																	</div>
 
@@ -302,419 +302,8 @@
 															</a>
 
 														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New order received 
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		10 mins
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<div class="col1">
-
-																<div class="cont">
-
-																	<div class="cont-col1">
-
-																		<div class="label label-important">                      
-
-																			<i class="icon-bolt"></i>
-
-																		</div>
-
-																	</div>
-
-																	<div class="cont-col2">
-
-																		<div class="desc">
-
-																			Order #24DOP4 has been rejected.    
-
-																			<span class="label label-important label-mini">Take action <i class="icon-share-alt"></i></span>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-															</div>
-
-															<div class="col2">
-
-																<div class="date">
-
-																	24 mins
-
-																</div>
-
-															</div>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
+												{/loop}
+														
 													</ul>
 
 												</div>
