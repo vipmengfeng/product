@@ -27,14 +27,19 @@
 	
 	if($_GET['file'] == 'info'){
 		$ids=$_GET['id'];
+		$userid=$_SESSION['usernameid'];
 		$sql="select * from ".$table_pre."user where id=".$ids;
 		$r=$db->get_one($sql);
+		$sql1="SELECT * FROM crm_logs where userid=$userid";
+		$logs=$db->get_all($sql1);
+		$log=back($logs);
 		include template('yhgl_info','system');
 	}
 	
 	if($_GET['file'] == 'adduser'){
 		$info=$_POST['info'];
 		$info['username']=trim($info['username']);
+		$info['userpwd']=md5($info['userpwd']);
 		if($db->add('crm_user',$info)){
 			$url="{$conf['log_out']}/controller/system/yhgl.php";
 			$content="添加成功";
