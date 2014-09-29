@@ -1182,6 +1182,8 @@ function logs($way,$method,$get){
 		$sql="SELECT cusid FROM crm_user  where username='$get'";
 	}elseif($method == "customer"){
 		$sql="SELECT id FROM crm_customer  where cusname='$get'";
+	}else{
+	   $sql="SELECT roleid FROM crm_role  where rolename='$get'";
 	}
 		$re=$db->get_one($sql);
 		if($method == "member"){
@@ -1202,6 +1204,7 @@ function logs($way,$method,$get){
 		}
 	}elseif($way == "del"){//如果你是更改客户所属的销售人员	
 	if($method == "role"){
+		
 		$content['handle']=$get;
 	}else{
 	  if(is_array($get)){//如果是多个就传进来一个数组  是ID的数组
@@ -1331,10 +1334,10 @@ function back($arr){
 		   $page =1;
 		 $result['front']=1;
 		 }else{
-		 $result['front']=$page-1;
+		   $result['front']=$page-1;
 		 }
 		if($page >= $pages){
-		 $page =$pages;
+		   $page =$pages;
 		 $result['next']=$pages;
 		 }else{
 		 $result['next']=$page+1;
@@ -1345,16 +1348,7 @@ function back($arr){
 		$result['content']=$db->get_all($sel);
 		$result['count']=range(1,$pages);
 		$result['total']=$pages;
-		if($page == "1"){
-		 $result['front']=1;
-		 }else{
-		 $result['front']=$page-1;
-		 }
-		if($page >= $pages){
-		 $result['next']=$pages;
-		 }else{
-		 $result['next']=$page+1;
-		 }
+		
 		
 		return $result;
 	}

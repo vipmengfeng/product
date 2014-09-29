@@ -25,7 +25,9 @@
 		if($username==$res['username'] && $userpwd==$res['userpwd']){
 			$_SESSION['usernameid']=$res['id'];
 			$_SESSION['username']=$res['username'];
-			require ROOT_DIR.'/controller/index.php';
+			$url="{$conf['log_out']}/controller/system/index.php";
+			$content="登录成功";
+			include template("jump");
 		}
 		
 		

@@ -177,6 +177,7 @@ class db_mysql {
 			$sqla = substr($sqla, 1);
 			$sql .=$sqla;
 			$sql .= $where;
+
 			if($this->query($sql)){
 			return "right";
 		    }else{
