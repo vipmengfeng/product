@@ -32,6 +32,7 @@
 			if($db->update(" where cusid=$cusid",'crm_customer',$info)){
 				$url="{$conf['log_out']}/controller/system/my.php";
 				$content="修改成功";
+				logs("update", "customer", $info);
 				include template("jump");
 			}else{
 				$url="{$conf['log_out']}/controller/system/ghkh.php";
@@ -72,6 +73,7 @@
 			if($db->add('crm_customer',$info)){
 				$url="{$conf['log_out']}/controller/system/ghkh.php";
 				$content="添加成功";
+				logs("add", "customer", $info['cusname']);
 				include template("jump");
 			}else{
 				$url="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add";
@@ -93,11 +95,12 @@
 		$info=$_POST['info'];
 		$info['inputtime']=time();
 		if($db->add('crm_customer',$info)){
-				$url="{$conf['log_out']}/controller/system/yhgl.php";
+				$url="{$conf['log_out']}/controller/system/ghkh.php";
 				$content="添加成功";
+				logs("add", "customer", $info['cusname']);
 				include template("jump");
 		}else{
-				$url="{$conf['log_out']}/controller/system/cl_yhgl.php";
+				$url="{$conf['log_out']}/controller/system/cl_yhgl.php?file=add";
 				$content="添加失败";
 				include template("jump");
 		}
@@ -115,6 +118,7 @@
 		if($query){
 			$url="{$conf['log_out']}/controller/system/ghkh.php";
 			$content="获取成功";
+			logs("update", "move", $cusid);
 			include template("jump");
 		}else{
 			$url="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid=$cusid";
