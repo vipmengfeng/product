@@ -17,8 +17,13 @@
 		}
 		
 	}
-	
-	$r=$db->get_all($sql);
+	$page=$_GET['page'] ?$_GET['page']:1;
+	$content=page($sql,$page);
+	$r=$content['content'];
+	$count=$content['count'];
+	$total=$content['total'];
+	$front=$content['front'];
+	$next=$content['next'];
 	include template("wdkh","my");
 	
 	
