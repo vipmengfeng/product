@@ -89,7 +89,7 @@
                 <div class="tab-pane active" id="tab_1_1 ">
                   <div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
                     <ul class="feeds">
-					{loop $log  $k $v}
+					{loop $log  $k $vv}
                       <li> <a href="#">
                         <div class="col1">
                           <div class="cont">
@@ -97,12 +97,12 @@
                               <div class="label label-success"> <i class="icon-bell"></i> </div>
                             </div>
                             <div class="cont-col2">
-                              <div class="desc">{$v['user']}{$v['way']}{$v['return']}</div>
+                              <div class="desc">{$vv['user']}{$vv['way']}{$vv['return']}</div>
                             </div>
                           </div>
                         </div>
                         <div class="col2">
-                          <div class="date">{date("Y-m-d H:i:s",$v['time'])}</div>
+                          <div class="date">{$vv['time']}</div>
                         </div>
                         </a> </li>
                     {/loop}

@@ -36,6 +36,7 @@
 		$info=$_POST['info'];
 		$info['username']=trim($info['username']);
 		if($db->add('crm_user',$info)){
+			logs("add","member",$info['username']);
 			$url="{$conf['log_out']}/controller/system/yhgl.php";
 			$content="添加成功";
 			include template("jump");
@@ -63,6 +64,7 @@
 			);
 		}
 		if($db->update(' where id='.$id,'crm_user',$info)){
+		    logs("update","member",$id);
 			$url="{$conf['log_out']}/controller/system/yhgl.php";
 			$content="修改成功";
 			include template("jump");
@@ -98,6 +100,7 @@
 			);
 		}
 		if($db->update(' where id='.$uid, 'crm_user',$info)){
+		 logs("update","change",$uid);
 			$url="{$conf['log_out']}/controller/system/xgzl.php?file=mod&id=$uid";
 			$content="修改成功";
 			include template("jump");
@@ -119,6 +122,7 @@
 			);
 			$query=$db->update(" where id in ($str)", "crm_user" ,$data);
 			if($query){
+			    logs("del","member",$chec);
 				$url="{$conf['log_out']}/controller/system/yhgl.php";
 				$content="删除成功";
 				include template("jump");

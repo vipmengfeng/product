@@ -25,6 +25,9 @@
 	 $name=substr($name,0,-1);
 		$re=$db->del("crm_role",$_POST['roleid'],"roleid");
 		logs("del","role",$name);
+		$url="{$conf['log_out']}/controller/system/ckjs.php";
+		$content="删除成功";
+		include template("jump");		
 	}else{
 	$sql="SELECT * FROM crm_role";
 	$role=$db->get_all($sql);

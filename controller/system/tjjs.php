@@ -30,7 +30,7 @@
 	  $content="添加成功";	
 	   $url="{$conf['log_out']}/controller/system/tjjs.php";
 	  include template("jump");
-	   logs("add","role",$_POST['rolename']);
+	  logs("add","role",$_POST['rolename']);
 	 }else{
 	 $content="添加失败";
 	 $url="{$conf['log_out']}/controller/system/tjjs.php";

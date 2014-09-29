@@ -21,7 +21,6 @@
 			$sql="SELECT * FROM crm_customer WHERE cusid=$id";
 			$val=$db->get_one($sql);
 			$call=unserialize($val['callinfo']);
-			//print_r($val);die;
 		}
 		include template("ghkh_add","customer");
 		
@@ -33,9 +32,9 @@
 			$info['changetime']=time();
 			$cusid=$_GET['id'];
 			if($db->update(" where cusid=$cusid",'crm_customer',$info)){
+			    logs("update","customer",$cusid);
 				$url="{$conf['log_out']}/controller/system/my.php";
 				$content="修改成功";
-				logs("update", "customer", $info);
 				include template("jump");
 			}else{
 				$url="{$conf['log_out']}/controller/system/ghkh.php";
@@ -62,6 +61,7 @@
 				$info['callinfo']=serialize($callinfo);
 			}
 			if($db->update(" WHERE cusid=$cusid",'crm_customer',$info)){
+				logs("update","phone",$cusid);
 				$url="{$conf['log_out']}/controller/system/my.php";
 				$content="添加成功";
 				include template("jump");
@@ -74,9 +74,9 @@
 			$info=$_POST['info'];
 			$info['inputtime']=time();
 			if($db->add('crm_customer',$info)){
+			logs("add","customer",$info['cusname']);
 				$url="{$conf['log_out']}/controller/system/ghkh.php";
 				$content="添加成功";
-				logs("add", "customer", $info['cusname']);
 				include template("jump");
 			}else{
 				$url="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add";
@@ -98,9 +98,9 @@
 		$info=$_POST['info'];
 		$info['inputtime']=time();
 		if($db->add('crm_customer',$info)){
+		logs("add","customer",$info['cusname']);
 				$url="{$conf['log_out']}/controller/system/ghkh.php";
 				$content="添加成功";
-				logs("add", "customer", $info['cusname']);
 				include template("jump");
 		}else{
 				$url="{$conf['log_out']}/controller/system/cl_yhgl.php?file=add";
@@ -119,9 +119,9 @@
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query){
+		    logs("update","move",$cusid);
 			$url="{$conf['log_out']}/controller/system/ghkh.php";
 			$content="获取成功";
-			logs("update", "move", $cusid);
 			include template("jump");
 		}else{
 			$url="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid=$cusid";
@@ -135,13 +135,13 @@
 			$chec=$_POST['checkbox1'];
 			$uid=$_SESSION['usernameid'];
 			$str=implode(",", $chec);
-			
 			if($_POST['hidden'] == 'huoqu'){
 				$data=array(
 						"uid"=>$uid,
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
+				    logs("update","move",$chec);
 					$url="{$conf['log_out']}/controller/system/ghkh.php";
 					$content="获取成功";
 					include template("jump");
@@ -157,6 +157,7 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query){
+				    logs("del","member",$chec);
 					$url="{$conf['log_out']}/controller/system/ghkh.php";
 					$content="删除成功";
 					include template("jump");

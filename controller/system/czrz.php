@@ -1,6 +1,6 @@
 <?php 
 	require '../../ini.php';
-	
+    require '../left.php';
 	require ROOT_DIR.'/check.php';
 	$priv=admin_priv("czrz");
 	if(!in_array($priv,$first_priv) && !in_array($priv,$next_priv)){
@@ -9,8 +9,8 @@
 			include template("jump");
 			die;
 	}
-	require '../left.php';
-	$sql="SELECT * FROM crm_logs";
+	
+	$sql="SELECT * FROM crm_logs ORDER BY lid DESC";
 	$logs=$db->get_all($sql);
 	$log=back($logs);
 	//print_r($log);die;

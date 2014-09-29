@@ -1175,20 +1175,13 @@ function d301($url) {
 }
 
 function logs($way,$method,$get){
-    global $db;
-    
+    global $db; 
 	$content=array();
 	if($way == "add"){//如果你是添加信息
 	if($method == "member"){
 		$sql="SELECT id FROM crm_user  where username='$get'";
 	}elseif($method == "customer"){
-
-		$sql="SELECT cusid FROM crm_customer  where cusname='$get'";
-
-		
-	}else{
-	   $sql="SELECT roleid FROM crm_role  where rolename='$get'";
-
+		$sql="SELECT cusid FROM crm_customer  where cusname='$get'";	
 	}
 	
 		$re=$db->get_one($sql);
@@ -1197,7 +1190,7 @@ function logs($way,$method,$get){
 		}elseif($method == "customer"){
 		$content['handle']=$re['cusid'];//将用户ID放入数组
 		}else{
-		$content['handle']=$re['roleid'];//将用户ID放入数组
+		$content['handle']=$get;//将用户ID放入数组
 		}
 		
 	}elseif($way == "update"){//更新账户信息
@@ -1206,7 +1199,6 @@ function logs($way,$method,$get){
 		}else{//如果是单个 就传进来一个ID即可 
 			$handle=array();
 			$handle[]=$get;
-
 			$content['handle']=serialize($handle);
 		}
 	}elseif($way == "del"){//如果你是更改客户所属的销售人员	
@@ -1219,7 +1211,6 @@ function logs($way,$method,$get){
 		}else{//如果是单个 就传进来一个ID即可 
 			$handle=array();
 			$handle[]=$get;
-	
 			$content['handle']=serialize($handle);
 		}
 	}
@@ -1232,85 +1223,115 @@ function logs($way,$method,$get){
 	$content['userid']=$_SESSION['usernameid'];
 	$content['uname']=$_SESSION['username'];
 	$content['time']=time();//修改的时间
-
 	$db->add("crm_logs",$content); //入库
 }	
 
 function back($arr){
        global $db;	
 	   $logs=array();
-	  foreach($arr as $k=>$v){
-	  $sql1="SELECT id,username FROM  crm_user  where id='$v[userid]'"; 
-	  $cus=$db->get_one($sql1);
-	  $user="<a href=''>$cus[username]</a>";
-	  $logs[$k]['user']=$user;
-	  $time=date("Y-m-d h:i:s",$v['time']);
-	  $logs[$k]['time']=$time;
-	  $return ="";
-		if($v['way'] == "add"){
-		   if($v['method'] == "customer"){
+	 foreach ($arr as $key=>$value){
+	 $return="";
+	 $sql1="SELECT id,username FROM  crm_user  where id='$value[userid]'"; 
+	 $cus=$db->get_one($sql1);
+	 $user="<a href=''>$cus[username]</a>";
+	 $logs[$key]['user']=$user;
+	 $time=date("Y-m-d H:i:s",$value['time']);
+	 $logs[$key]['time']=$time;
+	 if($value['way'] == "add"){
+	 if($value['method'] == "customer"){
 			 $way="添加了客户";
-			 $sql="SELECT cusid,cusname FROM   crm_customer  where cusid='$v[handle]'";
-			 $re=$db->get_one($sql);
-			 $return="<a href=''>$re[cusname]</a>";
-		}elseif($v['method'] == "member"){
+			 $sql3="SELECT cusid,cusname FROM   crm_customer  where cusid='$value[handle]'";
+			 $re=$db->get_one($sql3);
+			 $return="<a href='$conf[log_out]/controller/system/cl_ghkh.php?file=ghkh_info&cusid=$re[cusid]'>$re[cusname]</a>";
+		}elseif($value['method'] == "member"){
 			$way="添加了用户";
-            $sql="SELECT id,username FROM  crm_user  where id='$v[handle]'";
-			$re=$db->get_one($sql);
-			$return="<a href=''>$re[cusname]</a>,";			
+            $sql4="SELECT id,username FROM  crm_user  where id='$value[handle]'";
+			$re=$db->get_one($sql4);
+			$return="<a href='$conf[log_out]/controller/system/cl_yhgl.php?file=info&id=$re[id]'>$re[username]</a>";			
 		}else{
 			$way="添加了角色";
-            $sql="SELECT roleid,rolename FROM  crm_role  where roleid='$v[handle]'";
-			$re=$db->get_one($sql);
-			$return="<a href=''>$re[rolename]</a>";	
+            $sql5="SELECT roleid,rolename FROM  crm_role  where rolename='$value[handle]'";
+			$re=$db->get_one($sql5);
+			if(!empty($re)){
+			$return="<a href='$conf[log_out]/controller/system/tjjs.php?id=$re[roleid]'>$re[rolename]</a>";
+          }else{
+           $return="<b>$value[handle]</b>(该角色已被删除)";
+         }			
 		}
-		}elseif($v['way'] == "update"){		
-			if($v['method'] == "customer" || $v['method'] == "move"){
-			 if($v['method'] == "customer"){
-			 
+	}elseif($value['way'] == "update"){
+		if($value['method'] == "customer" || $value['method'] == "move" || $value['method'] == "give"|| $value['method'] == "phone"){
+			 if($value['method'] == "customer"){			 
 			   $way="更新了客户资料";
 			}
-			if($v['method'] == "move"){
+		    if($value['method'] == "move"){
 			  $way="改变客户所属位置由公海到自己";
 			} 
-			 $handle=unserialize($v['handle']);
+			if($value['method'] == "give"){
+			  $way="放弃了客户";
+			} 
+			if($value['method'] == "phone"){
+			  $way="更新了通话记录";
+			} 
+			 $handle=unserialize($value['handle']);
 			 if(is_array($handle)){
 			 foreach($handle as $k=>$v){
-			 $sql="SELECT cusid,cusname  FROM  crm_customer  WHERE cusid='$v'";
-			 $re=$db->get_one($sql);	
-			$return .= "<a href=''>$re[cusname]</a>";
+			  $sql="SELECT cusid,cusname  FROM  crm_customer  WHERE cusid='$v'";
+			  $re=$db->get_one($sql);	
+			  if($value['method'] == "phone"){
+			  $way="更新了通话记录";
+			  $return .= "<a href='$conf[log_out]/controller/system/cl_ghkh.php?file=add&action=jilu&id=$re[cusid]'>$re[cusname]</a>,"; 
+			 } else{
+			 $return .= "<a href='$conf[log_out]/controller/system/cl_ghkh.php?file=ghkh_info&cusid=$re[cusid]'>$re[cusname]</a>,"; 
+			 }
+			    
 			}
-			$return =substr($return,0,-1);
-		}
-		
+			 $return =substr($return,0,-1);
+			 
+			}
+			
+			
 		}elseif($v['method'] == "member"){
 			 $way="更新了个人资料";
 		     $return = "";
+		}else{
+		   $way="更新了用户资料";
+		   $handle=unserialize($value['handle']);
+		   $sql8="SELECT id,username  FROM  crm_user WHERE id='$handle[0]'";
+		   $re=$db->get_one($sql8);
+		   $return .= "<a href='$conf[log_out]/controller/system/cl_ghkh.php?file=add&action=jilu&id=$re[id]'>$re[username]</a>"; 
 		}
-		}elseif($v['way'] == "del"){
-			if($v['method'] == "member"){
+	
+	}elseif($value['way'] == "del"){
+			if($value['method'] == "member"){
 			 $way="删除了用户";						
-			 $handle=unserialize($v['handle']);
-			 foreach($handle as $v){
-			 $sql="SELECT id,username  FROM   crm_user  where id='$v'";
-			 $re=$db->get_one($sql);
-
-			 $return .="<a href=''>".$re[cusname]."</a>,";	
+			 $handle=unserialize($value['handle']);
+			 print_r($handle);
+			 foreach($handle as $a){
+			 $sql2="SELECT id,username  FROM   crm_user  where id='$a'";
+			 $re=$db->get_one($sql2);
+			 $return .="<a href='$conf[log_out]/controller/system/cl_yhgl.php?file=info&id=$re[id]'>".$re[username]."</a>,";	
 			}
-		    $return =substr($return,0,-1);
+		     $return =substr($return,0,-1);
+			
+		}elseif($value['method'] == "customer"){
+		 $way="删除了客户";
+		  $handle=unserialize($value['handle']);
+		  foreach($handle as $b){
+		    $sql2="SELECT cusid,cusname  FROM   crm_customer  where cusid='$b'";
+			 $re=$db->get_one($sql2);
+			 $return .="<a href='$conf[log_out]/controller/system/cl_ghkh.php?file=ghkh_info&cusid=$re[cusid]'>".$re[cusname]."</a>,";	
+			}
+		     $return =substr($return,0,-1);
 		}else{
 		     $way="删除了角色";						
-			 $return=$v['handle'];
+			 $return="<b>".$value['handle']."</b>";
 		}
 	}
-
-	$logs[$k]['way'] = $way;
-	$logs[$k]['return'] = $return;
-		
+	$logs[$key]['return']=$return;
+	$logs[$key]['way']=$way;
 	}
-	//print_r($logs);die;
 	return $logs;
-
+	
 	}
 
 	function priv($first,$next){
