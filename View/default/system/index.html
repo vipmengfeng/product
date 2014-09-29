@@ -92,15 +92,15 @@
                                 
                                 <!-- BEGIN FORM-->
                                 
-                                <form action="{$conf['log_out']}/controller/customer/cl_ghkh.php?file=quickadd" method="post" class="form-horizontal">
+                                <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=quickadd" method="post" class="form-horizontal">
                                 
                                 <div class="control-group">
                                 
-                                    <label class="control-label">姓名</label>
+                                    <label class="control-label">公司名称</label>
                                 
                                     <div class="controls">
                                 
-                                        <input type="text" class="span6 m-wrap" name="info[uname]" />
+                                        <input type="text" class="span6 m-wrap" name="info[cusname]" />
                                 
                                         <span class="help-inline">必填</span>
                                 
@@ -114,20 +114,20 @@
                                 
                                     <div class="controls">
                                 
-                                        <input type="text" class="span6 m-wrap" name="info[cphone]" />
+                                        <input type="text" class="span6 m-wrap" name="info[cphone]" id="phone" onblur="checktel()" />
                                 
-                                        <span class="help-inline">必填</span>
+                                        <span class="help-inline" id="mesphone">必填</span>
                                 
                                     </div>
                                 
                                 </div>
 								<div class="control-group">
                                 
-                                    <label class="control-label">公司名称</label>
+                                    <label class="control-label">联系人</label>
                                 
                                     <div class="controls">
                                 
-                                        <input type="text" class="span6 m-wrap" name="info[cusname]" />
+                                        <input type="text" class="span6 m-wrap" name="info[connecter]" />
                                 
                                         <span class="help-inline">选填</span>
                                 
@@ -145,15 +145,10 @@
                                 
                                 <option value="">--类型分类选择--</option>
                                 
-                                <option value="初次接触">初次接触</option>
-                                
-                                <option value="深度开发">深度开发</option>
-                                
-                                <option value="已成单">已成单</option>
-                                
-                                <option value="维护">维护</option>
-                                
-                                <option value="x续签">续签</option>
+                               {loop $status $k $val}
+                                        <option value="{$k}">{$val}</option>
+                                    	{/loop}
+
                                 
                                 </select>
                                 
@@ -169,7 +164,7 @@
                                 
                                 <label class="checkbox">
                                 
-                                <input type="checkbox" value="" /> 添加并获取
+                                <input type="checkbox" name="info[uid]" value="{$_SESSION['usernameid']}" /> 添加并获取
                                 
                                 </label>
                                 
@@ -182,7 +177,7 @@
                                 
                                     <button type="submit" class="btn blue">确认添加</button>
                                 
-                                    <button type="button" class="btn">重置</button>                            
+                                    <button type="reset" class="btn">重置</button>                            
                                 
                                 </div>
                                 
@@ -1867,6 +1862,7 @@
 	</div>
 
 	<!-- END 容器 -->
+<script type="text/javascript" src="{$conf['js']}/register.js"></script>
 
 	<!-- BEGIN 底部 -->
 
