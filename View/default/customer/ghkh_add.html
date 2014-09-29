@@ -186,15 +186,16 @@
                             
                                             <!-- BEGIN FORM-->
                             
-                                            <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}" method="post" class="form-horizontal" onsubmit="return checkalls()">
-                            
+                                            <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}" method="post" class="form-horizontal" onsubmit="return checkalls()">
+                                            	
+                            			
                                                 <div class="control-group">
                             
                                                     <label class="control-label">公司名称</a></label>
                             
                                                     <div class="controls">
                             
-                                                        <input type="text" class="span6 m-wrap" name="info[cusname]" id="username" />
+                                                        <input type="text" class="span6 m-wrap" name="info[cusname]" id="username" value="{$val['cusname']}" />
                             
                                                         <span class="help-inline">不得输入殊符号</span>
                             
@@ -223,7 +224,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <input type="text" class="span6 m-wrap" name="info[connecter]" />
+                                                        <input type="text" class="span6 m-wrap" name="info[connecter]" value="{$val['connecter']}" />
                             
                             
                                                     </div>
@@ -236,7 +237,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <input type="text" class="span6 m-wrap" name="info[cphone]" id="phone" onblur="checktel()" />
+                                                        <input type="text" class="span6 m-wrap" name="info[cphone]" id="phone" value="{$val['cphone']}" onblur="checktel()" />
                             							     <span class="help-inline" id="mesphone"></span>
                                                     </div>
                             
@@ -248,7 +249,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <textarea class="span6 m-wrap" rows="3" name="info[cusinfo]"></textarea>
+                                                        <textarea class="span6 m-wrap" rows="3" name="info[cusinfo]" value="{$val['cusinfo']"></textarea>
                             
                                                     </div>
                             
@@ -259,7 +260,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <textarea class="span6 m-wrap" rows="3" name="info[conditions]"></textarea>
+                                                        <textarea class="span6 m-wrap" rows="3" name="info[conditions]" value="{$val['conditions']}"></textarea>
                             
                                                     </div>
                             
@@ -274,25 +275,27 @@
 
 												<option value="">---跟进状态---</option>
 												{loop $status $k $val}
-                                        <option value="{$k}">{$val}</option>
-                                    	{/loop}
+                                       				 <option value="{$k}" {if $val['ctype'] == $k}selected{/if}>{$val}</option>
+                                    			{/loop}
 
 											</select>
 
 										</div>
 
 									</div>
-									
-										<div class="control-group" id="jilu" {if $action == 'xiugai' }style="display:none"{/if}>
+									{if $action == 'jilu' }
+										<div class="control-group" id="jilu">
                             
                                                 <label class="control-label">通话记录</label>
-                            
                                                     <div class="controls">
-													<label >记录1：</label>
-                                                       <input type="text" class="span6 m-wrap" name="cjilu" />
+                                                    {loop $call $keys $value}
+													<label >{date('Y-m-d H:i:s',$keys)}：{$value}</label>
+													{/loop}
+                                                       <input type="text" class="span6 m-wrap" name="callinfo" value="" />
                                                     </div>
                             
                                               </div>
+                                          {/if}
                                                 <div class="form-actions">
                             
                                                     <button type="submit" class="btn blue">确认</button>
@@ -300,7 +303,7 @@
                                                     <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');" >取消</button>                            
                             
                                                 </div>
-                            
+                            				
                                             </form>
                             
                                             <!-- END FORM-->       

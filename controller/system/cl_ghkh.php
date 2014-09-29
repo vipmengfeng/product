@@ -16,7 +16,15 @@
 	$file=$_GET['file'];
 	if($file == 'add'){
 		$action= $_GET['action'];
+		$id=$_GET['id'];
+		if(!empty($id)){
+			$sql="SELECT * FROM crm_customer WHERE cusid=$id";
+			$val=$db->get_one($sql);
+			$call=unserialize($val['callinfo']);
+			//print_r($val);die;
+		}
 		include template("ghkh_add","customer");
+		
 	}
 	
 	if($_GET['file'] == 'addcus'){
@@ -34,13 +42,32 @@
 				include template("jump");
 			}
 		}else if($_GET['action'] == 'jilu'){
-		$info=$_POST['info'];
-			$info['changetime']=time();
-			$info['cjilu']=$_POST['cjilu'];
-			if($db->add('crm_customer',$info)){
-				echo 1;
+			$info=$_POST['info'];
+			$time=time();
+			$call=$_POST['callinfo'];
+			$cusid=$_GET['id'];
+			$sql="SELECT * FROM crm_customer WHERE cusid=$cusid";
+			$query=$db->get_one($sql);
+			$r=$query['callinfo'];
+			if(!empty($r)){
+				$callinfo=array();
+				$callinfo=unserialize($r);
+				$callinfo[$time]=$call;
+				$info['callinfo']=serialize($callinfo);
 			}else{
-				echo 0;
+				$callinfo=array(
+					"$time"=>$call,
+				);
+				$info['callinfo']=serialize($callinfo);
+			}
+			if($db->update(" WHERE cusid=$cusid",'crm_customer',$info)){
+				$url="{$conf['log_out']}/controller/system/my.php";
+				$content="添加成功";
+				include template("jump");
+			}else{
+				$url="http://www.crm.com/controller/system/cl_ghkh.php?file=add&action=jilu&id=$cusid";
+				$content="添加成功";
+				include template("jump");
 			}
 		}else{
 			$info=$_POST['info'];
@@ -67,21 +94,18 @@
 	
 	if($file == "quickadd"){
 		$info=$_POST['info'];
-		$data=array(
-			'uname'=>$info['uname'],
-			'cphone'=>$info['cphone'],
-			'cusname'=>$info['cusname'],
-			'ctype'=>$info['ctype'], 
-		);
-		if($db->add('crm_customer',$data)){
-			$url="{$conf['log_out']}/controller/system/yhgl.php";
-			$content="添加成功";
-			include template("jump");
+		$info['inputtime']=time();
+		if($db->add('crm_customer',$info)){
+				$url="{$conf['log_out']}/controller/system/yhgl.php";
+				$content="添加成功";
+				include template("jump");
 		}else{
-			$url="{$conf['log_out']}/controller/system/cl_yhgl.php";
-			$content="添加失败";
-			include template("jump");
-		}	
+				$url="{$conf['log_out']}/controller/system/cl_yhgl.php";
+				$content="添加失败";
+				include template("jump");
+		}
+		
+		
 	}
 	
 	if($file == "hqkh"){
