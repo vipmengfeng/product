@@ -19,7 +19,7 @@
 		include template('yhgl_xiugai','system');
 	}
 	
-	if($_GET['file'] === 'info'){
+	if($_GET['file'] == 'info'){
 		$ids=$_GET['id'];
 		$sql="select * from ".$table_pre."user where id=".$ids;
 		$r=$db->get_one($sql);
