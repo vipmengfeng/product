@@ -95,17 +95,19 @@
 	}
 	
 	if($file == "quickadd"){
-		$info=$_POST['info'];
+		$info=array(
+			'cusname'=>$_POST['cusname'],
+			'cphone'=>$_POST['cphone'],
+			'connecter'=>$_POST['connecter'],
+			'ctype'=>$_POST['ctype'],
+			'uid'=>$_POST['uid']
+		);
 		$info['inputtime']=time();
 		if($db->add('crm_customer',$info)){
 		logs("add","customer",$info['cusname']);
-				$url="{$conf['log_out']}/controller/system/ghkh.php";
-				$content="添加成功";
-				include template("jump");
+				echo 1;
 		}else{
-				$url="{$conf['log_out']}/controller/system/cl_yhgl.php?file=add";
-				$content="添加失败";
-				include template("jump");
+				echo 0;
 		}
 		
 		
