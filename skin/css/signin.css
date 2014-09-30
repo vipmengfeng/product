@@ -38,3 +38,5 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+.logo{ margin-top:15px; float:left;}
+.center small{ margin-top:15px; margin-left:20px; line-height:15px; font-weight:100; padding:3px 10px;}

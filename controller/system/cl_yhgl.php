@@ -2,6 +2,7 @@
 	require '../../ini.php';
 	require ROOT_DIR.'/check.php';
 	require '../left.php';
+	require ROOT_DIR.'/caches/caches_common/role.php';
      $priv=admin_priv("yhgl");
 	if(!in_array($priv,$first_priv) && !in_array($priv,$next_priv)){
 		$url="{$conf['log_out']}/controller/system/index.php";
@@ -26,11 +27,12 @@
 	}
 	
 	if($_GET['file'] == 'info'){
+			
 		$ids=$_GET['id'];
 		$userid=$_SESSION['usernameid'];
 		$sql="select * from ".$table_pre."user where id=".$ids;
 		$r=$db->get_one($sql);
-		$sql1="SELECT * FROM crm_logs where userid=$userid";
+		$sql1="SELECT * FROM crm_logs where userid=$ids";
 		$logs=$db->get_all($sql1);
 		$log=back($logs);
 		include template('yhgl_info','system');
@@ -40,6 +42,7 @@
 		$info=$_POST['info'];
 		$info['username']=trim($info['username']);
 		$info['userpwd']=md5($info['userpwd']);
+		$info['inputtime']=time();
 		if($db->add('crm_user',$info)){
 			logs("add","member",$info['username']);
 			$url="{$conf['log_out']}/controller/system/yhgl.php";

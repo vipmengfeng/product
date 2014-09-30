@@ -47,75 +47,7 @@
 
 						<!-- BEGIN STYLE CUSTOMIZER -->
 
-						<div class="color-panel hidden-phone">
-
-							<div class="color-mode-icons icon-color"></div>
-
-							<div class="color-mode-icons icon-color-close"></div>
-
-							<div class="color-mode">
-
-								 <label>
-
-									<span>Layout</span>
-
-									<select class="layout-option m-wrap small">
-
-										<option value="fluid" selected>Fluid</option>
-
-										<option value="boxed">Boxed</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Header</span>
-
-									<select class="header-option m-wrap small">
-
-										<option value="fixed" selected>Fixed</option>
-
-										<option value="default">Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Sidebar</span>
-
-									<select class="sidebar-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Footer</span>
-
-									<select class="footer-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-							</div>
-
-						</div>
-
-						<!-- END BEGIN STYLE CUSTOMIZER -->    
+					
 
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 
@@ -131,7 +63,7 @@
 
 								<i class="icon-home"></i>
 
-								<a href="#">客户中心</a> 
+								<a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> 
 
 								<i class="icon-angle-right"></i>
 
@@ -139,13 +71,13 @@
 
 							<li>
 
-								<a href="{$conf['log_out']}/controller/system/ghkh.php">公海客户</a>
+								<a href="{$conf['log_out']}/controller/system/ghkh.php?page={$_GET['page']}">公海客户</a>
 
 								<i class="icon-angle-right"></i>
 
 							</li>
 
-							<li><a href="#">客户信息</a></li>
+							<li><a href="">客户信息</a></li>
 
 						</ul>
 

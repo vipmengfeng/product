@@ -1,0 +1,1 @@
+<?php $role=array('1'=>array('roleid'=>'1','rolename'=>'经理','first_priv'=>'1,2,3,4,5,14','next_priv'=>'6,7,8,15,16','instruct'=>'我爱管谁管谁'),'2'=>array('roleid'=>'2','rolename'=>'销售','first_priv'=>'1,2,3,4,5','next_priv'=>'7','instruct'=>'我默默的拿起了电话'),'4'=>array('roleid'=>'4','rolename'=>'dsfsad','first_priv'=>'14','next_priv'=>'','instruct'=>'sdafsdaf')) ?>

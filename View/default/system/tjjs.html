@@ -57,18 +57,8 @@
 						</h3>
 
 						<ul class="breadcrumb">
-
-							<li>
-
-								<i class="icon-home"></i>
-
-								<a href="#">角色管理</a> 
-
-								<i class="icon-angle-right"></i>
-
-							</li>
-
-							<li><a href="#">添加角色</a></li>
+   <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li>  <li> <a href="{$conf[log_out]}/controller/system/{if $_GET['id']}ckjs.php{else}tjjs.php{/if}">查看角色</a> <i class="icon-angle-right"></i>
+            <li> <a href="">{if $_GET['id']}修改角色信息{else}添加角色{/if}</a> <i class="icon-angle-right"></i> </li>
 							<!-- BEGIN 日期-->
 							<li class="pull-right no-text-shadow">
 

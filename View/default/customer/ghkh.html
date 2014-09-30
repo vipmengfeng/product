@@ -48,77 +48,6 @@
 
 					<div class="span12">
 
-						<!-- BEGIN STYLE CUSTOMIZER -->
-
-						<div class="color-panel hidden-phone">
-
-							<div class="color-mode-icons icon-color"></div>
-
-							<div class="color-mode-icons icon-color-close"></div>
-
-							<div class="color-mode">
-
-								 <label>
-
-									<span>Layout</span>
-
-									<select class="layout-option m-wrap small">
-
-										<option value="fluid" selected>Fluid</option>
-
-										<option value="boxed">Boxed</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Header</span>
-
-									<select class="header-option m-wrap small">
-
-										<option value="fixed" selected>Fixed</option>
-
-										<option value="default">Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Sidebar</span>
-
-									<select class="sidebar-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Footer</span>
-
-									<select class="footer-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-							</div>
-
-						</div>
-
-						<!-- END BEGIN STYLE CUSTOMIZER -->  
 
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 
@@ -130,26 +59,8 @@
 
 						<ul class="breadcrumb">
 
-							<li>
-
-								<i class="icon-home"></i>
-
-								<a href="{$conf['log_out']}/controller/system/ghkh.php">客户中心</a> 
-
-								<i class="icon-angle-right"></i>
-
-							</li>
-
-							<li>
-
-								<a href="#">公海客户</a>
-
-								<i class="icon-angle-right"></i>
-
-							</li>
-
-						
-
+							<li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li>
+            <li> <a href="#">公海客户</a> <i class="icon-angle-right"></i> </li>
 						</ul>
 
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -209,10 +120,10 @@
 
 											<th class="hidden-480">联系方式</th>
 
-											<th class="hidden-480">公司介绍</th>
+										
 											
 											<th class="hidden-480">添加时间</th>
-
+											<th class="hidden-480">操作</th>
 										
 										</tr>
 
@@ -233,10 +144,13 @@
 
 											<td class="hidden-480">{$v['cphone']}</td>
 
-											<td class="hidden-480">{$v['cusinfo']}</td>
-
-											<td class="hidden-480">{$v['inputtime']}</td>
 											
+
+											<td class="hidden-480">{date("Y-m-d H:i:s",$v['inputtime'])}</td>
+											<td class="hidden-480">
+											<a class="btn mini green" href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=hqkh&cusid={$v['cusid']}">获取</a>
+											<a class="btn mini blue" href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}&page={$_GET['page']}">查看详细</a>
+											</td>
 										
 										</tr>
 										{/loop}
