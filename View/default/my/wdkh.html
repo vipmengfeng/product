@@ -46,79 +46,7 @@
 
 					<div class="span12">
 
-						<!-- BEGIN STYLE CUSTOMIZER -->
 
-						<div class="color-panel hidden-phone">
-
-							<div class="color-mode-icons icon-color"></div>
-
-							<div class="color-mode-icons icon-color-close"></div>
-
-							<div class="color-mode">
-
-								 
-
-								<label>
-
-									<span>Layout</span>
-
-									<select class="layout-option m-wrap small">
-
-										<option value="fluid" selected>Fluid</option>
-
-										<option value="boxed">Boxed</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Header</span>
-
-									<select class="header-option m-wrap small">
-
-										<option value="fixed" selected>Fixed</option>
-
-										<option value="default">Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Sidebar</span>
-
-									<select class="sidebar-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Footer</span>
-
-									<select class="footer-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-							</div>
-
-						</div>
-
-						<!-- END BEGIN STYLE CUSTOMIZER -->  
 
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 
@@ -130,27 +58,9 @@
 
 						<ul class="breadcrumb">
 
-							<li>
-
-								<i class="icon-home"></i>
-
-								<a href="{$conf['log_out']}/controller/system/my.php">客户中心</a> 
-
-								<i class="icon-angle-right"></i>
-
-							</li>
-
-							<li>
-
-								<a href="#">客户信息</a>
-
-								<i class="icon-angle-right"></i>
-
-							</li>
-
-							
-
-						</ul>
+						   <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li>
+            <li> <a href="#">我的客户</a> <i class="icon-angle-right"></i> </li>
+												</ul>
 
 						<!-- END PAGE TITLE & BREADCRUMB-->
 
@@ -176,9 +86,9 @@
 
 								<div class="tools">
 
-									<a href="javascript:;" class="reload"></a>
+									<a href="javascript:;" class="collapse"></a>
 
-									<a href="javascript:;" class="remove"></a>
+
 
 								</div>
 
@@ -190,10 +100,10 @@
                                 <form id="myform" name="myform" action="{$conf['log_out']}/controller/system/my.php" method="post">
                                     <select class="span2 m-wrap" data-placeholder="Choose a Category" id="sel" name="hide" onchange="sel(this)" tabindex="1">
                                     
-                                        <option value="">---跟进状态---</option>
-                                        <option value="">全部</option>
+                                        <option value="status" {if $select == "status"}selected{/if}>---跟进状态---</option>
+                                        <option value="" {if $select == ""}selected{/if}>全部</option>
                                     	{loop $status $k $val}
-                                        <option value="{$k}" {if $select == $k}selected{/if}>{$val}</option>
+                                        <option value="{$k}" {if $select == $k && $select != "" && $select != "status"}selected{/if}>{$val}</option>
                                     	{/loop}
                                     
                                     </select>
@@ -226,7 +136,7 @@
 											<th class="hidden-480">联系方式</th>
 
 											<th class="hidden-480">公司介绍</th>
-
+                                             <th class="hidden-480">跟进状态</th>
 											<th class="hidden-480">操作</th>
 
 										</tr>
@@ -244,8 +154,8 @@
 											<td class="hidden-480">{$v['cphone']}</td>
 
 											<td class="hidden-480">{$v['cusinfo']}</td>
-
-											<td class="hidden-480"><a href="{$conf['log_out']}/controller/system/cl_my.php?file=fangqi&id={$v['cusid']}&name={$v['cusname']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id={$v[cusid]}" onclick="subform(mod)" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id={$v[cusid]}" onclick="subform(log)" class="btn mini yellow">跟进记录</a>
+                                             <td class="hidden-480">{$status[$v['ctype']]}</td>
+											<td class="hidden-480"><a href="{$conf['log_out']}/controller/system/cl_my.php?file=fangqi&id={$v['cusid']}&name={$v['cusname']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(mod)" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(log)" class="btn mini yellow">跟进记录</a>
 											</td>
 
 										</tr>

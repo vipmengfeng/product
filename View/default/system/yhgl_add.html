@@ -46,9 +46,9 @@
           
           <h3 class="page-title">用户管理 </h3>
           <ul class="breadcrumb">
-            <li> <i class="icon-home"></i> <a href="{$conf['log_out']}/controller/system/yhgl.php">员工中心</a> <i class="icon-angle-right"></i> </li>
-            <li> <a href="#">添加用户</a> <i class="icon-angle-right"></i> </li>
-            
+             <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li>  <li> <a href="javascript:void(0)">系统管理</a> <i class="icon-angle-right"></i></li>
+            <li> <a href="{$conf[log_out]}/controller/system/yhgl.php">用户管理</a> <i class="icon-angle-right"></i> </li>
+			 <li> <a href="">添加新用户</a> <i class="icon-angle-right"></i> </li>
           </ul>
           
           <!-- END PAGE TITLE & BREADCRUMB--> 
@@ -105,6 +105,18 @@
                   <div class="controls">
                     <input type="text" class="span6 m-wrap" name="info[phone]" onblur="checktel()" id="phone" />
                       <span class="help-inline" id="mesphone"></span>
+                   </div>
+                </div>
+				<div class="control-group">
+                  <label class="control-label">选择角色</label>
+                  <div class="controls">
+				  <select name="info[role]">
+				  {loop $role $rok $ro}
+				  <option value="{$ro['roleid']}" {if $ro['roleid'] == "2"}selected{/if}>{$ro['rolename']}</option>				  
+				  {/loop}
+				  </select>
+                   
+                      <span class="help-inline" >选择用户的角色信息</span>
                    </div>
                 </div>
                  <div class="control-group">

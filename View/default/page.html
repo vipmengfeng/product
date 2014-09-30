@@ -13,7 +13,12 @@
 	<a title="2" href="?page=1">首页</a>
 	<a title="2" href="?page={$front}">上一页</a>
 	{loop $count $v}
-	<a title="2" href="?page={$v}">{$v}</a>
+	{if $page == $v}<span class="current" title="{$v}">{$v}</span>
+	{else}
+	<a title="$v" href="?page={$v}"  class="current">{$v}</a>
+	{/if}
+	
+	
 	{/loop}
 	
 	<a title="2" href="?page={$next}">下一页</a>

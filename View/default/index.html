@@ -35,8 +35,13 @@
   </head>
 
   <body>
-
-    <div class="container">
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="container" >
+		<div class="center"><div class="logo"><img src="{$conf['image']}/logo.png"></div><small class="pull-left badge" >客户管理系统</small></div>
+            
+     </div>
+</div>
+    <div class="container" style="margin-top:50px;">
 
       <form class="form-signin" role="form" method="post" action="{$conf['log_out']}/login.php" name="myform" >
         <h2 class="form-signin-heading"><DIV style=" float:right;"><img src="{$conf['image']}/Preloader_2.gif"></DIV>登录 LOGIN</h2>
@@ -45,7 +50,7 @@
          <!--[if 成功]> <div class="form-group has-success has-feedback">-->
          <!--[if 失败]> <div class="form-group has-error has-feedback">-->
         <label class="control-label sr-only" for="username">Hidden label</label>
-        <input type="text" class="form-control" id="username2" name="username2" required>
+        <input type="text" class="form-control" value="{$_COOKIE['mxname']}" id="username2" name="username2" required >
          <!--[if 成功]>
         <span class="glyphicon glyphicon-ok form-control-feedback"></span>
         -->
@@ -65,7 +70,7 @@
         <span class="glyphicon glyphicon-ok form-control-feedback"></span>
         -->
         <label class="checkbox">
-          <input type="checkbox" value="remember-me" name="remember"> 记住密码
+          <input type="checkbox" value="remember" name="remember" checked> 记住账号
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="button" onClick="t1()">确认登录</button>
         
