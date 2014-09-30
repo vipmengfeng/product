@@ -13,7 +13,7 @@
 		<!-- BEGIN 内容页 -->
 
 		<div class="page-content">
-
+ 
 			<!-- BEGIN 内容页容器-->
 
 			<div class="container-fluid">
@@ -65,7 +65,7 @@
 						</ul>
 
 						<!-- END 网页的标题和面包屑-->
-                        
+                        {template "tishi"}
                         <!-- END 主要内容-->
 						<div class="row-fluid">
                         
@@ -92,7 +92,7 @@
                                 
                                 <!-- BEGIN FORM-->
                                 
-                                <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=quickadd" method="post" class="form-horizontal">
+                                <form action="" method="post" id="myform" class="form-horizontal">
                                 
                                 <div class="control-group">
                                 
@@ -100,7 +100,7 @@
                                 
                                     <div class="controls">
                                 
-                                        <input type="text" class="span6 m-wrap" name="info[cusname]" />
+                                        <input type="text" class="span6 m-wrap" id="cusname" name="info[cusname]" />
                                 
                                         <span class="help-inline">必填</span>
                                 
@@ -127,21 +127,21 @@
                                 
                                     <div class="controls">
                                 
-                                        <input type="text" class="span6 m-wrap" name="info[connecter]" />
+                                        <input type="text" class="span6 m-wrap" id="connecter" name="info[connecter]" />
                                 
-                                        <span class="help-inline">选填</span>
+                                        <span class="help-inline">必填</span>
                                 
                                     </div>
                                 
                                 </div>
-                                
+                               
                                 <div class="control-group">
                                 
                                 <label class="control-label">客户类型</label>
                                 
                                 <div class="controls">
                                 
-                                <select class="span6 m-wrap" name="info[ctype]" data-placeholder="Choose a Category" tabindex="1">
+                                <select class="span6 m-wrap" name="info[ctype]" id="ctype" data-placeholder="Choose a Category" tabindex="1">
                                 
                                 <option value="">--类型分类选择--</option>
                                 
@@ -164,7 +164,7 @@
                                 
                                 <label class="checkbox">
                                 
-                                <input type="checkbox" name="info[uid]" value="{$_SESSION['usernameid']}" /> 添加并获取
+                                <input type="checkbox" name="info[uid]" id="uid" value="{$_SESSION['usernameid']}" /> 添加并获取
                                 
                                 </label>
                                 
@@ -175,7 +175,7 @@
                                 
                                 <div class="form-actions">
                                 
-                                    <button type="submit" class="btn blue">确认添加</button>
+                                    <button type="button" class="btn blue" id="button" onclick="sub()">确认添加</button>
                                 
                                     <button type="reset" class="btn">重置</button>                            
                                 
@@ -1487,9 +1487,10 @@
 											<div class="tab-pane" id="tab_1_3">
 
 												<div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
-
+												{loop $res $k $v}
 													<div class="row-fluid">
-
+													
+														
 														<div class="span6 user-info">
 
 															<img alt="" src="{$conf['image']}/avatar.png" />
@@ -1498,17 +1499,18 @@
 
 																<div>
 
-																	<a href="#">Robert Nilson</a> 
+																	<a href="#">{$v['cusname']}</a> 
 
-																	<span class="label label-success">Approved</span>
+																	<span class="label label-success">{$v['connecter']}</span>
 
 																</div>
 
-																<div>29 Jan 2013 10:45AM</div>
+																<div>{date('Y-m-d H:i:s',$v['inputtime'])}</div>
 
 															</div>
 
 														</div>
+														
 
 														<div class="span6 user-info">
 
@@ -1531,218 +1533,16 @@
 														</div>
 
 													</div>
+											{/loop}
+													
 
-													<div class="row-fluid">
+													
 
-														<div class="span6 user-info">
+													
 
-															<img alt="" src="{$conf['image']}/avatar.png" />
+													
 
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Eric Kim</a> 
-
-																	<span class="label label-info">Pending</span>
-
-																</div>
-
-																<div>19 Jan 2013 12:45PM</div>
-
-															</div>
-
-														</div>
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Lisa Miller</a> 
-
-																	<span class="label label-important">In progress</span>
-
-																</div>
-
-																<div>19 Jan 2013 11:55PM</div>
-
-															</div>
-
-														</div>
-
-													</div>
-
-													<div class="row-fluid">
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Eric Kim</a> 
-
-																	<span class="label label-info">Pending</span>
-
-																</div>
-
-																<div>19 Jan 2013 12:45PM</div>
-
-															</div>
-
-														</div>
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Lisa Miller</a> 
-
-																	<span class="label label-important">In progress</span>
-
-																</div>
-
-																<div>19 Jan 2013 11:55PM</div>
-
-															</div>
-
-														</div>
-
-													</div>
-
-													<div class="row-fluid">
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div><a href="#">Eric Kim</a> <span class="label label-info">Pending</span>
-
-																</div>
-
-																<div>19 Jan 2013 12:45PM</div>
-
-															</div>
-
-														</div>
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Lisa Miller</a> 
-
-																	<span class="label label-important">In progress</span>
-
-																</div>
-
-																<div>19 Jan 2013 11:55PM</div>
-
-															</div>
-
-														</div>
-
-													</div>
-
-													<div class="row-fluid">
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div><a href="#">Eric Kim</a> <span class="label label-info">Pending</span>
-
-																</div>
-
-																<div>19 Jan 2013 12:45PM</div>
-
-															</div>
-
-														</div>
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Lisa Miller</a> 
-
-																	<span class="label label-important">In progress</span>
-
-																</div>
-
-																<div>19 Jan 2013 11:55PM</div>
-
-															</div>
-
-														</div>
-
-													</div>
-
-													<div class="row-fluid">
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Eric Kim</a> 
-
-																	<span class="label label-info">Pending</span>
-
-																</div>
-
-																<div>19 Jan 2013 12:45PM</div>
-
-															</div>
-
-														</div>
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Lisa Miller</a> 
-
-																	<span class="label label-important">In progress</span>
-
-																</div>
-
-																<div>19 Jan 2013 11:55PM</div>
-
-															</div>
-
-														</div>
-
-													</div>
+													
 
 												</div>
 
@@ -1793,8 +1593,35 @@
 	</div>
 
 	<!-- END 容器 -->
-<script type="text/javascript" src="{$conf['js']}/register.js"></script>
+<script type="text/javascript" src="{$conf['js']}/register.js">
+	
+</script>
 
+<script type="text/javascript">
+	function sub(){
+		 var cusname=$("#cusname").val();
+		 var phone=$("#phone").val();
+		 var connecter=$("#connecter").val();
+		 var ctype=$("#ctype").val();
+		 var uid=$("#uid").val();
+		 $.post("{$conf['log_out']}/controller/system/cl_ghkh.php?file=quickadd",{cusname:cusname,cphone:phone,connecter:connecter,ctype:ctype,uid:uid},function(data){
+			 if(data == 1){
+				 $("#myModal").show();
+				 if(post.readyState == 4) {
+				    $("#content").append("添加成功");
+				 }
+				 $(':input','#myform')  
+				 .not(':button, :submit, :reset, :hidden')  
+				 .val('')  
+				 .removeAttr('checked') 
+				 .removeAttr('selected');
+				 
+			 }else{
+				 alert(456);
+			 }
+		 })
+	}
+</script>
 	<!-- BEGIN 底部 -->
 
 {template "footer"}
