@@ -28,7 +28,7 @@
         
       </li>
 
-	  {loop $menu  $k $v}
+	  {loop $menus  $k $v}
 {if $v['href'] != ""}
 				<li class="start"onclick="next(this)" >
 				<a href="{$conf['log_out']}/controller/system/{$v[href]}">
