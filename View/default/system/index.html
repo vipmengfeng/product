@@ -1596,29 +1596,49 @@
 </script>
 
 <script type="text/javascript">
-	function sub(){
-		 var cusname=$("#cusname").val();
-		 var phone=$("#phone").val();
-		 var connecter=$("#connecter").val();
-		 var ctype=$("#ctype").val();
-		 var uid=$("#uid").val();
-		 $.post("{$conf['log_out']}/controller/system/cl_ghkh.php?file=quickadd",{cusname:cusname,cphone:phone,connecter:connecter,ctype:ctype,uid:uid},function(data){
-			 if(data == 1){
-				 $("#myModal").show();
-				 if(post.readyState == 4) {
-				    $("#content").append("添加成功");
-				 }
-				 $(':input','#myform')  
-				 .not(':button, :submit, :reset, :hidden')  
-				 .val('')  
-				 .removeAttr('checked') 
-				 .removeAttr('selected');
+	
+	
+	
+		function sub(){
+			
+	    	var cusname=$("#cusname").val();
+			 var phone=$("#phone").val();
+			 var connecter=$("#connecter").val();
+			 var ctype=$("#ctype").val();
+			 var uid=$("#uid").val();
+			 $mes=$("#mesphone").text();
+			 if($mes != "√"){
 				 
 			 }else{
-				 alert(456);
+	         $.ajax({
+	             type: "POST",
+	             url: "{$conf['log_out']}/controller/system/cl_ghkh.php?file=quickadd",
+	             data: {cusname:cusname,cphone:phone,connecter:connecter,ctype:ctype,uid:uid},
+	             dataType: "text",
+	             success: function(data){
+	            	 if(data == 1){
+	            		 $("#myModal").show();
+						 $("#content").append("添加成功");
+						 $("#mesphone").empty();
+						 $("#mesphone").append("必填");
+						 $(':input','#myform')  
+						 .not(':button, :submit, :reset, :hidden')  
+						 .val('')  
+						 .removeAttr('checked') 
+						 .removeAttr('selected');
+						 
+	            	 }
+	             },
+	             error:function(){
+	            	 $("#content").empty();
+	            	 $("#content").append("添加成功");
+	             }
+	            
+	            
+	         });
 			 }
-		 })
-	}
+		}
+
 </script>
 	<!-- BEGIN 底部 -->
 

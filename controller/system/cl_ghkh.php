@@ -105,9 +105,9 @@
 		$info['inputtime']=time();
 		if($db->add('crm_customer',$info)){
 		logs("add","customer",$info['cusname']);
-				echo 1;
+				echo (1);
 		}else{
-				echo 0;
+				echo (0);
 		}
 		
 		
