@@ -76,25 +76,25 @@
                 <div class="btn-group"> <a href="#" onclick="subform()"  class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
                
               </div>
-           <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=myform" method="post" id="myform" name="myform">
+            <form action="{$conf['log_out']}/controller/system/tzgl.php?file=myform" method="post" id="myform" name="myform">
               <table class="table table-striped table-bordered table-hover" id="sample_1">
                 <thead>
                   <tr>
                     <th width="20" style="width:8px;"><input type="checkbox" onclick="checkall(this)" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
-                    <th width="152" >用户名</th>
+                    <th width="152" >发通知者</th>
                     <th width="131" class="hidden-480">通知时间</th>
                     <th width="155" class="hidden-480">通知内容</th>
                     <th width="132" >操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                {loop $res $k $v}
+                {loop $query $k $v}
                   <tr class="odd gradeX">
                     <td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['id']}" /></td>
-                    <td>{$v['username']}</td>
-                    <td class="hidden-480">{$v['realname']}</td>
-                    <td class="center hidden-480">{$v['phone']}</td>
-                    <td ><a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=info&id={$v['id']}" class="btn mini green">详细</a></td> 
+                    <td>{$v['name']}</td>
+                    <td class="hidden-480">{date("Y-m-d H:i:s",$v['inputtime'])}</td>
+                    <td class="center hidden-480">{$v['content']}</td>
+                    <td ><a href="{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id={$v['id']}" class="btn mini green">详细</a></td> 
                   </tr>
                  {/loop}
                  

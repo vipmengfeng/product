@@ -46,9 +46,8 @@
           
           <h3 class="page-title">通知管理 </h3>
           <ul class="breadcrumb">
-             <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/tzgl.php">通知中心</a> <i class="icon-angle-right"></i> </li>  <li> <a href="javascript:void(0)">系统管理</a> <i class="icon-angle-right"></i></li>
-            <li> <a href="{$conf[log_out]}/controller/system/tzgl.php">通知管理</a> <i class="icon-angle-right"></i> </li>
-			 <li> <a href="">添加新通知</a> <i class="icon-angle-right"></i> </li>
+             <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/tzgl.php">通知中心</a> <i class="icon-angle-right"></i> </li>  
+			 <li> <a href="">{if $_GET['action']=='mod'}修改通知{elseif $_GET['action']=='info'}通知详细{else}添加新通知{/if}</a></li>
           </ul>
           
           <!-- END PAGE TITLE & BREADCRUMB--> 
@@ -67,72 +66,34 @@
           
           <div class="portlet box blue">
             <div class="portlet-title">
-              <div class="caption"><i class="icon-plus"></i>添加通知</div>
+               <div class="caption"><i class="icon-plus"></i>{if $_GET['action']=='mod'}修改通知{elseif $_GET['action']=='info'}通知详细{else}添加新通知{/if}</div>
               <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="reload"></a> </div>
             </div>
             <div class="portlet-body form"> 
               
               <!-- BEGIN FORM-->
               
-              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal" onsubmit="return checkalls()">
+             <form action="{$conf['log_out']}/controller/system/tzgl.php?file=addtz&action={$action}&id={$id}" method="post" class="form-horizontal" onsubmit="return checkalls()">
                 <div class="control-group">
-                  <label class="control-label">真实姓名</label>
+                  <label class="control-label">发通知者</label>
                   <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[realname]" />
+                    <input type="text" class="span6 m-wrap" name="info[name]" value="{$query['name']}" />
                     <span class="help-inline">请根据实情填写</span> </div>
                 </div>
+                
                 <div class="control-group">
-                  <label class="control-label">用户名</label>
+                  <label class="control-label">通知内容</label>
                   <div class="controls">
-                    <input class="span6 m-wrap" type="text" name="info[username]" id="username" onblur="checkname()"/>
-                    <span class="help-inline" id="mesname">公司分配不可修改</span> </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">密码</label>
-                  <div class="controls">
-                    <input type="password" class="span6 m-wrap" name="info[userpwd]" id="password" onblur="checkpwd()" />
-                    <span class="help-inline" id="mespassword"></span> </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">确认密码</label>
-                  <div class="controls">
-                    <input type="password" class="span6 m-wrap" onblur="checkrpwd()" id="rpassword"  />
-                    <span class="help-inline" id="mesrpassword"></span> 
-                  </div>
-                </div>
-               <div class="control-group">
-                  <label class="control-label">联系方式</label>
-                  <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[phone]" onblur="checktel()" id="phone" />
-                      <span class="help-inline" id="mesphone"></span>
+                    <textarea class="span6 m-wrap" name="info[content]" rows="3" value="">{$query['content']}</textarea>
                    </div>
                 </div>
-				<div class="control-group">
-                  <label class="control-label">选择角色</label>
-                  <div class="controls">
-				  <select name="info[role]">
-				  {loop $role $rok $ro}
-				  <option value="{$ro['roleid']}" {if $ro['roleid'] == "2"}selected{/if}>{$ro['rolename']}</option>				  
-				  {/loop}
-				  </select>
-                   
-                      <span class="help-inline" >选择用户的角色信息</span>
-                   </div>
-                </div>
-                 <div class="control-group">
-                      <label class="control-label">分配的邮箱</label>
-                      <div class="controls">
-                      	<div class="input-icon left">
-                      	<i class="icon-envelope"></i>
-                      	<input class="m-wrap " type="text" placeholder="企业邮箱" name="info[email]" onblur="checkemail()" id="email" />
-                      	   <span class="help-inline" id="mesemail"></span>    
-                         </div>
-                      </div>
-                 </div>
+               
+               {if $_GET['action']=='' || $_GET['action']=='mod'}
                 <div class="form-actions">
-                  <button type="submit" class="btn blue">确认添加</button>
-                  <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消添加</button>
+                  <button type="submit" class="btn blue">确认</button>
+                  <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消</button>
                 </div>
+                {/if}
               </form>
               
               <!-- END FORM--> 
