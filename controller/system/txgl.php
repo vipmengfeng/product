@@ -46,11 +46,10 @@
 		}
 	     echo json_encode($con);
 		}else{
-			echo "nothing";
+			echo json_encode("nothing");
 		}
-		
 		}else{
-			echo $re;
+			echo json_encode($re);
 		
 		}
 		

@@ -147,15 +147,20 @@
 		data:{id:obj.title},
 	    dataType: "json",
 		success:function(data){
-			if(data != "no"){
-				$("#tbody").empty();
-			}
+			if (data =="nothing"){
+			    $("#tbody").empty();
+			    $("#tbody").append("<tr class='odd gradeX'><td colspan='5'  text-align='center'>已经没有任何提示了</td></tr>");
+			}else if(data == "no"){
+				alert("删除失败");
+			}else{
+			 $("#tbody").empty();
 			var len=data.length;
 			var html="";
 			for(var i=0;i<len;i++){
 				html += "<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td>"+data[i].title+"</td><td class='hidden-480'>"+data[i].time+"</td><td class='center hidden-480'>"+data[i].content+"</td><td ><a href='{$conf['log_out']}/controller/system/txgl.php?file=add&action=mod&id="+data[i].id+"' class='btn mini blue'>修改</a>&nbsp<a href='{$conf['log_out']}/controller/system/txgl.php?file=add&action=show&id="+data[i].id+"' class='btn mini green'>详细</a>&nbsp<input type='button' value='删除' title="+data[i].id+" onclick='del(this)' class='btn mini red' >				</td></tr>";
 			}
 			$("#tbody").append(html);
+			}
 		}
 	})
 }
@@ -177,7 +182,7 @@
 		type:"POST",
 		url:"{$conf[log_out]}/controller/system/txgl.php?file=ajax",
 		data:{id:id},
-	    dataType: "text",
+	    dataType: "json",
 		success:function(data){
             if (data =="nothing"){
 			    $("#tbody").empty();
