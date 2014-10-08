@@ -14,9 +14,7 @@
 			echo 0;	
 		}
 	}
-	//
 	if(!empty($_POST)){ 
-		//template('index','system');
 		$username=$_POST['username2'];
 		$userpwd=md5($_POST['password2']);
 		if($_POST['remember'] == "remember"){

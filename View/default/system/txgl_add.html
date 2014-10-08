@@ -1,0 +1,256 @@
+{template 'header'} 
+
+<!-- END HEADER --> 
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container row-fluid"> 
+  
+  <!-- BEGIN SIDEBAR --> 
+  
+  {template 'left'} 
+  <!-- END SIDEBAR --> 
+  
+  <!-- BEGIN PAGE -->
+  
+  <div class="page-content"> 
+    
+    <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+    
+    <div id="portlet-config" class="modal hide">
+      <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button"></button>
+        <h3>portlet Settings</h3>
+      </div>
+      <div class="modal-body">
+        <p>Here will be a configuration form</p>
+      </div>
+    </div>
+    
+    <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM--> 
+    
+    <!-- BEGIN PAGE CONTAINER-->
+    
+    <div class="container-fluid"> 
+      
+      <!-- BEGIN PAGE HEADER-->
+      
+      <div class="row-fluid">
+        <div class="span12"> 
+          
+          <!-- BEGIN STYLE CUSTOMIZER -->
+          <!-- END BEGIN STYLE CUSTOMIZER --> 
+          
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          
+          <h3 class="page-title">提醒管理 </h3>
+          <ul class="breadcrumb">
+             <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/txgl.php">提醒中心</a> <i class="icon-angle-right"></i> </li>  
+			 <li> <a href="">{if $_GET['action']=='mod'}修改提醒{elseif $_GET['action']=='show'}提醒详细{else}添加新提醒{/if}</a></li>
+          </ul>
+          
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+          
+        </div>
+      </div>
+      
+      <!-- END PAGE HEADER--> 
+      
+      <!-- BEGIN PAGE CONTENT-->
+        {template "tishi"}
+      <div class="row-fluid">
+        <div class="span12"> 
+          
+          <!-- BEGIN SAMPLE FORM PORTLET-->
+          
+          <div class="portlet box blue">
+            <div class="portlet-title">
+               <div class="caption"><i class="icon-plus"></i>{if $_GET['action']=='mod'}修改提醒{elseif $_GET['action']=='info'}提醒详细{else}添加新提醒{/if}</div>
+              <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="reload"></a> </div>
+            </div>
+            <div class="portlet-body form"> 
+              
+              <!-- BEGIN FORM-->
+              
+             <form action=" method="post" class="form-horizontal" id="myform">
+                <div class="control-group">
+                  <label class="control-label">提醒标题</label>
+                  <div class="controls">
+				  {if $_GET['action'] == 'show'}
+				  <span class="help-inline">{$con['title']}</span>
+				  {else}
+				  <input type="text" class="span6 m-wrap" name="title" value="{$con['title']}" id="txtitle"/>
+				  {/if}
+                    </div>
+                </div>
+				
+				  {if $_GET['action'] == 'show'}
+				 <input type="hidden" value="{$con['userid']}" id="txid" name="userid"/>
+				  {else}
+				  <input type="hidden" value="{$_SESSION['usernameid']}" id="txid" name="time"/>
+				  {/if}
+               <div class="control-group">
+                  <label class="control-label">提醒时间</label>
+                  <div class="controls">
+				  {if $_GET['action'] == 'show'}
+				  <span class="help-inline">{date('Y/m/d H:i',$con['time'])}</span>
+				  {else}
+				  <input type="text" value="{date('Y/m/d H:i')}" id="datetimepicker" name="time"/>
+				  {/if}
+                    </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">提醒内容</label>
+                  <div class="controls">
+				  {if $_GET['action'] == 'show'}
+				  <span class="help-inline">{$con['content']}</span>
+				  {else}
+				  <textarea class="span6 m-wrap" name="content" rows="3" value="" id="txcontent">{$con['content']}</textarea>
+				  {/if}
+                   
+                   </div>
+                </div>
+               
+              
+                <div class="form-actions">
+				 {if $_GET['action']=='' || $_GET['action']=='mod'}
+                  <button type="button" class="btn blue" onclick="subm()">确认</button>
+                  <button type="reset" class="btn">取消</button>
+                {else}
+				<a class="btn blue" href="{$conf[log_out]}/controller/system/txgl.php?file=add&action=mod&id={$con['id']}">修改</a> 
+				<a class="btn red" href="{$conf[log_out]}/controller/system/txgl.php?file=del&id={$con['id']}">删除</a>
+				
+                {/if}
+				</div>
+				
+              </form>
+              
+              <!-- END FORM--> 
+              
+            </div>
+          </div>
+          
+          <!-- END SAMPLE FORM PORTLET--> 
+        </div>
+      </div>
+      
+      <!-- END PAGE CONTENT--> 
+      
+    </div>
+    
+    <!-- END PAGE CONTAINER--> 
+    
+  </div>
+  
+  <!-- END PAGE --> 
+  
+</div>
+<script type="text/javascript" src="{$conf['js']}/register.js"></script>
+<script>
+function subm(){
+	var title=$("#txtitle").val();
+	var time=$("#datetimepicker").val();
+	var content=$("#txcontent").val();
+	var id=$("#txid").val();
+	$.ajax({
+		type:"POST",
+		url:"{$conf[log_out]}/controller/system/txgl.php?file=addtx",
+		data:{title:title,time:time,content:content,userid:id},
+	    dataType: "text",
+		success:function(data){
+			if(data == "right"){
+				$('#myform')[0].reset(); 
+			}else{
+				alert(添加失败);
+			}
+		
+		}
+	})
+}
+$('#datetimepicker10').datetimepicker({
+	step:5,
+	inline:true
+});
+$('#datetimepicker_mask').datetimepicker({
+	mask:'9999/19/39 29:59'
+});
+$('#datetimepicker').datetimepicker();
+$('#datetimepicker').datetimepicker({value:"{date('Y/m/d H:i')}",step:10});
+$('#datetimepicker1').datetimepicker({
+	datepicker:false,
+	format:'H:i',
+	step:5
+});
+$('#datetimepicker2').datetimepicker({
+	yearOffset:222,
+	lang:'ch',
+	timepicker:false,
+	format:'d/m/Y',
+	formatDate:'Y/m/d',
+	minDate:'-1970/01/02', 
+	maxDate:'+1970/01/02'
+});
+$('#datetimepicker3').datetimepicker({
+	inline:true
+});
+$('#datetimepicker4').datetimepicker();
+$('#open').click(function(){
+	$('#datetimepicker4').datetimepicker('show');
+});
+$('#close').click(function(){
+	$('#datetimepicker4').datetimepicker('hide');
+});
+$('#reset').click(function(){
+	$('#datetimepicker4').datetimepicker('reset');
+});
+$('#datetimepicker5').datetimepicker({
+	datepicker:false,
+	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00']
+});
+$('#datetimepicker6').datetimepicker();
+$('#destroy').click(function(){
+	if( $('#datetimepicker6').data('xdsoft_datetimepicker') ){
+		$('#datetimepicker6').datetimepicker('destroy');
+		this.value = 'create';
+	}else{
+		$('#datetimepicker6').datetimepicker();
+		this.value = 'destroy';
+	}
+});
+var logic = function( currentDateTime ){
+	if( currentDateTime.getDay()==6 ){
+		this.setOptions({
+			minTime:'11:00'
+		});
+	}else
+		this.setOptions({
+			minTime:'8:00'
+		});
+};
+$('#datetimepicker7').datetimepicker({
+	onChangeDateTime:logic,
+	onShow:logic
+});
+$('#datetimepicker8').datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find('.xdsoft_date')
+			.toggleClass('xdsoft_disabled');
+	},
+	minDate:'-1970/01/2',
+	maxDate:'+1970/01/2',
+	timepicker:false
+});
+$('#datetimepicker9').datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find('.xdsoft_date.xdsoft_weekend')
+			.addClass('xdsoft_disabled');
+	},
+	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
+	timepicker:false
+});
+</script>
+<!-- END CONTAINER --> 
+
+<!-- BEGIN FOOTER --> 
+
+{template 'footer'}

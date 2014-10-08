@@ -11,7 +11,13 @@
 	}
 if(empty($_GET)){
 		$sql="SELECT * FROM crm_tz WHERE disable=1";
-		$query=$db->get_all($sql);
+	    $page=$_GET['page'] ?$_GET['page']:1;
+	    $content=page($sql,$page);
+	    $query=$content['content'];
+	    $count=$content['count'];
+	    $total=$content['total'];
+	    $front=$content['front'];
+	    $next=$content['next'];
 		include template('tzgl','system');
 	}
 	if($_GET['file'] == 'add'){

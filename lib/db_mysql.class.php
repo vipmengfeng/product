@@ -142,16 +142,18 @@ class db_mysql {
 	
 	//返回值的怎么给？
 	function del($table,$condition,$where){
-
 	if(is_array($condition)){
 		foreach($condition as $k=>$v){
-			$way .= $v.",";
-		
+			if($v != ""){
+			$way .= $v.",";	
+			}
+			
 		}
-	
-	}
 		$way = substr($way,0,-1);
 		$sql="DELETE FROM $table WHERE $where in ($way)";
+	}else{
+	    $sql="DELETE FROM $table WHERE $where in ('$condition')";
+	}
 			if($this->query($sql)){
 				return "ok";
 			}else{

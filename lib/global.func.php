@@ -1382,8 +1382,14 @@ function back($arr){
 		
 		$sel=$sql .=" LIMIT $start,$pagesize";
 		$result['content']=$db->get_all($sel);
+		if($pages == 0){
+		$result['count']=range(1,1);
+		$result['total']=1;
+		}else{
 		$result['count']=range(1,$pages);
 		$result['total']=$pages;
+		}
+		
 		
 		
 		return $result;
