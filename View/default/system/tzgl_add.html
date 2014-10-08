@@ -1,4 +1,3 @@
-
 {template 'header'} 
 
 <!-- END HEADER --> 
@@ -77,8 +76,9 @@
                 <div class="control-group">
                   <label class="control-label">发通知者</label>
                   <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[name]" value="{$query['name']}" />
-                    <span class="help-inline">请根据实情填写</span> </div>
+                    <span class="help-inline">{if $_GET['action']=='mod'  || $_GET['action']=='info'}{$query['name']}{else}{$_SESSION[username]}{/if}</span> 
+					<input type="hidden" class="span6 m-wrap" name="info[name]" value="{$_SESSION[username]}" />
+                    </div>
                 </div>
                 
                 <div class="control-group">
