@@ -44,7 +44,7 @@
           
           <h3 class="page-title"> 系统管理 </h3>
           <ul class="breadcrumb">
-           <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li>  <li> <a href="javascript:void(0)">系统管理</a> <i class="icon-angle-right"></i></li>
+           <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li> 
             <li> <a href="{$conf[log_out]}/controller/system/yhgl.php">用户管理</a> <i class="icon-angle-right"></i> </li>
 			 <li> <a href="">修改资料</a> <i class="icon-angle-right"></i> </li>
           </ul>
@@ -57,7 +57,7 @@
       <!-- END PAGE HEADER--> 
       
       <!-- BEGIN PAGE CONTENT-->
-      
+      {template "tishi"}
       <div class="row-fluid">
         <div class="span12"> 
           
@@ -66,18 +66,18 @@
           <div class="portlet box blue">
             <div class="portlet-title">
               <div class="caption"><i class="icon-pencil"></i>修改信息</div>
-              <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="reload"></a> </div>
+              <div class="tools"> <a href="javascript:;" class="collapse"></a></div>
             </div>
             <div class="portlet-body form"> 
               
               <!-- BEGIN FORM-->
-              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=moduser&id={$r['id']}" method="post" class="form-horizontal">
+              <form action="" method="post" class="form-horizontal" id="myform">
                 
                 <div class="control-group">
                   <label class="control-label">用户名</label>
                   <div class="controls">
                     <input class="span6 m-wrap" type="text" placeholder="{$r['username']}" disabled />
-                    <span class="help-inline">公司分配不可修改</span> </div>
+                    <span class="help-inline"></span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">密码</label>
@@ -89,25 +89,25 @@
                   <label class="control-label">确认密码</label>
                   <div class="controls">
                     <input type="password" class="span6 m-wrap" name="repwd" id="rpassword" onblur="checkrpwd()" />
-                    <span class="help-inline" id="mesrpassword">不得输入殊符号</span>
+                    <span class="help-inline" id="mesrpassword"></span>
                   </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">联系方式</label>
                   <div class="controls">
                     <input type="text" class="span6 m-wrap" name="phone" id="phone" value="{$r['phone']}" onblur="checktel()" />
-                    <span class="help-inline" id="mesphone">不得输入殊符号</span> </div>
+                    <span class="help-inline" id="mesphone"></span> </div>
                 </div>
-								<div class="control-group">
+				<div class="control-group">
                   <label class="control-label">选择角色</label>
                   <div class="controls">
-				  <select name="role">
+				  <select name="role" id="role">
 				  {loop $role $rok $ro}
 				  <option value="{$ro['roleid']}" {if $r[role] == $ro['roleid']}selected{/if}>{$ro['rolename']}</option>				  
 				  {/loop}
 				  </select>
                    
-                      <span class="help-inline" >选择用户的角色信息</span>
+                      <span class="help-inline" id="mesrole" >选择用户的角色信息</span>
                    </div>
                 </div>
                 <div class="control-group">
@@ -115,14 +115,14 @@
                   <div class="controls">
                     <div class="input-icon left"> <i class="icon-envelope"></i>
                       <input class="m-wrap " type="text" placeholder="企业邮箱" id="email" value="{$r['email']}" name="email" onblur="checkemail()" />
-                       <span class="help-inline" id="mesemail">不得输入殊符号</span>
+                       <span class="help-inline" id="mesemail"></span>
                     </div>
                   </div>
                 </div>
                
                 <div class="form-actions">
-                  <button type="submit" class="btn blue">保存修改</button>
-                  <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=6');" >取消修改</button>
+                  <button type="button" onclick="mod()" class="btn blue">保存修改</button>
+                  <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/yhgl.php');" >取消修改</button>
                 </div>
               </form>
               
@@ -150,5 +150,40 @@
 <!-- END CONTAINER --> 
 
 <!-- BEGIN FOOTER --> 
-
+<script type="text/javascript">
+	function mod(){
+		var userpwd=$("#password").val();
+		var phone=$("#phone").val();
+		var role=$("#role").val();
+		var email=$("#email").val();
+		 $.ajax({
+	         type: "POST",
+	         url: "{$conf['log_out']}/controller/system/cl_yhgl.php?file=moduser&id={$r['id']}",
+	         data:{userpwd:userpwd,phone:phone,role:role,email:email},
+	         dataType: "json",
+	         success: function(data){
+	        	 if(data != 0){
+	        		 $("#myModal").show();
+					 $("#content").append("修改成功");
+					 $(".help-inline").empty();
+					 $("#mespassword").append("不修改密码可不必填写");
+					 $("#mesrole").append("选择用户的角色信息");
+					 $(':input','#myform')  
+					 .not(':button, :submit, :reset, :hidden')  
+					 .val('')  
+					 .removeAttr('checked') 
+					 .removeAttr('selected');
+					 $("#phone").val(data.phone);
+					 $("#role").val(data.role);
+					 $("#email").val(data.email);
+	        	 }
+	        	
+	         },
+	         error:function(){
+	        	 $("#content").empty();
+	        	 $("#content").append("操作失败");
+	         }
+	     });
+	}
+</script>
 {template 'footer'}

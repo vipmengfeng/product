@@ -99,9 +99,10 @@ function checktel()  //检查电话号码
  if(mytelephone!="")
  {
      var reg = /^[0-9]{11}$/i;
-     if(!reg.test(mytelephone))
+     var partten = /^(\d{3,4}\-)?\d{7,8}$/i; 
+     if(!reg.test(mytelephone) && !partten.test(mytelephone))
         {
-            myDivtelephone.innerHTML="<font color='red'>只能输入11位数字！例：13595144582或08514785214</font>";
+            myDivtelephone.innerHTML="<font color='red'>您输入的号码有误</font>";
             return false;
         }
      else

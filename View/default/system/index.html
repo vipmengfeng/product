@@ -249,7 +249,8 @@
                                 </div>
                               </div>
                               <div class="col2">
-                                <div class="date">{date("Y-m-d H:i:s",$tval['inputtime'])}</div>
+                                <div style="float:right">{date("Y-m-d H:i:s",$tval['inputtime'])}</div>
+                                
                               </div>
                             </li>
                             {/loop}
@@ -783,15 +784,6 @@
 													</div>
 											{/loop}
 													
-
-													
-
-													
-
-													
-
-													
-
 												</div>
 
 											</div>
@@ -881,7 +873,7 @@
 	             },
 	             error:function(){
 	            	 $("#content").empty();
-	            	 $("#content").append("添加成功");
+	            	 $("#content").append("添加失败");
 	             }
 	            
 	            
