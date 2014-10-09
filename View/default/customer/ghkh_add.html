@@ -107,8 +107,8 @@
                             
                                             <!-- BEGIN FORM-->
                             
-                                            <form id="myform" action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}" method="post" class="form-horizontal" onsubmit="return checkalls()">
-                                            	
+                                            <form id="myform" value="form" action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}" method="post" class="form-horizontal" onsubmit="return checkalls()">
+                                            						  
                             			
                                                 <div class="control-group">
                             
@@ -212,14 +212,14 @@
                                                     {loop $call $keys $value}
 													<label >{date('Y-m-d H:i:s',$keys)}：{$value}</label>
 													{/loop}
-                                                       <input type="text" class="span6 m-wrap" name="callinfo" value="" />
+                                                       <input type="text" class="span6 m-wrap" name="callinfo" id="callinfo" value="" />
                                                     </div>
                             
                                               </div>
                                           {/if}
                                                 <div class="form-actions">
                             
-                                                    <button type="button" onclick="sub()" class="btn blue">确认</button>
+                                                    <button type="button" {if $action=='jilu'} onclick="jilu()"{else} onclick="sub()"{/if} class="btn blue">确认</button>
                             
                                                     <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');" >取消</button>                            
                             
@@ -275,10 +275,11 @@ function checkalls()  //检查所有
 		var cusinfo=$("#cusinfo").val();
 		var conditions=$("#conditions").val();
 		var ctype=$("#ctype").val();
+		var callinfo=$("#callinfo").val();
 		$.ajax({
 			type:"POST",
 			url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}",
-			data:{cusname:cusname,connecter:connecter,cphone:cphone,cusinfo:cusinfo,conditions:conditions,ctype:ctype},
+			data:{cusname:cusname,connecter:connecter,cphone:cphone,cusinfo:cusinfo,conditions:conditions,ctype:ctype,callinfo:callinfo},
 			dataType:"json",
 			success:function(data){
 				if(data == 1){
@@ -308,9 +309,15 @@ function checkalls()  //检查所有
 					 $("#cusinfo").val(data.cusinfo);
 					 $("#conditions").val(data.conditions);
 					 $("#ctype").val(data.ctype);
+					 $("#callinfo").val(data.callinfo);
 				}
 			},
 		})
 	}
+	function jilu(){
+		var val=$("#connecter").val();
+		alert(val);
+	}
+	
 </script>
 {template "footer"}

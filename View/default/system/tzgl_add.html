@@ -72,25 +72,30 @@
               
               <!-- BEGIN FORM-->
               
-             <form action="{$conf['log_out']}/controller/system/tzgl.php?file=addtz&action={$action}&id={$id}" method="post" class="form-horizontal" onsubmit="return checkalls()">
+             <form action="" method="post" class="form-horizontal" onsubmit="return checkalls()">
                 <div class="control-group">
                   <label class="control-label">发通知者</label>
                   <div class="controls">
                     <span class="help-inline">{if $_GET['action']=='mod'  || $_GET['action']=='info'}{$query['name']}{else}{$_SESSION[username]}{/if}</span> 
-					<input type="hidden" class="span6 m-wrap" name="info[name]" value="{$_SESSION[username]}" />
+					<input type="hidden" class="span6 m-wrap" name="name" id="name" value="{$_SESSION[username]}" />
                     </div>
                 </div>
-                
+                <div class="control-group">
+                  <label class="control-label">通知标题</label>
+                  <div class="controls">
+                    <input type="text" class="span6 m-wrap" id="title" value="{$query['title']}" />
+                   </div>
+                </div>
                 <div class="control-group">
                   <label class="control-label">通知内容</label>
                   <div class="controls">
-                    <textarea class="span6 m-wrap" name="info[content]" rows="3" value="">{$query['content']}</textarea>
+                    <textarea class="span6 m-wrap" name="content" rows="3" id="content">{$query['content']}</textarea>
                    </div>
                 </div>
                
                {if $_GET['action']=='' || $_GET['action']=='mod'}
                 <div class="form-actions">
-                  <button type="submit" class="btn blue">确认</button>
+                  <button type="button" onclick="sub()" class="btn blue">确认</button>
                   <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消</button>
                 </div>
                 {/if}
@@ -116,8 +121,9 @@
   <!-- END PAGE --> 
   
 </div>
-<script type="text/javascript" src="{$conf['js']}/register.js">
-function checkalls()  //检查所有
+<script type="text/javascript" src="{$conf['js']}/register.js"></script>
+<script type="text/javascript">
+function checkalls()
 {
     if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail())
     {
@@ -125,7 +131,21 @@ function checkalls()  //检查所有
     }
     return false;
 }
- 
+function sub(){
+	var title=$("#title").val();
+	var content=$("#content").val();
+	alert(title);
+	alert(content);
+	/*$.ajax({
+		type:"POST",
+		url:"{$conf['log_out']}/controller/system/tzgl.php?file=addtz&action={$action}&id={$id}",
+		data:{content:content},
+		dataType:"text",
+		success:function(data){
+			alert(data);
+		}
+	})*/
+}
 </script>
 <!-- END CONTAINER --> 
 

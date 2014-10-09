@@ -27,11 +27,13 @@
 	}
 	
 	if($_GET['file'] == 'addcus'){
+		echo 558;die;
 		if($_GET['action'] == 'xiugai'){
 			$info=$_POST;
 			$info['changetime']=time();
 			$cusid=$_GET['id'];
-			if($db->update(" where cusid=$cusid",'crm_customer',$info)){
+			$result=$db->update(" where cusid=$cusid",'crm_customer',$info);
+			if($result == 'right'){
 			    logs("update","customer",$cusid);
 				$sql="SELECT * FROM crm_customer WHERE cusid=$cusid";
 				$res=$db->get_one($sql);
@@ -40,7 +42,8 @@
 				echo 0;
 			}
 		}else if($_GET['action'] == 'jilu'){
-			$info=$_POST['info'];
+			echo 5522;die;
+			$info=$_POST;
 			$time=time();
 			$call=$_POST['callinfo'];
 			$cusid=$_GET['id'];
@@ -58,7 +61,8 @@
 				);
 				$info['callinfo']=serialize($callinfo);
 			}
-			if($db->update(" WHERE cusid=$cusid",'crm_customer',$info)){
+			$result=$db->update(" WHERE cusid=$cusid",'crm_customer',$info);
+			if($result == 'right'){
 				logs("update","phone",$cusid);
 				$url="{$conf['log_out']}/controller/system/my.php";
 				$content="添加成功";
@@ -71,7 +75,8 @@
 		}else{
 			$info=$_POST;
 			$info['inputtime']=time();
-			if($db->add('crm_customer',$info)){
+			$result=$db->add('crm_customer',$info);
+			if($result == 'right'){
 			logs("add","customer",$info['cusname']);
 				$url="{$conf['log_out']}/controller/system/ghkh.php";
 				echo 1;
@@ -110,18 +115,37 @@
 	
 	if($file == "hqkh"){
 		$uid=$_SESSION['usernameid'];
-		$cusid=$_GET['cusid'];
+		$cusid=$_POST['id'];
+		$page=$_GET['page'];
+		$pages=($page-1)*10;
 		$data=array(
 			'uid'=>$uid,
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
-		if($query){
+		if($query == 'right'){
 		    logs("update","move",$cusid);
+		    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC LIMIT $pages,10";
+		    $query=$db->get_all($sql);
+			echo json_encode($query);
+		}else{
+			echo 0;
+		}
+	}
+	
+	if($file == "hqkhs"){
+		$uid=$_SESSION['usernameid'];
+		$cusid=$_GET['cusid'];
+		$data=array(
+				'uid'=>$uid,
+		);
+		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
+		if($query == 'right'){
+			logs("update","move",$cusid);
 			$url="{$conf['log_out']}/controller/system/ghkh.php";
 			$content="获取成功";
 			include template("jump");
 		}else{
-			$url="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid=$cusid";
+			$url="{$conf['log_out']}/controller/system/ghkh.php";
 			$content="获取失败";
 			include template("jump");
 		}
@@ -129,23 +153,24 @@
 	
 	if($file == 'myform'){
 		if(!empty($_POST)){
-			$chec=$_POST['checkbox1'];
+			//$chec=$_POST['checkbox1'];
 			$uid=$_SESSION['usernameid'];
-			$str=implode(",", $chec);
+			$cusid=$_POST['id'];
+			$str=implode(",", $cusid);
+			$page=$_GET['page'];
+			$pages=($page-1)*10;
 			if($_POST['hidden'] == 'huoqu'){
 				$data=array(
 						"uid"=>$uid,
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
-				if($query){
+				if($query == 'right'){
 				    logs("update","move",$chec);
-					$url="{$conf['log_out']}/controller/system/ghkh.php";
-					$content="获取成功";
-					include template("jump");
+				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC LIMIT $pages,10";
+				    $query=$db->get_all($sql);
+				    echo json_encode($query);
 				}else {
-					$url="{$conf['log_out']}/controller/system/ghkh.php";
-					$content="获取失败";
-					include template("jump");
+					echo json_encode(0);
 				}
 			}
 			if($_POST['hidden'] == 'del'){
@@ -153,15 +178,13 @@
 					"disable"=>"0",
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
-				if($query){
+				if($query == 'right'){
 				    logs("del","member",$chec);
-					$url="{$conf['log_out']}/controller/system/ghkh.php";
-					$content="删除成功";
-					include template("jump");
+				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC LIMIT $pages,10";
+				    $query=$db->get_all($sql);
+				    echo json_encode($query);
 				}else {
-					$url="{$conf['log_out']}/controller/system/ghkh.php";
-					$content="删除失败";
-					include template("jump");
+					echo json_encode(0);
 				}			
 			}
 		

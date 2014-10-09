@@ -39,7 +39,7 @@ if(empty($_GET)){
 					include template("jump");
 				}
 			}else{
-				$info=$_POST['info'];
+				$info=$_POST;
 				$info['inputtime']=time();
 				if($db->add("crm_tz",$info)){
 					$url="{$conf['log_out']}/controller/system/tzgl.php";
@@ -49,18 +49,20 @@ if(empty($_GET)){
 			}
 	}
 	
-	if($_GET['file'] == 'myform'){
+	if($_GET['file'] == 'ajax'){
 		if(!empty($_POST)){
-			$chec=$_POST['checkbox1'];
+			$chec=$_POST['id'];
 			$str=implode(",", $chec);
+			$page=$_GET['page'];
+			$pages=($page-1)*10;
 			$data=array(
 					"disable"=>"0",
 			);
 			$query=$db->update(" where id in ($str)", "crm_tz" ,$data);
-			if($query){
-				$url="{$conf['log_out']}/controller/system/tzgl.php";
-				$content="删除成功";
-				include template("jump");
+			if($query == "right"){
+				$sql="SELECT * FROM crm_tz WHERE disable=1 ORDER BY inputtime DESC LIMIT $pages,10";
+				$query=$db->get_all($sql);
+				echo json_encode($query);
 			}else {
 				$url="{$conf['log_out']}/controller/system/tzgl.php";
 				$content="删除失败";

@@ -15,22 +15,21 @@
 	
 
 	if($_GET['file'] == 'fangqi'){
-		$cusid=$_GET['id'];
-		$name=$_GET['name'];
-		//echo $name;
+		$cusid=$_POST['id'];
+		$uid=$_SESSION['usernameid'];
+		$page=$_GET['page'];
+		$pages=($page-1)*10;
 		$data=array(
 			"uid"=>0,
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
-		if($query){
+		if($query == 'right'){
 			logs("update", "give", $cusid);
-			$url="{$conf['log_out']}/controller/system/my.php";
-			$content="放弃成功";
-			include template("jump");
+			$sql="SELECT * FROM crm_customer WHERE uid=$uid ORDER BY inputtime DESC LIMIT $pages,10";
+			$query=$db->get_all($sql);
+			echo json_encode($query);
 		}else{
-			$url="{$conf['log_out']}/controller/system/my.php";
-			$content="放弃失败";
-			include template("jump");
+			echo 0;
 		}
 	}
 	

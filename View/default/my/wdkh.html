@@ -71,7 +71,7 @@
 				<!-- END PAGE HEADER-->
 
 				<!-- BEGIN PAGE CONTENT-->
-
+				
 				<div class="row-fluid">
 
 					<div class="span12">
@@ -143,11 +143,11 @@
 
 									</thead>
 
-									<tbody>
+									<tbody id="tbody">
 										{loop $r $k $v}
 										<tr id="tr">
 											<td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['cusid']}" /></td>
-											<td><a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}">{$v['cusname']}</a></td>
+											<td>{$v['cusname']}</td>
 
 											<td>{$v['connecter']}</td>
 
@@ -155,7 +155,7 @@
 
 											<td class="hidden-480">{$v['cusinfo']}</td>
                                              <td class="hidden-480">{$status[$v['ctype']]}</td>
-											<td class="hidden-480"><a href="{$conf['log_out']}/controller/system/cl_my.php?file=fangqi&id={$v['cusid']}&name={$v['cusname']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(mod)" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(log)" class="btn mini yellow">跟进记录</a>
+											<td class="hidden-480"><a href="#" onclick="del(this)" title="{$v['cusid']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(mod)" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(log)" class="btn mini yellow">跟进记录</a>
 											</td>
 
 										</tr>
@@ -216,6 +216,25 @@
 	function subform(obj){
 		$("#hidden").val(obj);
 		$("#submyform").submit();
+	}
+	
+	function del(obj){
+		$.ajax({
+			type:"POST",
+			url:"{$conf[log_out]}/controller/system/cl_my.php?file=fangqi&page={$page}",
+			data:{id:obj.title},
+		    dataType: "json",
+		    success:function(data){
+		    	
+				var len=data.length;
+				var html="";
+				for(var i=0;i<len;i++){
+					html+="<tr id='tr'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].cusid+" /></td><td>"+data[i].cusname+"</td><td>"+data[i].connecter+"</td><td>"+data[i].cphone+"</td><td>"+data[i].cusinfo+"</td><td>"+data[i].ctype+"</td><td class='hidden-480'><a href='#' onclick='del(this)' title="+data[i].cusid+" class='btn mini red'>放弃</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id="+data[i].cusid+"' onclick='subform(mod)' class='btn mini blue'>修改资料</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id="+data[i].cusid+"' onclick='subform(log)' class='btn mini yellow'>跟进记录</a></td></tr>" ;
+				}
+				$("#tbody").empty();
+				$("#tbody").append(html);
+		    }
+		})
 	}
 	</script>
 	{template "footer"}
