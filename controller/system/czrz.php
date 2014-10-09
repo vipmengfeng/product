@@ -13,6 +13,5 @@
 	$sql="SELECT * FROM crm_logs ORDER BY lid DESC";
 	$logs=$db->get_all($sql);
 	$log=back($logs);
-	//print_r($log);die;
 	include template("czrz","system");
 ?>

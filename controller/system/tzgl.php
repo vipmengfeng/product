@@ -33,7 +33,8 @@ if(empty($_GET)){
 			if($_GET['action'] == 'mod'){
 				$id=$_GET['id'];
 				$info=$_POST['info'];
-				if($db->update(" WHERE id=$id","crm_tz",$info)){
+				if($db->update("WHERE id=$id","crm_tz",$info)){
+				    logs("update","tz",$id);
 					$url="{$conf['log_out']}/controller/system/tzgl.php";
 					$content="修改成功";
 					include template("jump");
@@ -42,6 +43,7 @@ if(empty($_GET)){
 				$info=$_POST['info'];
 				$info['inputtime']=time();
 				if($db->add("crm_tz",$info)){
+				 logs("add","tz",$info['content']);
 					$url="{$conf['log_out']}/controller/system/tzgl.php";
 					$content="添加成功";
 					include template("jump");
@@ -58,6 +60,7 @@ if(empty($_GET)){
 			);
 			$query=$db->update(" where id in ($str)", "crm_tz" ,$data);
 			if($query){
+				logs("update","deltz",$_POST['checkbox1']);
 				$url="{$conf['log_out']}/controller/system/tzgl.php";
 				$content="删除成功";
 				include template("jump");

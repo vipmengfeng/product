@@ -11,6 +11,7 @@
 <meta content="" name="author" />
 
 <!-- BEGIN 全局样式 -->
+<link href="{$conf['css']}/bubbleScroll.css" rel="stylesheet" type="text/css" />
 
 <link href="{$conf['css']}/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="{$conf['css']}/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
@@ -127,7 +128,7 @@
         <!-- END 待办事项列表 --> 
         
         <!-- BEGIN 用户登录下拉 -->
-        
+      
         <li class="dropdown user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="{$conf['image']}/avatar1_small.jpg" /> <span class="username">{$_SESSION['username']}</span> <i class="icon-angle-down"></i> </a>
           <ul class="dropdown-menu">
             <li><a href="{$conf['log_out']}/controller/system/xgzl.php"><i class="icon-user"></i> 我的资料</a></li>
@@ -148,17 +149,16 @@
       
     </div>
   </div>
-  
   <!-- END 顶部导航栏 --> 
-  
 </div>
 <script type="text/javascript">
-	setInterval("lock()",1000);
+	setInterval("lock()",30000);
 	function lock(){
 	$.get("{$conf[log_out]}/controller/header.php",function(data){
 		if(data=="OK"){
-			alert("您有新短消息，请注意查收");
-		
+			$("#bubbleScroll").show();
+		    $("#ts").text("您有新的提醒");
+		    $("#go").attr("href","{$conf['log_out']}/controller/system/txgl.php");
 		}
 	
 	

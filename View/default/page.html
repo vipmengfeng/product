@@ -1,5 +1,7 @@
 
 <link href="{$conf['css']}/page.css" rel="stylesheet" type="text/css" />
+<script src="{$conf['js']}/jquery-1.6.js" type="text/javascript">
+    </script>
 <script src="{$conf['js']}/jquery.myPagination.js" type="text/javascript">
     </script>
 
@@ -12,13 +14,11 @@
     <div class="news_content scott" id="demo5" >
 	<a title="2" href="?page=1">首页</a>
 	<a title="2" href="?page={$front}">上一页</a>
-	{loop $count $v}
+	{loop $count $k $v}
 	{if $page == $v}<span class="current" title="{$v}">{$v}</span>
 	{else}
-	<a title="$v" href="?page={$v}"  class="current">{$v}</a>
+	<a title="{$v}" href="?page={$v}"  class="current">{$v}</a>
 	{/if}
-	
-	
 	{/loop}
 	
 	<a title="2" href="?page={$next}">下一页</a>

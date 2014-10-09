@@ -1182,10 +1182,12 @@ function logs($way,$method,$get){
 		$sql="SELECT id FROM crm_user  where username='$get'";
 	}elseif($method == "customer"){
 		$sql="SELECT cusid FROM crm_customer  where cusname='$get'";	
+	}else{
+	     $sql="SELECT id FROM crm_tz  where content='$get' ORDER BY id desc LIMIT 0,1";
 	}
 	
 		$re=$db->get_one($sql);
-		if($method == "member"){
+		if($method == "member" || $method == "tz" || $method == "tx"){
 		$content['handle']=$re['id'];//将用户ID放入数组
 		}elseif($method == "customer"){
 		$content['handle']=$re['cusid'];//将用户ID放入数组
@@ -1193,17 +1195,16 @@ function logs($way,$method,$get){
 		$content['handle']=$get;//将用户ID放入数组
 		}
 		
-	}elseif($way == "update"){//更新账户信息
-	 if(is_array($get)){//如果是多个就传进来一个数组  是ID的数组
+	}elseif($way == "update"){
+	 if(is_array($get)){
 			$content['handle']=serialize($get);
-		}else{//如果是单个 就传进来一个ID即可 
+		}else{ 
 			$handle=array();
 			$handle[]=$get;
 			$content['handle']=serialize($handle);
 		}
 	}elseif($way == "del"){//如果你是更改客户所属的销售人员	
-	if($method == "role"){
-		
+	if($method == "role" || $method == "tx" || $method == "tz"){
 		$content['handle']=$get;
 	}else{
 	  if(is_array($get)){//如果是多个就传进来一个数组  是ID的数组
@@ -1248,6 +1249,11 @@ function back($arr){
             $sql4="SELECT id,username FROM  crm_user  where id='$value[handle]'";
 			$re=$db->get_one($sql4);
 			$return="<a href='$conf[log_out]/controller/system/cl_yhgl.php?file=info&id=$re[id]'>$re[username]</a>";			
+		}elseif($value['method'] == "tz"){
+		    $way="添加了新通知";
+		     $sql6="SELECT id,content FROM  crm_tz  where id='$value[handle]'";
+			$re=$db->get_one($sql6);
+			$return="<a href='$conf[log_out]/controller/system/tzgl.php?file=add&action=info&id=$re[id]'>$re[content]</a>";
 		}else{
 			$way="添加了角色";
             $sql5="SELECT roleid,rolename FROM  crm_role  where rolename='$value[handle]'";
@@ -1259,7 +1265,7 @@ function back($arr){
          }			
 		}
 	}elseif($value['way'] == "update"){
-		if($value['method'] == "customer" || $value['method'] == "move" || $value['method'] == "give"|| $value['method'] == "phone"){
+		if($value['method'] == "customer" || $value['method'] == "move" || $value['method'] == "give"|| $value['method'] == "phone" ){
 			 if($value['method'] == "customer"){			 
 			   $way="更新了客户资料";
 			}
@@ -1293,6 +1299,22 @@ function back($arr){
 		}elseif($v['method'] == "member"){
 			 $way="更新了个人资料";
 		     $return = "";
+		}elseif($v['method'] == "tz"){
+		     $way="修改了通知";
+			 $sql="SELECT id,content FROM  crm_tz  where id='$value[handle]'";
+			 $re=$db->get_one($sql);
+			 $return="<a href='$conf[log_out]/controller/system/ctzgl.php?file=add&action=info&id=$re[id]'>$re[content]</a>";
+		}elseif($value['method'] == "deltz"){
+		$handle=unserialize($value['handle']);
+		$way = "删除了通知";
+			 if(is_array($handle)){
+			  foreach($handle as $k=>$v){
+			  $sql="SELECT id,content  FROM  crm_tz  WHERE id='$v'";
+			   $re=$db->get_one($sql);
+			  $return .="<a href='$conf[log_out]/controller/system/tzgl.php?file=add&action=info&id=$re[id]'>$re[content]</a>,";
+			  }
+			  $return = substr($return,0,-1);
+		}
 		}else{
 		   $way="更新了用户资料";
 		   $handle=unserialize($value['handle']);
@@ -1305,7 +1327,6 @@ function back($arr){
 			if($value['method'] == "member"){
 			 $way="删除了用户";						
 			 $handle=unserialize($value['handle']);
-			 print_r($handle);
 			 foreach($handle as $a){
 			 $sql2="SELECT id,username  FROM   crm_user  where id='$a'";
 			 $re=$db->get_one($sql2);
@@ -1314,7 +1335,7 @@ function back($arr){
 		     $return =substr($return,0,-1);
 			
 		}elseif($value['method'] == "customer"){
-		 $way="删除了客户";
+		  $way="删除了客户";
 		  $handle=unserialize($value['handle']);
 		  foreach($handle as $b){
 		    $sql2="SELECT cusid,cusname  FROM   crm_customer  where cusid='$b'";
