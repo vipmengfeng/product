@@ -46,7 +46,7 @@
           
           <h3 class="page-title">用户管理 </h3>
           <ul class="breadcrumb">
-             <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li>  <li> <a href="javascript:void(0)">系统管理</a> <i class="icon-angle-right"></i></li>
+             <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li> 
             <li> <a href="{$conf[log_out]}/controller/system/yhgl.php">用户管理</a> <i class="icon-angle-right"></i> </li>
 			 <li> <a href="">添加新用户</a> <i class="icon-angle-right"></i> </li>
           </ul>
@@ -68,24 +68,24 @@
           <div class="portlet box blue">
             <div class="portlet-title">
               <div class="caption"><i class="icon-plus"></i>添加用户</div>
-              <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="reload"></a> </div>
+              <div class="tools"> <a href="javascript:;" class="collapse"></a></div>
             </div>
             <div class="portlet-body form"> 
               
               <!-- BEGIN FORM-->
               
-              <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser" method="post" class="form-horizontal" onsubmit="return checkalls()">
+              <form action="" method="post" class="form-horizontal" id="myform" onsubmit="return checkalls()">
                 <div class="control-group">
                   <label class="control-label">真实姓名</label>
                   <div class="controls">
-                    <input type="text" class="span6 m-wrap" name="info[realname]" />
-                    <span class="help-inline">请根据实情填写</span> </div>
+                    <input type="text" class="span6 m-wrap" id="realname" name="info[realname]" />
+                     </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">用户名</label>
                   <div class="controls">
                     <input class="span6 m-wrap" type="text" name="info[username]" id="username" onblur="checkname()"/>
-                    <span class="help-inline" id="mesname">公司分配不可修改</span> </div>
+                    <span class="help-inline" id="mesname"></span> </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">密码</label>
@@ -110,9 +110,9 @@
 				<div class="control-group">
                   <label class="control-label">选择角色</label>
                   <div class="controls">
-				  <select name="info[role]">
+				  <select name="info[role]" id="role">
 				  {loop $role $rok $ro}
-				  <option value="{$ro['roleid']}" {if $ro['roleid'] == "2"}selected{/if}>{$ro['rolename']}</option>				  
+				  <option value="{$ro['roleid']}" {if $ro['roleid'] == "2"}selected{/if} >{$ro['rolename']}</option>				  
 				  {/loop}
 				  </select>
                    
@@ -130,7 +130,7 @@
                       </div>
                  </div>
                 <div class="form-actions">
-                  <button type="submit" class="btn blue">确认添加</button>
+                  <button type="button" onclick="add()" class="btn blue">确认添加</button>
                   <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消添加</button>
                 </div>
               </form>
@@ -155,8 +155,9 @@
   <!-- END PAGE --> 
   
 </div>
-<script type="text/javascript" src="{$conf['js']}/register.js">
-function checkalls()  //检查所有
+<script type="text/javascript" src="{$conf['js']}/register.js"></script>
+<script type="text/javascript">
+function checkalls()
 {
     if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail())
     {
@@ -164,7 +165,35 @@ function checkalls()  //检查所有
     }
     return false;
 }
- 
+function add(){
+	 var realname=$("#realname").val();
+	 var username=$("#username").val();
+	 var password=$("#password").val();
+	 var phone=$("#phone").val();
+	 var role=$("#role").val();
+	 var email=$("#email").val();
+	 $.ajax({
+         type: "POST",
+         url: "{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser",
+         data: {realname:realname,username:username,userpwd:password,phone:phone,role:role,email:email},
+         dataType: "text",
+         success: function(data){
+        	 $("#myModal").show();
+			 $("#content").append("添加成功");
+			 $(".help-inline").empty();
+			 $(':input','#myform')  
+			 .not(':button, :submit, :reset, :hidden')  
+			 .val('')  
+			 .removeAttr('checked') 
+			 .removeAttr('selected');
+         },
+         error:function(){
+        	 $("#content").empty();
+        	 $("#content").append("添加失败");
+        	 
+         }
+     });
+}
 </script>
 <!-- END CONTAINER --> 
 

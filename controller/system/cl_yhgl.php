@@ -39,21 +39,17 @@
 	}
 	
 	if($_GET['file'] == 'adduser'){
-		$info=$_POST['info'];
-		$info['username']=trim($info['username']);
-		$info['userpwd']=md5($info['userpwd']);
+		$info=$_POST;
+		$info['username']=trim($_POST['username']);
+		$info['userpwd']=md5($_POST['userpwd']);
 		$info['inputtime']=time();
+
 		if($db->add('crm_user',$info)){
 			logs("add","member",$info['username']);
-			$url="{$conf['log_out']}/controller/system/yhgl.php";
-			$content="添加成功";
-			include template("jump");
+			echo 1;	
 		}else{
-			$url="{$conf['log_out']}/controller/system/cl_yhgl.php?file=add";
-			$content="添加失败";
-			include template("jump");
-			
-		}	
+			echo 0;
+		}
 		//$db->message("add", "member", $data['username']);
 	}
 	
@@ -63,24 +59,23 @@
 			$info=array(
 				'phone'=>$_POST['phone'],
 				'email'=>$_POST['email'],
+				'role'=>$_POST['role']
 			);
 		}else{
 			$info=array(
 					'userpwd'=>md5($_POST['userpwd']),
 					'phone'=>$_POST['phone'],
 					'email'=>$_POST['email'],
+					'role'=>$_POST['role']
 			);
 		}
 		if($db->update(' where id='.$id,'crm_user',$info)){
 		    logs("update","member",$id);
-			$url="{$conf['log_out']}/controller/system/yhgl.php";
-			$content="修改成功";
-			include template("jump");
+		    $sql="SELECT * FROM crm_user WHERE id=$id";
+		    $r=$db->get_one($sql);
+		   	echo json_encode($r);
 		}else{
-			$url="{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id=$id";
-			$content="修改失败";
-			include template("jump");
-			
+			echo 0;
 		}	
 	}
 	
@@ -110,13 +105,11 @@
 		if($db->update(' where id='.$uid, 'crm_user',$info)){
 		 logs("update","change",$uid);
 			$url="{$conf['log_out']}/controller/system/xgzl.php?file=mod&id=$uid";
-			$content="修改成功";
-			include template("jump");
+			$sql="SELECT * FROM crm_user WHERE id=$uid";
+			$r=$db->get_one($sql);
+			echo json_encode($r);
 		}else{
-			$url="{$conf['log_out']}/controller/system/xgzl.php?file=mod&id=$uid";
-			$content="修改失败";
-			include template("jump");
-			
+			echo 0;
 		}
 	}
 	

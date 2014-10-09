@@ -10,7 +10,7 @@
 			die;
 	}
 	global $table_pre,$db;
-	$sql="select * from ".$table_pre."customer where disable=1 and uid=0";
+	$sql="select * from ".$table_pre."customer where disable=1 and uid=0 order by inputtime desc";
 	$page=$_GET['page'] ?$_GET['page']:1;
 	$content=page($sql,$page);
 	$r=$content['content'];

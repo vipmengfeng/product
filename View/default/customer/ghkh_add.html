@@ -62,7 +62,7 @@
             <li> <a href="{$conf[log_out]}/controller/system/{if $_GET['action'] == 'xiugai' || $_GET['action'] == 'jilu'}my.php{else}ghkh.php{/if}">{if $_GET['action'] == "xiugai" || $_GET['action'] == "jilu"}我的客户{else}公海客户{/if}</a> <i class="icon-angle-right"></i> </li>
 							<li>
 
-								<a href="#">{if $_GET['action'] == "xiugai"}修改资料{elseif $_GET['action'] == "jilu"}跟进记录{else}公海客户{/if}</a>
+								<a href="#">{if $_GET['action'] == "xiugai"}修改资料{elseif $_GET['action'] == "jilu"}跟进记录{else}添加客户{/if}</a>
 
 								
 
@@ -81,7 +81,7 @@
 				<!-- END PAGE HEADER-->
 
 				<!-- BEGIN PAGE CONTENT-->
-
+				{template 'tishi'}
 				<div class="row-fluid">
                             
                                 <div class="span12">
@@ -92,7 +92,7 @@
                             
                                         <div class="portlet-title">
                             
-                                            <div class="caption"><i class="icon-plus"></i>客户信息</div>
+                                            <div class="caption"><i class="icon-plus"></i>{if $_GET['action'] == "xiugai"}修改资料{elseif $_GET['action'] == "jilu"}跟进记录{else}添加客户{/if}</div>
                             
                                             <div class="tools">
                             
@@ -107,7 +107,7 @@
                             
                                             <!-- BEGIN FORM-->
                             
-                                            <form action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}" method="post" class="form-horizontal" onsubmit="return checkalls()">
+                                            <form id="myform" action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}" method="post" class="form-horizontal" onsubmit="return checkalls()">
                                             	
                             			
                                                 <div class="control-group">
@@ -118,7 +118,7 @@
                             
                                                         <input type="text" class="span6 m-wrap" name="info[cusname]" id="username" value="{$val['cusname']}" />
                             
-                                                        <span class="help-inline">不得输入殊符号</span>
+                                                        <span class="help-inline" id="mescus">不得输入殊符号</span>
                             
                                                     </div>
                             
@@ -132,7 +132,7 @@
                             
                                                       <input class="span6 m-wrap" type="text" placeholder="{$_SESSION['username']}" disabled />
                             
-                                                        <span class="help-inline">公司分配不可修改</span>
+                                                        <span class="help-inline" id="mesuser">公司分配不可修改</span>
                             
                                                     </div>
                             
@@ -145,7 +145,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <input type="text" class="span6 m-wrap" name="info[connecter]" value="{$val['connecter']}" />
+                                                        <input type="text" class="span6 m-wrap" id="connecter" name="info[connecter]" value="{$val['connecter']}" />
                             
                             
                                                     </div>
@@ -170,7 +170,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <textarea class="span6 m-wrap" rows="3" name="info[cusinfo]" value="{$val['cusinfo']"></textarea>
+                                                        <textarea class="span6 m-wrap" rows="3" name="info[cusinfo]" id="cusinfo" value="">{$val['cusinfo']}</textarea>
                             
                                                     </div>
                             
@@ -181,7 +181,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <textarea class="span6 m-wrap" rows="3" name="info[conditions]" value="{$val['conditions']}"></textarea>
+                                                        <textarea class="span6 m-wrap" rows="3" name="info[conditions]" id="conditions" value="">{$val['conditions']}</textarea>
                             
                                                     </div>
                             
@@ -192,11 +192,11 @@
 
 										<div class="controls">
 
-											<select class="span6 m-wrap" data-placeholder="Choose a Category" name="info[ctype]" tabindex="1">
+											<select class="span6 m-wrap" data-placeholder="Choose a Category" name="info[ctype]" id="ctype" tabindex="1">
 
 												<option value="">---跟进状态---</option>
-												{loop $status $k $val}
-                                       				 <option value="{$k}" {if $val['ctype'] == $k}selected{/if}>{$val}</option>
+												{loop $status $k $vals}
+                                       				 <option value="{$k}" {if $val['ctype'] == $k}selected{/if}>{$vals}</option>
                                     			{/loop}
 
 											</select>
@@ -219,7 +219,7 @@
                                           {/if}
                                                 <div class="form-actions">
                             
-                                                    <button type="submit" class="btn blue">确认</button>
+                                                    <button type="button" onclick="sub()" class="btn blue">确认</button>
                             
                                                     <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');" >取消</button>                            
                             
@@ -263,9 +263,54 @@ function checkalls()  //检查所有
     {
         return true;
     }
-    return false;
+    	return false;
+	}
 }
- 
 </script>
-
+<script type="text/javascript">
+	function sub(){
+		var cusname=$("#username").val();
+		var connecter=$("#connecter").val();
+		var cphone=$("#phone").val();
+		var cusinfo=$("#cusinfo").val();
+		var conditions=$("#conditions").val();
+		var ctype=$("#ctype").val();
+		$.ajax({
+			type:"POST",
+			url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}",
+			data:{cusname:cusname,connecter:connecter,cphone:cphone,cusinfo:cusinfo,conditions:conditions,ctype:ctype},
+			dataType:"json",
+			success:function(data){
+				if(data == 1){
+					 $("#myModal").show();
+					 $("#content").append("添加成功");
+					 $(".help-inline").empty();
+					 $("#mescus").append("不得输入殊符号");
+					 $("#mesuser").append("公司分配不可修改");
+					 $(':input','#myform')  
+					 .not(':button, :submit, :reset, :hidden')  
+					 .val('')  
+					 .removeAttr('checked') 
+				}else if(data != 1){
+					 $("#myModal").show();
+					 $("#content").append("修改成功");
+					 $(".help-inline").empty();
+					 $("#mescus").append("不得输入殊符号");
+					 $("#mesuser").append("公司分配不可修改");
+					 $(':input','#myform')  
+					 .not(':button, :submit, :reset, :hidden')  
+					 .val('')  
+					 .removeAttr('checked') 
+					 .removeAttr('selected');
+					 $("#username").val(data.cusname);
+					 $("#phone").val(data.cphone);
+					 $("#connecter").val(data.connecter);
+					 $("#cusinfo").val(data.cusinfo);
+					 $("#conditions").val(data.conditions);
+					 $("#ctype").val(data.ctype);
+				}
+			},
+		})
+	}
+</script>
 {template "footer"}

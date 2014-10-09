@@ -28,18 +28,16 @@
 	
 	if($_GET['file'] == 'addcus'){
 		if($_GET['action'] == 'xiugai'){
-			$info=$_POST['info'];
+			$info=$_POST;
 			$info['changetime']=time();
 			$cusid=$_GET['id'];
 			if($db->update(" where cusid=$cusid",'crm_customer',$info)){
 			    logs("update","customer",$cusid);
-				$url="{$conf['log_out']}/controller/system/my.php";
-				$content="修改成功";
-				include template("jump");
+				$sql="SELECT * FROM crm_customer WHERE cusid=$cusid";
+				$res=$db->get_one($sql);
+				echo json_encode($res);
 			}else{
-				$url="{$conf['log_out']}/controller/system/ghkh.php";
-				$content="修改失败";
-				include template("jump");
+				echo 0;
 			}
 		}else if($_GET['action'] == 'jilu'){
 			$info=$_POST['info'];
@@ -71,17 +69,14 @@
 				include template("jump");
 			}
 		}else{
-			$info=$_POST['info'];
+			$info=$_POST;
 			$info['inputtime']=time();
 			if($db->add('crm_customer',$info)){
 			logs("add","customer",$info['cusname']);
 				$url="{$conf['log_out']}/controller/system/ghkh.php";
-				$content="添加成功";
-				include template("jump");
+				echo 1;
 			}else{
-				$url="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add";
-				$content="添加失败";
-				include template("jump");
+				echo 0;
 			}
 		}
 		
@@ -171,5 +166,13 @@
 			}
 		
 		}
+	}
+	
+	if($_GET['file'] == 'refresh'){
+		$page=$_GET['page'];
+		$pages=($page-1)*10;
+		$sql="SELECT * FROM crm_customer  WHERE  disable=1 AND uid=0 ORDER BY inputtime DESC LIMIT $pages,10";
+		$res=$db->get_all($sql);
+		echo json_encode($res);
 	}
 ?>

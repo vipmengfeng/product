@@ -89,7 +89,7 @@
 
 									<a href="javascript:;" class="collapse"></a>
 
-									<a href="javascript:;" class="reload"></a>
+									<a href="#" onclick="refresh()" class="reload"></a>
 
 								</div>
 
@@ -129,7 +129,7 @@
 
 									</thead>
 
-									<tbody>
+									<tbody id="tbody">
 									
 										
 										{loop $r $k $v}
@@ -138,14 +138,11 @@
 											
 											<td><input type="checkbox" class="checkboxes"  name="checkbox1[]" value="{$v['cusid']}" /></td>
 											
-											<td><a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}">{$v['cusname']}</a></td>
+											<td class="hidden-480">{$v['cusname']}</td>
 
-											<td>{$v['connecter']}</td>
+											<td class="hidden-480">{$v['connecter']}</td>
 
 											<td class="hidden-480">{$v['cphone']}</td>
-
-											
-
 											<td class="hidden-480">{date("Y-m-d H:i:s",$v['inputtime'])}</td>
 											<td class="hidden-480">
 											<a class="btn mini green" href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=hqkh&cusid={$v['cusid']}">获取</a>
@@ -204,6 +201,18 @@
 	function subform(obj){
 		$("#hide").val(obj);
 		$("#myform").submit();
+	}
+	
+	function refresh(){
+		$.get("{$conf['log_out']}/controller/system/cl_ghkh.php?file=refresh&page={$page}",function(data){
+			var len=data.length;
+			var html="";
+			for(var i=0;i<len;i++){
+				html+="<tr><td><input type='checkbox' class='checkbosxes' name='checkbox1[]' value="+data[i].cusid+"/></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=hqkh&cusid="+data[i].cusid+"'>获取</a><a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=hqkh&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
+			}
+			$('#tbody').empty();
+			$('#tbody').append(html);
+		},'json')
 	}
 	</script>
 
