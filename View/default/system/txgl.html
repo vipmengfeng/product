@@ -91,10 +91,10 @@
                 {loop $query $k $v}
                   <tr class="odd gradeX">
                     <td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['id']}" /></td>
-                    <td>{$v['title']}</td>
+                    <td>{$v['title']}{if $v['ifread'] == 1}(已读){else}(未读){/if}</td>
                     <td class="hidden-480">{date("Y-m-d H:i",$v['time'])}</td>
                     <td class="center hidden-480">{$v['content']}</td>
-                    <td ><a href="{$conf['log_out']}/controller/system/txgl.php?file=add&action=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="{$conf['log_out']}/controller/system/txgl.php?file=add&action=show&id={$v['id']}" class="btn mini green">详细</a> 
+                    <td ><a href="{$conf['log_out']}/controller/system/txgl.php?file=add&action=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="{$conf['log_out']}/controller/system/txgl.php?file=add&action=show&id={$v['id']}" class="btn mini green" onclick="read({$v['id']})">详细</a> 
 					<input type="button" value="删除" title="{$v['id']}" onclick="del(this)" class="btn mini red" >
 					</td> 
                   </tr>
@@ -203,6 +203,20 @@
 	})
 	}
 }	
+
+
+function read(obj){
+	$.ajax({
+		type:"POST",
+		url:"{$conf[log_out]}/controller/system/txgl.php?file=read",
+		data:{id:obj},
+	    dataType: "text",
+		success:function(data){
+			alert(data);
+		}
+		})
+}
+
    </script>
   </div>
   
