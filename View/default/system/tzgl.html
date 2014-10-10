@@ -92,11 +92,11 @@
                   <tr class="odd gradeX">
                     <td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['id']}" /></td>
                     <td class="hidden-480">{$v['name']}</td>
-                    <td class="hidden-480">{date("Y-m-d H:i:s",$v['inputtime'])}</td>
+                    <td class="hidden-480">{date("Y-m-d H:i",$v['inputtime'])}</td>
                     <td class="hidden-480">{$v['title']}</td>
                     <td class="center hidden-480">{$v['content']}</td>
                     
-                    <td ><a href="{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id={$v['id']}" class="btn mini green">详细</a></td> 
+                    <td><a href="{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="#" onclick="del(this)" title="{$v['id']}" class="btn mini red">删除</a> <a href="{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id={$v['id']}" class="btn mini green">详细</a></td> 
                   </tr>
                  {/loop}
                  
@@ -137,6 +137,31 @@
 			}
 		}
 	}
+   function del(obj){
+	   var id=obj.title;
+	   $.ajax({
+		    type:"POST",
+			url:"{$conf[log_out]}/controller/system/tzgl.php?file=del&page={$page}",
+			data:{id:id},
+		    dataType: "json",
+			success:function(data){
+				if(data == 'nothing'){
+					$("#tbody").empty();
+				    $("#tbody").append("<tr class='odd gradeX'><td colspan='5' text-align='center'>已经没有任何提示了</td></tr>");
+				    
+				}else{
+					var html="";
+					var len=data.length;
+					for(var i=0;i<len;i++){
+						html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].name+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'>"+data[i].title+"</td><td class='hidden-480'>"+data[i].content+"</td><td><a href=''{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id="+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
+					}
+					$("#tbody").empty();
+					$("#tbody").append(html);
+				}
+			}	
+	   })
+   }
+   
    function subform(){
 	   var lens=$(":checked").length;
 		var checkbox=$(":checked");
@@ -147,7 +172,7 @@
 			}				
 		}
 		if(id == ""){
-			alert("请选择你要删除的提醒");
+			alert("请选择你要删除的通知");
 		}else{
 			$.ajax({
 				type:"POST",
@@ -155,13 +180,18 @@
 				data:{id:id},
 			    dataType: "json",
 				success:function(data){
-					var html="";
-					var len=data.length;
-					for(var i=0;i<len;i++){
-						html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].name+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'>"+data[i].title+"</td><td class='hidden-480'>"+data[i].content+"</td><td><a href=''{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id="+data[i].id+"' class='btn mini blue'>修改</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
-					}
-					$("#tbody").empty();
-					$("#tbody").append(html);
+					if(data == 'nothing'){
+						$("#tbody").empty();
+					    $("#tbody").append("<tr class='odd gradeX'><td colspan='5' text-align='center'>已经没有任何提示了</td></tr>");
+					}else{
+						var html="";
+						var len=data.length;
+						for(var i=0;i<len;i++){
+							html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].name+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'>"+data[i].title+"</td><td class='hidden-480'>"+data[i].content+"</td><td><a href=''{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id="+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
+						}
+						$("#tbody").empty();
+						$("#tbody").append(html);
+					}				
 				}	
 			})
 		}

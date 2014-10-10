@@ -168,11 +168,7 @@
 					 $(".help-inline").empty();
 					 $("#mespassword").append("不修改密码可不必填写");
 					 $("#mesrole").append("选择用户的角色信息");
-					 $(':input','#myform')  
-					 .not(':button, :submit, :reset, :hidden')  
-					 .val('')  
-					 .removeAttr('checked') 
-					 .removeAttr('selected');
+					 $("#myform").reset();
 					 $("#phone").val(data.phone);
 					 $("#role").val(data.role);
 					 $("#email").val(data.email);

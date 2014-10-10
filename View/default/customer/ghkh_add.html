@@ -107,7 +107,7 @@
                             
                                             <!-- BEGIN FORM-->
                             
-                                            <form id="myform" value="form" action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}" method="post" class="form-horizontal" onsubmit="return checkalls()">
+                                            <form id="myform" value="form" action="{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}" method="post" class="form-horizontal">
                                             						  
                             			
                                                 <div class="control-group">
@@ -256,7 +256,7 @@
 
 </script>
 <script type="text/javascript">
-function checkalls()  //检查所有
+function checkalls()
 {
 	alert(54);
     if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail())
@@ -288,21 +288,14 @@ function checkalls()  //检查所有
 					 $(".help-inline").empty();
 					 $("#mescus").append("不得输入殊符号");
 					 $("#mesuser").append("公司分配不可修改");
-					 $(':input','#myform')  
-					 .not(':button, :submit, :reset, :hidden')  
-					 .val('')  
-					 .removeAttr('checked') 
-				}else if(data != 1){
+					 $("#myform")[0].reset();
+				}else{
 					 $("#myModal").show();
 					 $("#content").append("修改成功");
 					 $(".help-inline").empty();
 					 $("#mescus").append("不得输入殊符号");
 					 $("#mesuser").append("公司分配不可修改");
-					 $(':input','#myform')  
-					 .not(':button, :submit, :reset, :hidden')  
-					 .val('')  
-					 .removeAttr('checked') 
-					 .removeAttr('selected');
+					 $("#myform")[0].reset();
 					 $("#username").val(data.cusname);
 					 $("#phone").val(data.cphone);
 					 $("#connecter").val(data.connecter);
@@ -315,8 +308,8 @@ function checkalls()  //检查所有
 		})
 	}
 	function jilu(){
-		var val=$("#connecter").val();
-		alert(val);
+		var call=$("#callinfo").val();
+		$("#myform").submit();
 	}
 	
 </script>

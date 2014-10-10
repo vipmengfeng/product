@@ -116,7 +116,7 @@
 				  {/loop}
 				  </select>
                    
-                      <span class="help-inline" >选择用户的角色信息</span>
+                      <span class="help-inline" id="mesrole" >选择用户的角色信息</span>
                    </div>
                 </div>
                  <div class="control-group">
@@ -181,11 +181,8 @@ function add(){
         	 $("#myModal").show();
 			 $("#content").append("添加成功");
 			 $(".help-inline").empty();
-			 $(':input','#myform')  
-			 .not(':button, :submit, :reset, :hidden')  
-			 .val('')  
-			 .removeAttr('checked') 
-			 .removeAttr('selected');
+			 $("#mesrole").append("选择用户的角色信息");
+			 $("#myform")[0].reset();
          },
          error:function(){
         	 $("#content").empty();

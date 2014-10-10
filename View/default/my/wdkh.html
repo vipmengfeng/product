@@ -128,7 +128,7 @@
 									<thead>
 
 										<tr>
-											<th width="20" style="width:8px;"><input type="checkbox" onclick="checkall(this)" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+											
 											<th>公司名称</th>
 
 											<th>联系人</th>
@@ -146,7 +146,6 @@
 									<tbody id="tbody">
 										{loop $r $k $v}
 										<tr id="tr">
-											<td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['cusid']}" /></td>
 											<td>{$v['cusname']}</td>
 
 											<td>{$v['connecter']}</td>
@@ -196,19 +195,7 @@
 
 	<!-- BEGIN FOOTER -->
 	<script type="text/javascript">
-	function checkall(obj){
-		var objcheck=obj.checked;
-		var chec=document.getElementsByName("checkbox1[]");
-		var len=chec.length;
-		for(var i=0;i<len;i++){
-			
-			if(objcheck == true){
-				$(chec[i]).parent().addClass("checked");  
-			}else{
-				$(chec[i]).parent().removeClass("checked");  
-			}
-		}
-	}
+	
 	function sel(obj){
 
 			$("#myform").submit();
@@ -225,14 +212,18 @@
 			data:{id:obj.title},
 		    dataType: "json",
 		    success:function(data){
-		    	
+		    	if(data == "nothing"){
+					$("#tbody").empty();
+				    $("#tbody").append("<tr class='odd gradeX'><td colspan='6' text-align='center'>已经没有任何内容了</td></tr>");
+				}else{
 				var len=data.length;
 				var html="";
 				for(var i=0;i<len;i++){
-					html+="<tr id='tr'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].cusid+" /></td><td>"+data[i].cusname+"</td><td>"+data[i].connecter+"</td><td>"+data[i].cphone+"</td><td>"+data[i].cusinfo+"</td><td>"+data[i].ctype+"</td><td class='hidden-480'><a href='#' onclick='del(this)' title="+data[i].cusid+" class='btn mini red'>放弃</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id="+data[i].cusid+"' onclick='subform(mod)' class='btn mini blue'>修改资料</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id="+data[i].cusid+"' onclick='subform(log)' class='btn mini yellow'>跟进记录</a></td></tr>" ;
+					html+="<tr id='tr'><td>"+data[i].cusname+"</td><td>"+data[i].connecter+"</td><td>"+data[i].cphone+"</td><td>"+data[i].cusinfo+"</td><td>"+data[i].ctype+"</td><td class='hidden-480'><a href='#' onclick='del(this)' title="+data[i].cusid+" class='btn mini red'>放弃</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id="+data[i].cusid+"' onclick='subform(mod)' class='btn mini blue'>修改资料</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id="+data[i].cusid+"' onclick='subform(log)' class='btn mini yellow'>跟进记录</a></td></tr>" ;
 				}
 				$("#tbody").empty();
 				$("#tbody").append(html);
+				}
 		    }
 		})
 	}

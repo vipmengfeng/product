@@ -27,7 +27,6 @@
 	}
 	
 	if($_GET['file'] == 'addcus'){
-		echo 558;die;
 		if($_GET['action'] == 'xiugai'){
 			$info=$_POST;
 			$info['changetime']=time();
@@ -42,8 +41,7 @@
 				echo 0;
 			}
 		}else if($_GET['action'] == 'jilu'){
-			echo 5522;die;
-			$info=$_POST;
+			$info=$_POST['info'];
 			$time=time();
 			$call=$_POST['callinfo'];
 			$cusid=$_GET['id'];
@@ -116,17 +114,24 @@
 	if($file == "hqkh"){
 		$uid=$_SESSION['usernameid'];
 		$cusid=$_POST['id'];
-		$page=$_GET['page'];
-		$pages=($page-1)*10;
 		$data=array(
 			'uid'=>$uid,
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query == 'right'){
 		    logs("update","move",$cusid);
-		    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC LIMIT $pages,10";
-		    $query=$db->get_all($sql);
-			echo json_encode($query);
+		    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
+		    $page=$_GET['page'] ?$_GET['page']:1;
+		    $content=page($sql,$page);
+		    $res=$content['content'];
+		    if(!empty($res)){
+		    	foreach($res as $k=>$v){
+		    		$res[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+		    	}
+		    	echo json_encode($res);
+		    }else{
+		    	echo json_encode("nothing");
+		    }
 		}else{
 			echo 0;
 		}
@@ -156,9 +161,8 @@
 			//$chec=$_POST['checkbox1'];
 			$uid=$_SESSION['usernameid'];
 			$cusid=$_POST['id'];
-			$str=implode(",", $cusid);
-			$page=$_GET['page'];
-			$pages=($page-1)*10;
+			$st=implode(",", $cusid);
+			$str=substr($st,1);
 			if($_POST['hidden'] == 'huoqu'){
 				$data=array(
 						"uid"=>$uid,
@@ -166,9 +170,19 @@
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query == 'right'){
 				    logs("update","move",$chec);
-				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC LIMIT $pages,10";
-				    $query=$db->get_all($sql);
-				    echo json_encode($query);
+				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
+				    $page=$_GET['page'] ?$_GET['page']:1;
+				    $content=page($sql,$page);
+				    $query=$content['content'];
+				    if(!empty($query)){
+				    	foreach($query as $k=>$v){
+				    		$query[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+				    	}
+				    	echo json_encode($query);
+				    }else{
+				    	echo json_encode("nothing");
+				    }
+				    
 				}else {
 					echo json_encode(0);
 				}
@@ -180,8 +194,10 @@
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query == 'right'){
 				    logs("del","member",$chec);
-				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC LIMIT $pages,10";
-				    $query=$db->get_all($sql);
+				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
+				    $page=$_GET['page'] ?$_GET['page']:1;
+				    $content=page($sql,$page);
+				    $query=$content['content'];
 				    echo json_encode($query);
 				}else {
 					echo json_encode(0);
@@ -192,10 +208,17 @@
 	}
 	
 	if($_GET['file'] == 'refresh'){
-		$page=$_GET['page'];
-		$pages=($page-1)*10;
-		$sql="SELECT * FROM crm_customer  WHERE  disable=1 AND uid=0 ORDER BY inputtime DESC LIMIT $pages,10";
-		$res=$db->get_all($sql);
-		echo json_encode($res);
+		$sql="SELECT * FROM crm_customer  WHERE  disable=1 AND uid=0 ORDER BY inputtime DESC";
+		$page=$_GET['page'] ?$_GET['page']:1;
+		$content=page($sql,$page);
+		$res=$content['content'];
+		if(!empty($res)){
+			foreach($res as $k=>$v){
+				$res[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+			}
+			echo json_encode($res);
+		}else{
+			echo json_encode("nothing");
+		}
 	}
 ?>

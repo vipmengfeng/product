@@ -88,7 +88,7 @@
                     <th width="132" >操作</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                 {loop $res $k $v}
                   <tr class="odd gradeX">
                     <td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['id']}" /></td>
@@ -96,7 +96,7 @@
                     <td class="hidden-480">{$v['realname']}</td>
                     <td class="center hidden-480">{$v['phone']}</td>
 					<td class="center hidden-480">{$role[$v['role']]['rolename']}</td>
-                    <td ><a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=info&id={$v['id']}" class="btn mini green">详细</a></td> 
+                    <td ><a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="#" class="btn mini red" onclick="del(this)" title="{$v['id']}">删除</a> <a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=info&id={$v['id']}" class="btn mini green">详细</a></td> 
                   </tr>
                  {/loop}
                  
@@ -129,14 +129,71 @@
 		for(var i=0;i<len;i++){
 			
 			if(objcheck == true){
+				$(chec[i]).attr("checked","checked");
 				$(chec[i]).parent().addClass("checked");  
 			}else{
+				$(chec[i]).removeAttr("checked");
 				$(chec[i]).parent().removeClass("checked");  
 			}
 		}
 	}
+   function del(obj){
+	   var id=obj.title;
+	   $.ajax({
+		    type:"POST",
+			url:"{$conf[log_out]}/controller/system/cl_yhgl.php?file=del&page={$page}",
+			data:{id:id},
+		    dataType: "json",
+			success:function(data){
+				if(data == 'nothing'){
+					$("#tbody").empty();
+				    $("#tbody").append("<tr class='odd gradeX'><td colspan='6' text-align='center'>已经没有任何用户了</td></tr>");
+				    
+				}else{
+					var html="";
+					var len=data.length;
+					for(var i=0;i<len;i++){
+						html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].username+"</td><td class='hidden-480'>"+data[i].realname+"</td><td class='hidden-480'>"+data[i].phone+"</td><td class='hidden-480'>"+data[i].role+"</td><td><a href='{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id"+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
+					}
+					$("#tbody").empty();
+					$("#tbody").append(html);
+				}
+			}	
+	   })
+   }
    function subform(){
-		$("#myform").submit();
+	   var lens=$(":checked").length;
+		var checkbox=$(":checked");
+		var id = new Array();
+		for(var j=0;j<lens;j++){
+			if(checkbox[j].value != "on"){
+			   id[j]=checkbox[j].value;
+			}				
+		}
+		if(id == ""){
+			alert("请选择你要删除的用户");
+		}else{
+			$.ajax({
+				type:"POST",
+				url:"{$conf['log_out']}/controller/system/cl_yhgl.php?file=myform&page={$page}",
+				data:{id:id},
+			    dataType: "json",
+				success:function(data){
+					if(data == 'nothing'){
+						$("#tbody").empty();
+					    $("#tbody").append("<tr class='odd gradeX'><td colspan='5' text-align='center'>已经没有任何提示了</td></tr>");
+					}else{
+						var html="";
+						var len=data.length;
+						for(var i=0;i<len;i++){
+							html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].username+"</td><td class='hidden-480'>"+data[i].realname+"</td><td class='hidden-480'>"+data[i].phone+"</td><td class='hidden-480'>"+data[i].role+"</td><td><a href='{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id="+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
+						}
+						$("#tbody").empty();
+						$("#tbody").append(html);
+					}
+				}	
+			})
+		}
 	}
 
    </script>

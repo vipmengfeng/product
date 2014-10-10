@@ -168,21 +168,21 @@ class db_mysql {
 	
 	*/
 	 function update($where="",$table,$condition){
+	
 	 if(!is_array($condition)){
 		return false;
 		}
 		$sqla="";
 		    $sql= "UPDATE ".$table." SET ";
 			foreach($condition as $k => $v){
+				
 				$sqla .= ",$k='$v'";
+				
 			}
 			$sqla = substr($sqla, 1);
 			$sql .=$sqla;
 
 			$sql .= $where;
-
-			$sql .= " WHERE ".$where;
-
 			if($this->query($sql)){
 			return "right";
 		    }else{

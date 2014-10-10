@@ -72,12 +72,12 @@
               
               <!-- BEGIN FORM-->
               
-             <form action="" method="post" class="form-horizontal" onsubmit="return checkalls()">
+             <form action="" method="post" class="form-horizontal" id="myform" onsubmit="return checkalls()">
                 <div class="control-group">
                   <label class="control-label">发通知者</label>
                   <div class="controls">
                     <span class="help-inline">{if $_GET['action']=='mod'  || $_GET['action']=='info'}{$query['name']}{else}{$_SESSION[username]}{/if}</span> 
-					<input type="hidden" class="span6 m-wrap" name="name" id="name" value="{$_SESSION[username]}" />
+					<input type="hidden" class="span6 m-wrap" name="name" id="tzname" value="{$_SESSION[username]}" />
                     </div>
                 </div>
                 <div class="control-group">
@@ -89,13 +89,13 @@
                 <div class="control-group">
                   <label class="control-label">通知内容</label>
                   <div class="controls">
-                    <textarea class="span6 m-wrap" name="content" rows="3" id="content">{$query['content']}</textarea>
+                    <textarea class="span6 m-wrap" name="content" rows="3" id="qwer">{$query['content']}</textarea>
                    </div>
                 </div>
                
                {if $_GET['action']=='' || $_GET['action']=='mod'}
                 <div class="form-actions">
-                  <button type="button" onclick="sub()" class="btn blue">确认</button>
+                  <button type="button" onclick="sub(this)" name="{$query['id']}" class="btn blue">确认</button>
                   <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消</button>
                 </div>
                 {/if}
@@ -131,20 +131,31 @@ function checkalls()
     }
     return false;
 }
-function sub(){
+function sub(obj){
 	var title=$("#title").val();
-	var content=$("#content").val();
-	alert(title);
-	alert(content);
-	/*$.ajax({
+	var content=$("#qwer").val();
+	var name=$("#tzname").val();
+	var id=obj.name;
+	$.ajax({
 		type:"POST",
 		url:"{$conf['log_out']}/controller/system/tzgl.php?file=addtz&action={$action}&id={$id}",
-		data:{content:content},
-		dataType:"text",
+		data:{name:name,title:title,content:content,id:id},
+		dataType:"json",
 		success:function(data){
-			alert(data);
+			if(data == 1){
+				$("#myModal").show();
+				$("#content").append("添加成功");
+				 $(':input','#myform')  
+				 .not(':button, :submit, :reset, :hidden')  
+				 .val('')  
+				 .removeAttr('checked') 
+				 .removeAttr('selected');
+			}else{
+				$("#title").val(data.title);
+				$("#qwer").val(data.content);
+			}
 		}
-	})*/
+	})
 }
 </script>
 <!-- END CONTAINER --> 

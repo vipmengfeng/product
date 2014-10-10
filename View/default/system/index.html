@@ -839,7 +839,28 @@
 
 <script type="text/javascript">
 	
-	
+function huoqu(obj){
+	$.ajax({
+		type:"POST",
+		url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file=hqkh&page={$page}",
+		data:{id:obj.title},
+		dataType:"json",
+		success:function(data){
+			if(data == "nothing"){
+				$("#tbody").empty();
+			    $("#tbody").append("<tr class='odd gradeX'><td colspan='6' text-align='center'>已经没有任何内容了</td></tr>");
+			}else{
+				var len=data.length;
+				var html="";
+				for(var i=0;i<len;i++){
+					html+="<tr><td><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+data[i].cusid+"' /></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+data[i].cusid+" href='#'>获取</a><a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
+				}
+				$('#tbody').empty();
+				$('#tbody').append(html);
+			}
+		}
+	})
+}
 	
 		function sub(){
 			

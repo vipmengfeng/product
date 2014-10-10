@@ -17,17 +17,25 @@
 	if($_GET['file'] == 'fangqi'){
 		$cusid=$_POST['id'];
 		$uid=$_SESSION['usernameid'];
-		$page=$_GET['page'];
-		$pages=($page-1)*10;
 		$data=array(
 			"uid"=>0,
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query == 'right'){
 			logs("update", "give", $cusid);
-			$sql="SELECT * FROM crm_customer WHERE uid=$uid ORDER BY inputtime DESC LIMIT $pages,10";
-			$query=$db->get_all($sql);
-			echo json_encode($query);
+			$sql="SELECT * FROM crm_customer WHERE uid=$uid ORDER BY inputtime DESC";
+			$page=$_GET['page'] ?$_GET['page']:1;
+			$content=page($sql,$page);
+			$query=$content['content'];
+			if(!empty($query)){
+				foreach($query as $k=>$v){
+					$query[$k]['ctype']=$status[$v['ctype']];
+				}
+				echo json_encode($query);
+			}else{
+				echo json_encode("nothing");
+			}
+			
 		}else{
 			echo 0;
 		}

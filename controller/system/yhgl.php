@@ -11,7 +11,7 @@
 	}
     require ROOT_DIR.'/caches/caches_common/role.php';
 	$table_pre=$conf['pre'];
-	$sql="select * from ".$table_pre.'user where disable=1 ORDER BY id DESC';
+	$sql="select * from ".$table_pre.'user where disable=1 ORDER BY inputtime DESC';
 	$page=$_GET['page'] ?$_GET['page']:1;
 	$content=page($sql,$page);
 	$res=$content['content'];

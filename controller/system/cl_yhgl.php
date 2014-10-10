@@ -116,25 +116,59 @@
 	//删除
 	if($_GET['file'] == 'myform'){
 		if(!empty($_POST)){
-			$chec=$_POST['checkbox1'];
-			$str=implode(",", $chec);
+			$chec=$_POST['id'];
+			$st=implode(",", $chec);
+			$str=substr($st,1);
 			$data=array(
 					"disable"=>"0",
 			);
 			$query=$db->update(" where id in ($str)", "crm_user" ,$data);
-			if($query){
+			if($query == 'right'){
 			    logs("del","member",$chec);
-				$url="{$conf['log_out']}/controller/system/yhgl.php";
-				$content="删除成功";
-				include template("jump");
-			}else {
-				$url="{$conf['log_out']}/controller/system/yhgl.php";
-				$content="删除失败";
-				include template("jump");
+				$sql="SELECT * FROM crm_user WHERE disable=1 ORDER BY inputtime DESC";
+				$page=$_GET['page'] ?$_GET['page']:1;
+				$content=page($sql,$page);
+				$con=$content['content'];
+				if(!empty($con)){
+					foreach($con as $k=>$v){
+						$con[$k]['role']=$role[$v['role']]['rolename'];
+					}
+					echo json_encode($con);
+				}else{
+					echo json_encode("nothing");
 				}
+				}else{
+					echo json_encode($re);
+				
+				}
+					
+				
 		}
 	}
-	
+	if($_GET['file'] == 'del'){
+		$id=$_POST['id'];
+		$info=array(
+				'disable'=>0,
+		);
+		$query=$db->update(" WHERE id=$id", "crm_user" ,$info);
+		if($query == 'right'){
+			$sql="SELECT * FROM crm_user WHERE disable=1 ORDER BY inputtime DESC";
+			$page=$_GET['page'] ?$_GET['page']:1;
+			$content=page($sql,$page);
+			$con=$content['content'];
+			if(!empty($con)){
+				foreach($con as $k=>$v){
+					$con[$k]['role']=$role[$v['role']]['rolename'];
+				}
+				echo json_encode($con);
+			}else{
+				echo json_encode("nothing");
+			}
+		}else{
+			echo json_encode($re);
+				
+		}
+	}
 	if($_GET['file'] == 'checkhaha'){
 		$username=$_GET['username'];
 		$sql="SELECT * FROM crm_user WHERE username='$username'";	
