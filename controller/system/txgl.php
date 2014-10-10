@@ -54,8 +54,13 @@
 		}
 		
 	    
+	}elseif($_GET['file'] == "read"){
+	  $id=$_POST['id'];
+	  $data=array();
+	  $data['ifread']=1;
+	  $re=$db->update("id='$id'","crm_tx",$data);
 	}else{
-	    $sql="SELECT * FROM crm_tx WHERE userid='$_SESSION[usernameid]' ORDER BY id DESC";
+	    $sql="SELECT * FROM crm_tx WHERE userid='$_SESSION[usernameid]'  ORDER BY id DESC";
 	    $page=$_GET['page'] ?$_GET['page']:1;
 	    $content=page($sql,$page);
 	    $query=$content['content'];
