@@ -17,7 +17,21 @@
 		</div>
 
 	</div>
+	<div class='bubbleScroll'  style="bottom: 0px; right: 0px;display:none" id="bubbleScroll">
+	<div class='bubbleScroll_inner' style="border-color: rgb(0, 0, 0); background: none repeat scroll 0% 0% rgb(255, 255, 255); color: rgb(0, 0, 0);">
+	<a href='javascript:void(0)' class='bubbleScroll_close_button' title="关闭" onclick="lockon()">x</a>
+	<h3 id="ts">您有新的{$lock}</h3>
+	<p><a href="{$go}" id="go">去查看</a>
+	
+	</div>
+	</div>
+<script type="text/javascript">
+	function lockon(){
+		$("#bubbleScroll").hide();
+	
+	}
 
+</script>
 	<!-- END FOOTER -->
 
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->

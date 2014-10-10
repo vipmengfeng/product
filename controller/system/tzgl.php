@@ -33,7 +33,8 @@ if(empty($_GET)){
 			if($_GET['action'] == 'mod'){
 				$id=$_GET['id'];
 				$info=$_POST['info'];
-				if($db->update(" WHERE id=$id","crm_tz",$info)){
+				if($db->update("WHERE id=$id","crm_tz",$info)){
+				    logs("update","tz",$id);
 					$url="{$conf['log_out']}/controller/system/tzgl.php";
 					$content="修改成功";
 					include template("jump");
@@ -42,6 +43,7 @@ if(empty($_GET)){
 				$info=$_POST;
 				$info['inputtime']=time();
 				if($db->add("crm_tz",$info)){
+				 logs("add","tz",$info['content']);
 					$url="{$conf['log_out']}/controller/system/tzgl.php";
 					$content="添加成功";
 					include template("jump");
@@ -59,10 +61,13 @@ if(empty($_GET)){
 					"disable"=>"0",
 			);
 			$query=$db->update(" where id in ($str)", "crm_tz" ,$data);
+
 			if($query == "right"){
+				logs("update","deltz",$_POST['checkbox1']);
 				$sql="SELECT * FROM crm_tz WHERE disable=1 ORDER BY inputtime DESC LIMIT $pages,10";
 				$query=$db->get_all($sql);
 				echo json_encode($query);
+
 			}else {
 				$url="{$conf['log_out']}/controller/system/tzgl.php";
 				$content="删除失败";
