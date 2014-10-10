@@ -181,7 +181,6 @@ class db_mysql {
 
 			$sql .= $where;
 
-			$sql .= " WHERE ".$where;
 
 			if($this->query($sql)){
 			return "right";

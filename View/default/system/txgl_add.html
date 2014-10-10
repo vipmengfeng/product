@@ -154,16 +154,17 @@ function subm(){
 	var id=$("#txid").val();
 	$.ajax({
 		type:"POST",
-		url:"{$conf[log_out]}/controller/system/txgl.php?file=addtx",
+		url:"{$conf[log_out]}/controller/system/txgl.php?file=addtx&action={$_GET['action']}&id={$_GET['id']}",
 		data:{title:title,time:time,content:content,userid:id},
 	    dataType: "text",
 		success:function(data){
-			if(data == "right"){
+			if(data == "add"){
 				$('#myform')[0].reset(); 
-			}else{
+			}else if(data == "wadd"){
 				alert(添加失败);
-			}
-		
+			}else if(data == "wmod"){
+			   alert(修改失败);
+			}		
 		}
 	})
 }
