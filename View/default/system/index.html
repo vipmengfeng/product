@@ -1,242 +1,146 @@
-{template "header"}
+{template "header"} 
 
-	<!-- END 头部 -->
+<!-- END 头部 --> 
 
-	<!-- BEGIN 容器 -->
+<!-- BEGIN 容器 -->
 
-	<div class="page-container">
-
-		<!-- BEGIN 左侧 -->
-{template "left"}
-		<!-- END 左侧 -->
-
-		<!-- BEGIN 内容页 -->
-
-		<div class="page-content">
- 
-			<!-- BEGIN 内容页容器-->
-
-			<div class="container-fluid">
-
-				<!-- BEGIN 内容页头部-->
-
-				<div class="row-fluid">
-
-					<div class="span12">
-
-						<!-- BEGIN STYLE CUSTOMIZER -->
-
-						<!-- BEGIN 网页的标题和面包屑-->
-
-						<h3 class="page-title">
-
-							今天心情怎么样？ <small>新的一天加油</small>
-
-						</h3>
-
-						<ul class="breadcrumb">
-
-							<li>
-
-								<li> <i class="icon-home"></i> <a href="#">客户中心</a> <i class="icon-angle-right"></i> </li>
+<div class="page-container"> 
+  
+  <!-- BEGIN 左侧 --> 
+  {template "left"} 
+  <!-- END 左侧 --> 
+  
+  <!-- BEGIN 内容页 -->
+  
+  <div class="page-content"> 
+    
+    <!-- BEGIN 内容页容器-->
+    
+    <div class="container-fluid"> 
+      
+      <!-- BEGIN 内容页头部-->
+      
+      <div class="row-fluid">
+        <div class="span12"> 
+          
+          <!-- BEGIN STYLE CUSTOMIZER --> 
+          
+          <!-- BEGIN 网页的标题和面包屑-->
+          
+          <h3 class="page-title"> 今天心情怎么样？ <small>新的一天加油</small> </h3>
+          <ul class="breadcrumb">
+            <li>
+            <li> <i class="icon-home"></i> <a href="#">客户中心</a> <i class="icon-angle-right"></i> </li>
             <li> <a href="#">首页</a> <i class="icon-angle-right"></i> </li>
-							
-
-							</li>
-
-							
-							<!-- BEGIN 日期-->
-							<li class="pull-right no-text-shadow">
-
-								<div id="dashboard-report-range" class="dashboard-date-range tooltips no-tooltip-on-touch-device responsive" data-tablet="" data-desktop="tooltips" data-placement="top" data-original-title="选择日期范围">
-
-									<i class="icon-calendar"></i>
-
-									<span></span>
-
-									<i class="icon-angle-down"></i>
-
-								</div>
-							
-							</li>
-							<!-- END 日期-->
-						</ul>
-
-						<!-- END 网页的标题和面包屑-->
-                        {template "tishi"}
-                        <!-- END 主要内容-->
-						<div class="row-fluid">
-                        
-							<div class="span6">
-                            
-                                <!-- BEGIN SAMPLE FORM PORTLET-->   
-                                
-                                <div class="portlet box blue">
-                                
-                                <div class="portlet-title">
-                                
-                                <div class="caption"><i class="icon-plus"></i>快捷添加客户</div>
-                                
-                                <div class="tools">
-                                
-                                <a href="javascript:;" class="collapse"></a>
-                                
-                                <a href="javascript:;" class="reload"></a>
-                                </div>
-                                
-                                </div>
-                                
-                                <div class="portlet-body form">
-                                
-                                <!-- BEGIN FORM-->
-                                
-                                <form action="" method="post" id="myform" class="form-horizontal">
-                                
-                                <div class="control-group">
-                                
-                                    <label class="control-label">公司名称</label>
-                                
-                                    <div class="controls">
-                                
-                                        <input type="text" class="span6 m-wrap" id="cusname" name="info[cusname]" />
-                                
-                                        <span class="help-inline">必填</span>
-                                
-                                    </div>
-                                
-                                </div>
-                                
-                                <div class="control-group">
-                                
-                                    <label class="control-label">电话</label>
-                                
-                                    <div class="controls">
-                                
-                                        <input type="text" class="span6 m-wrap" name="info[cphone]" id="phone" onblur="checktel()" />
-                                
-                                        <span class="help-inline" id="mesphone">必填</span>
-                                
-                                    </div>
-                                
-                                </div>
-								<div class="control-group">
-                                
-                                    <label class="control-label">联系人</label>
-                                
-                                    <div class="controls">
-                                
-                                        <input type="text" class="span6 m-wrap" id="connecter" name="info[connecter]" />
-                                
-                                        <span class="help-inline">必填</span>
-                                
-                                    </div>
-                                
-                                </div>
-                               
-                                <div class="control-group">
-                                
-                                <label class="control-label">客户类型</label>
-                                
-                                <div class="controls">
-                                
-                                <select class="span6 m-wrap" name="info[ctype]" id="ctype" data-placeholder="Choose a Category" tabindex="1">
-                                
-                                <option value="">--类型分类选择--</option>
+            </li>
+            
+            <!-- BEGIN 日期-->
+            <li class="pull-right no-text-shadow">
+              <div id="dashboard-report-range" class="dashboard-date-range tooltips no-tooltip-on-touch-device responsive" data-tablet="" data-desktop="tooltips" data-placement="top" data-original-title="选择日期范围"> <i class="icon-calendar"></i> <span></span> <i class="icon-angle-down"></i> </div>
+            </li>
+            <!-- END 日期-->
+          </ul>
+          
+          <!-- END 网页的标题和面包屑--> 
+          {template "tishi"} 
+          <!-- END 主要内容-->
+          <div class="row-fluid">
+            <div class="span6"> 
+              
+              <!-- BEGIN SAMPLE FORM PORTLET-->
+              
+              <div class="portlet box blue">
+                <div class="portlet-title">
+                  <div class="caption"><i class="icon-plus"></i>快捷添加客户</div>
+                  <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="reload"></a> </div>
+                </div>
+                <div class="portlet-body form"> 
+                  
+                  <!-- BEGIN FORM-->
+                  
+                  <form action="" method="post" id="myform" class="form-horizontal">
+                    <div class="control-group">
+                      <label class="control-label">公司名称</label>
+                      <div class="controls">
+                        <input type="text" class="span6 m-wrap" id="cusname" name="info[cusname]" />
+                        <span class="help-inline">必填</span> </div>
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label">电话</label>
+                      <div class="controls">
+                        <input type="text" class="span6 m-wrap" name="info[cphone]" id="phone" onblur="checktel()" />
+                        <span class="help-inline" id="mesphone">必填</span> </div>
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label">联系人</label>
+                      <div class="controls">
+                        <input type="text" class="span6 m-wrap" id="connecter" name="info[connecter]" />
+                        <span class="help-inline">必填</span> </div>
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label">客户类型</label>
+                      <div class="controls">
+                        <select class="span6 m-wrap" name="info[ctype]" id="ctype" data-placeholder="Choose a Category" tabindex="1">
+                          <option value="">--类型分类选择--</option>
+                          
                                 
                                {loop $status $k $val}
-                                        <option value="{$k}">{$val}</option>
+                                        
+                          <option value="{$k}">{$val}</option>
+                          
                                     	{/loop}
 
                                 
-                                </select>
                                 
-                                </div>
-                                
-                                </div>
-                                    
-                                <div class="control-group">
-                                
-                                <label class="control-label">是否获取</label>
-                                
-                                <div class="controls">
-                                
-                                <label class="checkbox">
-                                
-                                <input type="checkbox" name="info[uid]" id="uid" value="{$_SESSION['usernameid']}" /> 添加并获取
-                                
-                                </label>
-                                
-                                </div>
-                                
-                                </div>
-                               
-                                
-                                <div class="form-actions">
-                                
-                                    <button type="button" class="btn blue" id="button" onclick="sub()">确认添加</button>
-                                
-                                    <button type="reset" class="btn">重置</button>                            
-                                
-                                </div>
-                                
-                                </form>
-                                
-                                <!-- END FORM-->       
-                                
-                                </div>
-                                
-                                </div>
-                                
-                                <!-- END SAMPLE FORM PORTLET-->
-                            
-                            </div>
-                            
-                            <div class="span6">
-
-							<!-- BEGIN PORTLET-->
-
-							<div class="portlet paddingless">
-
-								<div class="portlet-title line">
-
-									<div class="caption"><i class="icon-bell"></i>操作记录</div>
-
-									<div class="tools">
-
-										<a href="" class="collapse"></a>
-
-
-										<a href="" class="reload"></a>
-
-									</div>
-
-								</div>
-
-								<div class="portlet-body">
-
-									<!--BEGIN TABS-->
-
-									<div class="tabbable tabbable-custom">
-
-										<ul class="nav nav-tabs">
-
-											<li class="active"><a href="#tab_1_1" data-toggle="tab">System</a></li>
-
-											<li><a href="#tab_1_2" data-toggle="tab">Activities</a></li>
-
-											<li><a href="#tab_1_3" data-toggle="tab">Recent Users</a></li>
-
-										</ul>
-
-										<div class="tab-content">
-
-											<div class="tab-pane active" id="tab_1_1">
-
-												<div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible="0">
-
-													<ul class="feeds">
-
-														 {loop $tz $tkey $tval}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label">是否获取</label>
+                      <div class="controls">
+                        <label class="checkbox">
+                          <input type="checkbox" name="info[uid]" id="uid" value="{$_SESSION['usernameid']}" />
+                          添加并获取 </label>
+                      </div>
+                    </div>
+                    <div class="form-actions">
+                      <button type="button" class="btn blue" id="button" onclick="sub()">确认添加</button>
+                      <button type="reset" class="btn">重置</button>
+                    </div>
+                  </form>
+                  
+                  <!-- END FORM--> 
+                  
+                </div>
+              </div>
+              
+              <!-- END SAMPLE FORM PORTLET--> 
+              
+            </div>
+            <div class="span6"> 
+              
+              <!-- BEGIN PORTLET-->
+              
+              <div class="portlet paddingless">
+                <div class="portlet-title line">
+                  <div class="caption"><i class="icon-bell"></i>操作记录</div>
+                  <div class="tools"> <a href="" class="collapse"></a> <a href="" class="reload"></a> </div>
+                </div>
+                <div class="portlet-body"> 
+                  
+                  <!--BEGIN TABS-->
+                  
+                  <div class="tabbable tabbable-custom">
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#tab_1_1" data-toggle="tab">通知</a></li>
+                      <li><a href="#tab_1_2" data-toggle="tab">提醒</a></li>
+                      <li><a href="#tab_1_3" data-toggle="tab">新客户</a></li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab_1_1">
+                        <div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible="0">
+                          <ul class="feeds">
+                            {loop $tz $tkey $tval}
                             <li>
                               <div class="col1">
                                 <div class="cont">
@@ -250,593 +154,90 @@
                               </div>
                               <div class="col2">
                                 <div style="float:right">{date("Y-m-d H:i:s",$tval['inputtime'])}</div>
-                                
                               </div>
                             </li>
                             {/loop}
-
-														
-
-													</ul>
-
-												</div>
-
-											</div>
-
-											<div class="tab-pane" id="tab_1_2">
-
-												<div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
-
-													<ul class="feeds">
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New order received 
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		10 mins
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<div class="col1">
-
-																<div class="cont">
-
-																	<div class="cont-col1">
-
-																		<div class="label label-important">                      
-
-																			<i class="icon-bolt"></i>
-
-																		</div>
-
-																	</div>
-
-																	<div class="cont-col2">
-
-																		<div class="desc">
-
-																			Order #24DOP4 has been rejected.    
-
-																			<span class="label label-important label-mini">Take action <i class="icon-share-alt"></i></span>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-															</div>
-
-															<div class="col2">
-
-																<div class="date">
-
-																	24 mins
-
-																</div>
-
-															</div>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-														<li>
-
-															<a href="#">
-
-																<div class="col1">
-
-																	<div class="cont">
-
-																		<div class="cont-col1">
-
-																			<div class="label label-success">                        
-
-																				<i class="icon-bell"></i>
-
-																			</div>
-
-																		</div>
-
-																		<div class="cont-col2">
-
-																			<div class="desc">
-
-																				New user registered
-
-																			</div>
-
-																		</div>
-
-																	</div>
-
-																</div>
-
-																<div class="col2">
-
-																	<div class="date">
-
-																		Just now
-
-																	</div>
-
-																</div>
-
-															</a>
-
-														</li>
-
-													</ul>
-
-												</div>
-
-											</div>
-
-											<div class="tab-pane" id="tab_1_3">
-
-												<div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
-												{loop $res $k $v}
-													<div class="row-fluid">
-													
-														
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">{$v['cusname']}</a> 
-
-																	<span class="label label-success">{$v['connecter']}</span>
-
-																</div>
-
-																<div>{date('Y-m-d H:i:s',$v['inputtime'])}</div>
-
-															</div>
-
-														</div>
-														
-
-														<div class="span6 user-info">
-
-															<img alt="" src="{$conf['image']}/avatar.png" />
-
-															<div class="details">
-
-																<div>
-
-																	<a href="#">Lisa Miller</a> 
-
-																	<span class="label label-info">Pending</span>
-
-																</div>
-
-																<div>19 Jan 2013 10:45AM</div>
-
-															</div>
-
-														</div>
-
-													</div>
-											{/loop}
-													
-												</div>
-
-											</div>
-
-										</div>
-
-									</div>
-
-									<!--END TABS-->
-
-								</div>
-
-							</div>
-
-							<!-- END PORTLET-->
-
-						</div>
-                     		                   
-						</div>
-                        
-                       
-                                <!-- END PORTLET-->
-    
-                            </div>
-                        
+                          </ul>
                         </div>
+                      </div>
+                      <div class="tab-pane" id="tab_1_2">
+                        <div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
+                          <ul class="feeds">
+						  {loop $tx $tk $tv}
+                            <li> <a href="#">
+                              <div class="col1">
+                                <div class="cont">
+                                  <div class="cont-col1">
+                                    <div class="label label-success"> <i class="icon-bell"></i> </div>
+                                  </div>
+                                  <div class="cont-col2">
+                                    <div class="desc">{$tv['title']}</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col2">
+                                <div class="date">{date("Y-m-d H:i",$tv['time'])}</div>
+                              </div>
+                              </a> </li>
+                           {/loop}
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="tab_1_3">
+                        <div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1"> 
+                         {loop $res $k $v}						
+                          <div class="row-fluid">
+                            <div class="span6 user-info"> <img alt="" src="{$conf['image']}/avatar.png" />
+                              <div class="details">
+                                <div> <a href="#">{$v['cusname']}</a> <span class="label label-success">{$v['connecter']}</span> </div>
+                                <div>{date('Y-m-d H:i:s',$v['inputtime'])}</div>
+                              </div>
+                            </div>
+                           
+                          </div>
+                           
+							{/loop}
+						  </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!--END TABS--> 
+                  
+                </div>
+              </div>
+              
+              <!-- END PORTLET--> 
+              
+            </div>
+          </div>
+          
+          <!-- END PORTLET--> 
+          
+        </div>
+      </div>
+    </div>
+    <!-- END 主要内容--> 
+    
+  </div>
+</div>
 
-					</div>
-					<!-- END 主要内容-->
-						
-					</div>
+<!-- END 内容页头部-->
 
-				</div>
+</div>
 
-				<!-- END 内容页头部-->
+<!-- END 内容页容器-->
 
-				
+</div>
 
-			</div>
+<!-- END 内容页 -->
 
-			<!-- END 内容页容器-->    
+</div>
 
-		</div>
-
-		<!-- END 内容页 -->
-
-	</div>
-
-	<!-- END 容器 -->
+<!-- END 容器 --> 
 <script type="text/javascript" src="{$conf['js']}/register.js">
 	
-</script>
-
+</script> 
 <script type="text/javascript">
 	
 	
@@ -881,7 +282,7 @@
 			 }
 		}
 
-</script>
-	<!-- BEGIN 底部 -->
+</script> 
+<!-- BEGIN 底部 --> 
 
 {template "footer"}
