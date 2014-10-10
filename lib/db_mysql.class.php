@@ -183,6 +183,7 @@ class db_mysql {
 			$sql .=$sqla;
 
 			$sql .= $where;
+
 			if($this->query($sql)){
 			return "right";
 		    }else{

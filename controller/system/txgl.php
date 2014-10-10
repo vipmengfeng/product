@@ -17,8 +17,22 @@
 	   include template('txgl_add','system');
 	}elseif($_GET['file'] == "addtx"){
 		$_POST['time']=strtotime($_POST['time']);
-		$return=$db->add("crm_tx",$_POST);
-		echo $return;
+		if($_GET['action'] == "mod"){
+	     $return=$db->update(" WHERE id = '$_GET[id]'","crm_tx",$_POST);
+		 if($return == "right"){
+			echo "mod";
+		 }else{
+			echo "wmod";
+		 }
+		}else{
+		 $return=$db->add("crm_tx",$_POST);
+		 if($return == "right"){
+			echo "add";
+		 }else{
+			echo "wadd";
+		 }
+		}
+		
 	}elseif($_GET['file'] == "del"){
 		$id=$_GET['id'];	
 		$re=$db->del("crm_tx",$id,"id");
@@ -58,7 +72,7 @@
 	  $id=$_POST['id'];
 	  $data=array();
 	  $data['ifread']=1;
-	  $re=$db->update("id='$id'","crm_tx",$data);
+	  $re=$db->update("WHERE id='$id'","crm_tx",$data);
 	}else{
 	    $sql="SELECT * FROM crm_tx WHERE userid='$_SESSION[usernameid]'  ORDER BY id DESC";
 	    $page=$_GET['page'] ?$_GET['page']:1;

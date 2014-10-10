@@ -4,9 +4,11 @@
 	$menus=priv($checkpriv['first_priv'],$checkpriv['next_priv']);
 	$first_priv=explode(",",$checkpriv['first_priv']);
 	$next_priv=explode(",",$checkpriv['next_priv']);
+	$sql2="SELECT count(*) as num FROM crm_tx WHERE ifread = 0 ";
 	$sql1="SELECT * FROM crm_tx WHERE ifread = 0 LIMIT 0,7";
 	$mes=$db->get_all($sql1);
-	$num=count($mes);
+	$nums=$db->get_one($sql2);
+	$num=$nums['num'];
 	//echo "<br>";
 	require ROOT_DIR."/caches/caches_common/menu.php";
 	//print_r($menu);die;
