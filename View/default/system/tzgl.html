@@ -93,7 +93,7 @@
                 {loop $query $k $v}
                   <tr class="odd gradeX">
                     <td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['id']}" /></td>
-                    <td class="hidden-480">{$v['name']}</td>
+                    <td class="hidden-480">{if in_array($v['id'],$weidu)}{$v['name']}(未读){else}{$v['name']}{/if}</td>
                     <td class="hidden-480">{date("Y-m-d H:i",$v['inputtime'])}</td>
                     <td class="hidden-480">{$role[$v['role']]['rolename']}</td>
                     <td class="hidden-480">{$v['title']}</td>

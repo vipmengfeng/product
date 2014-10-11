@@ -84,13 +84,9 @@
                 <div class="control-group">
                   <label class="control-label">通知角色</label>
                   <div class="controls">
-				  <select name="info[role]" id="role">
+				
 				  {loop $role $rok $ro}
-				  {if $_GET['action']=='mod'}
-				  <option value="{$ro['roleid']}" {if $query[role] == $ro['roleid']}selected{/if}>{$ro['rolename']}</option>
-				  {else}
-				  <option value="{$ro['roleid']}" {if $ro['roleid'] == "2"}selected{/if} >{$ro['rolename']}</option>
-				  {/if}		  
+				 <input type="checkbox" {if $query[roleid] == $ro['roleid']}checked{/if} value="{$ro['roleid']}">{$ro['rolename']}
 				  {/loop}
 				  </select>
                    
@@ -154,31 +150,37 @@ function sub(obj){
 	var title=$("#title").val();
 	var content=$("#qwer").val();
 	var name=$("#tzname").val();
-	var role=$("#role").val();
+	var role="";
+	var check=$(":checkbox");
+	for (var i=0;i<check.length;i++){
+		if(check[i].checked == true){
+			role += check[i].value+",";
+		}
+	}
 	var id=obj.name;
 	var mestitle=$("#mestitle").text();
 	if(mestitle != "√"){
 		checkalls();
 	}else{
-		$.ajax({
-			type:"POST",
-			url:"{$conf['log_out']}/controller/system/tzgl.php?file=addtz&action={$action}&id={$id}",
-			data:{name:name,title:title,content:content,id:id,role:role},
-			dataType:"json",
-			success:function(data){
-				if(data == 1){
-					$("#myModal").show();
-					$("#content").append("添加成功");
-					 $("#myform")[0].reset();
-				}else if(data == 0){
-					$("#myModal").show();
-					$("#content").append("操作失败");
-				}else{
-					$("#myModal").show();
-					$("#content").append("修改成功");
-					$("#title").val(data.title);
-					$("#qwer").val(data.content);
-				}
+		
+	$.ajax({
+		type:"POST",
+		url:"{$conf['log_out']}/controller/system/tzgl.php?file=addtz&action={$action}&id={$id}",
+		data:{name:name,title:title,content:content,roleid:role},
+		dataType:"text",
+		success:function(data){
+			if(data == 1){
+				$("#myModal").show();
+				$("#content").append("添加成功");
+				$("#myform")[0].reset();
+			}else if(data == 0){
+				$("#myModal").show();
+				$("#content").append("操作失败");
+			}else{
+				$("#myModal").show();
+				$("#content").append("修改成功");
+				$("#title").val(data.title);
+				$("#qwer").val(data.content);
 			}
 		})
 	}
