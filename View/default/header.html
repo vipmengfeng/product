@@ -154,18 +154,25 @@
 <script type="text/javascript">
 	setInterval("lock()",30000);
 	function lock(){
-	$.get("{$conf[log_out]}/controller/header.php",function(data){
+	$.post("{$conf[log_out]}/controller/header.php?lock=tx",function(data){
 		if(data=="OK"){
 			$("#bubbleScroll").show();
 		    $("#ts").text("您有新的提醒");
 		    $("#go").attr("href","{$conf['log_out']}/controller/system/txgl.php");
 		}
+	})
+}		
+	setInterval("locktz()",1000);
+		function locktz(){
+	   $.post("{$conf[log_out]}/controller/header.php?lock=tz",function(data){
+		if(data=="OK"){
+			$("#bubbleScroll").show();
+		    $("#ts").text("您有新的通知");
+		    $("#go").attr("href","{$conf['log_out']}/controller/system/tzgl.php");
+		}
 	
 	
 	})
-		
-		
-		
 		
 		
 		
