@@ -254,7 +254,7 @@ function huoqu(obj){
 				var len=data.length;
 				var html="";
 				for(var i=0;i<len;i++){
-					html+= "<div class='row-fluid'><div class='span6 user-info'> <img alt='' src='{$conf['image']}/avatar.png' /><div class='details'><div><a href='#'>"+data[i].cusnames+"</a> <span class='label label-success'>"+data[i].connecter+"</span> <a class='btn mini blue' onclick='huoqu(this)' title='"+data[i].cusid+"' href='#'>获取</a></div><div>"+data[i].inputtime+"</div></div></div></div>";
+					html+= "<div class='row-fluid'><div class='span6 user-info'> <img alt='' src='{$conf['image']}/avatar.png' /><div class='details'><div><a href='#'>"+data[i].cusname+"</a> <span class='label label-success'>"+data[i].connecter+"</span> <a class='btn mini blue' onclick='huoqu(this)' title='"+data[i].cusid+"' href='#'>获取</a></div><div>"+data[i].inputtime+"</div></div></div></div>";
 				}
 				$('#tbody').empty();
 				$('#tbody').append(html);

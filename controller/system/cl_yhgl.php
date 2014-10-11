@@ -14,11 +14,6 @@
 		include template('yhgl_add','system');
 	}
 	
-	if($_GET['file'] == 'del'){
-		$ids=$_GET['id'];
-		echo $ids;
-	}
-	
 	if($_GET['file'] == 'mod'){
 		$ids=$_GET['id'];
 		$sql="select * from ".$table_pre."user where id=".$ids;
@@ -117,8 +112,7 @@
 	if($_GET['file'] == 'myform'){
 		if(!empty($_POST)){
 			$chec=$_POST['id'];
-			$st=implode(",", $chec);
-			$str=substr($st,1);
+			$str=implode(",", $chec);
 			$data=array(
 					"disable"=>"0",
 			);

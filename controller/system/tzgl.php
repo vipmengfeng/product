@@ -2,6 +2,7 @@
 	require '../../ini.php';
 	require '../left.php';
 	require ROOT_DIR.'/check.php';
+	require ROOT_DIR.'/caches/caches_common/role.php';
 	$priv=admin_priv("czrz");
 	if(!in_array($priv,$first_priv) && !in_array($priv,$next_priv)){
 		$url="{$conf['log_out']}/controller/system/index.php";
@@ -58,6 +59,7 @@
 			if(!empty($con)){
 				foreach($con as $k=>$v){
 					$con[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+					$con[$k]['role']=$role[$v['role']]['rolename'];
 				}
 				echo json_encode($con);
 			}else{
@@ -87,6 +89,7 @@
 				if(!empty($con)){
 					foreach($con as $k=>$v){
 						$con[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+						$con[$k]['role']=$role[$v['role']]['rolename'];
 					}
 					echo json_encode($con);
 				}else{
