@@ -12,7 +12,7 @@
 	require ROOT_DIR."/caches/caches_common/status.php";
 	$uid=$_SESSION['usernameid'];
 	if(empty($_POST)){
-		$sql="select * from ".$table_pre."customer where disable=1 and uid=$uid ORDER BY inputtime DESC";
+		$sql="select * from ".$table_pre."customer where disable=1 and uid=$uid ORDER BY gettimes DESC";
 		
 	}else{
 		

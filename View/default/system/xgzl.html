@@ -57,7 +57,7 @@
 						</h3>
 
 						<ul class="breadcrumb">
-   <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li>  <li> <a href="javascript:void(0)">系统管理</a> <i class="icon-angle-right"></i></li>
+   <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li> 
             <li> <a href="#">修改资料</a> <i class="icon-angle-right"></i> </li>
 							<!-- BEGIN 日期-->
 							<li class="pull-right no-text-shadow">
@@ -203,7 +203,7 @@
                             
                                                     <button type="button" onclick="mod()" class="btn blue">确认修改</button>
                             
-                                                    <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=6');" >取消修改</button>                            
+                                                    <button type="button" class="btn" onClick="window.location=('{$conf['log_out']}/controller/system/index.php');" >取消修改</button>                            
                             
                                                 </div>
                             
@@ -260,18 +260,20 @@
 					 $("#mespassword").append("不修改密码可不必填写");
 					 $("#mesrole").append("选择用户的角色信息");
 					 $("#mesuser").append("公司分配不可修改");
-					 $("myform").reset();
+					 $("#myform")[0].reset();
 					 $("#phone").val(data.phone);
 					 $("#role").val(data.role);
 					 $("#txtqq").val(data.QQ);
 					 $("#email").val(data.email);
 					 $("$instruct").val(data.instruct);
+				}else if(data == "nothing"){
+					$("#content").empty();
+		        	 $("#content").append("没有返回值");
+				}else{
+					$("#content").empty();
+		        	 $("#content").append("操作失败");
 				}
-			},
-			error:function(){
-	        	 $("#content").empty();
-	        	 $("#content").append("操作失败");
-	         },
+			}
 		})
 	}
 </script>

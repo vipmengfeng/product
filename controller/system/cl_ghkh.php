@@ -36,7 +36,12 @@
 			    logs("update","customer",$cusid);
 				$sql="SELECT * FROM crm_customer WHERE cusid=$cusid";
 				$res=$db->get_one($sql);
-				echo json_encode($res);
+				if(!empty($res)){
+					echo json_encode($res);
+				}else{
+					echo json_encode("nothing");
+				}
+				
 			}else{
 				echo 0;
 			}
@@ -116,6 +121,7 @@
 		$cusid=$_POST['id'];
 		$data=array(
 			'uid'=>$uid,
+			'gettimes'=>time(),
 		);
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query == 'right'){
@@ -128,6 +134,7 @@
 		    	foreach($res as $k=>$v){
 		    		$res[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
 		    	}
+		    	
 		    	echo json_encode($res);
 		    }else{
 		    	echo json_encode("nothing");
@@ -161,8 +168,16 @@
 			//$chec=$_POST['checkbox1'];
 			$uid=$_SESSION['usernameid'];
 			$cusid=$_POST['id'];
-			$st=implode(",", $cusid);
-			$str=substr($st,1);
+			if(is_array($cusid)){
+				foreach ($cusid as $k=>$v){
+					if($v!=""){
+						$str.=$v.",";
+					}
+				}
+				$str=substr($str,0,-1);
+			}else {
+				$str=substr($str,1);
+			}
 			if($_POST['hidden'] == 'huoqu'){
 				$data=array(
 						"uid"=>$uid,
@@ -221,4 +236,15 @@
 			echo json_encode("nothing");
 		}
 	}
+	if($_GET['file'] == 'checkhaha'){
+		$cusname=$_GET['cusname'];
+		$sql="SELECT * FROM crm_customer WHERE cusname='$cusname'";
+		$query=$db->get_one($sql);
+		if(empty($query)){
+		echo "ok";
+		}else {
+		echo "no";
+		}
+	
+		}
 ?>

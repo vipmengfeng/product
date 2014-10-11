@@ -116,7 +116,7 @@
                             
                                                     <div class="controls">
                             
-                                                        <input type="text" class="span6 m-wrap" name="info[cusname]" id="username" value="{$val['cusname']}" />
+                                                        <input type="text" class="span6 m-wrap" name="info[cusname]" id="username" value="{$val['cusname']}"/>
                             
                                                         <span class="help-inline" id="mescus">不得输入殊符号</span>
                             
@@ -221,7 +221,7 @@
                             
                                                     <button type="button" {if $action=='jilu'} onclick="jilu()"{else} onclick="sub()"{/if} class="btn blue">确认</button>
                             
-                                                    <button type="button" class="btn" onClick="window.location.reload('{$conf['log_out']}/controller/system/index.php?menuid=5');" >取消</button>                            
+                                                    <button type="button" class="btn" {if $action == '' } onClick="window.location=('{$conf['log_out']}/controller/system/ghkh.php');" {else} onClick="window.location=('{$conf['log_out']}/controller/system/my.php');"{/if} >取消</button>                            
                             
                                                 </div>
                             				
@@ -258,16 +258,22 @@
 <script type="text/javascript">
 function checkalls()
 {
-	alert(54);
-    if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail())
+    if(checktel())
     {
         return true;
     }
     	return false;
-	}
+	
 }
 </script>
 <script type="text/javascript">
+
+if("{$action}" == "xiugai"){	
+$(function(){
+		checkalls();
+});
+}
+
 	function sub(){
 		var cusname=$("#username").val();
 		var connecter=$("#connecter").val();
@@ -276,36 +282,48 @@ function checkalls()
 		var conditions=$("#conditions").val();
 		var ctype=$("#ctype").val();
 		var callinfo=$("#callinfo").val();
-		$.ajax({
-			type:"POST",
-			url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}",
-			data:{cusname:cusname,connecter:connecter,cphone:cphone,cusinfo:cusinfo,conditions:conditions,ctype:ctype,callinfo:callinfo},
-			dataType:"json",
-			success:function(data){
-				if(data == 1){
-					 $("#myModal").show();
-					 $("#content").append("添加成功");
-					 $(".help-inline").empty();
-					 $("#mescus").append("不得输入殊符号");
-					 $("#mesuser").append("公司分配不可修改");
-					 $("#myform")[0].reset();
-				}else{
-					 $("#myModal").show();
-					 $("#content").append("修改成功");
-					 $(".help-inline").empty();
-					 $("#mescus").append("不得输入殊符号");
-					 $("#mesuser").append("公司分配不可修改");
-					 $("#myform")[0].reset();
-					 $("#username").val(data.cusname);
-					 $("#phone").val(data.cphone);
-					 $("#connecter").val(data.connecter);
-					 $("#cusinfo").val(data.cusinfo);
-					 $("#conditions").val(data.conditions);
-					 $("#ctype").val(data.ctype);
-					 $("#callinfo").val(data.callinfo);
-				}
-			},
-		})
+		var mescus=$("#mescus").text();
+		var mesphone=$("#mesphone").text();
+		if(mesphone != "√"){
+			checkalls();
+		}else{
+			$.ajax({
+				type:"POST",
+				url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file=addcus&action={$action}&id={$val['cusid']}",
+				data:{cusname:cusname,connecter:connecter,cphone:cphone,cusinfo:cusinfo,conditions:conditions,ctype:ctype,callinfo:callinfo},
+				dataType:"json",
+				success:function(data){
+					if(data == 1){
+						 $("#myModal").show();
+						 $("#content").append("添加成功");
+						 $(".help-inline").empty();
+						 $("#mescus").append("不得输入殊符号");
+						 $("#mesuser").append("公司分配不可修改");
+						 $("#myform")[0].reset();
+					}else if(data == 0){
+						 $("#myModal").show();
+						 $("#content").append("操作失败");
+					}else if(data == "nothing"){
+						 $("#myModal").show();
+						 $("#content").append("没有返回值");
+					}else{
+						 $("#myModal").show();
+						 $("#content").append("修改成功");
+						 $(".help-inline").empty();
+						 $("#mescus").append("不得输入殊符号");
+						 $("#mesuser").append("公司分配不可修改");
+						 $("#myform")[0].reset();
+						 $("#username").val(data.cusname);
+						 $("#phone").val(data.cphone);
+						 $("#connecter").val(data.connecter);
+						 $("#cusinfo").val(data.cusinfo);
+						 $("#conditions").val(data.conditions);
+						 $("#ctype").val(data.ctype);
+						 $("#callinfo").val(data.callinfo);
+					}
+				},
+			})
+		}
 	}
 	function jilu(){
 		var call=$("#callinfo").val();

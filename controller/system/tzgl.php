@@ -32,7 +32,8 @@
 					}else{
 						echo json_encode(0);
 					}
-					
+				}else{
+					echo json_encode(0);
 				}
 			}else{
 				$info=$_POST;
@@ -73,13 +74,20 @@
 	}else if($_GET['file'] == 'ajax'){
 		if(!empty($_POST)){
 			$chec=$_POST['id'];
-			$st=implode(",", $chec);
-			$str=substr($st,1);
+		if(is_array($chec)){
+				foreach ($chec as $k=>$v){
+					if($v!=""){
+						$str.=$v.",";
+					}
+				}
+				$str=substr($str,0,-1);
+			}else {
+				$str=substr($str,1);
+			}
 			$data=array(
 					"disable"=>"0",
 			);
 			$query=$db->update(" where id in ($str)", "crm_tz" ,$data);
-
 			if($query == "right"){
 				logs("update","deltz",$_POST['checkbox1']);
 				$sql="SELECT * FROM crm_tz WHERE disable=1 ORDER BY inputtime DESC";
@@ -95,12 +103,12 @@
 				}else{
 					echo json_encode("nothing");
 				}
-				}else{
-					echo json_encode($re);
+			}else{
+					echo json_encode(0);
 				
 				}
 			
-			}
+		}
 	}else{
 		$sql="SELECT * FROM crm_tz WHERE disable=1 ORDER BY inputtime DESC";
 		$page=$_GET['page'] ?$_GET['page']:1;

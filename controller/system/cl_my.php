@@ -23,7 +23,7 @@
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query == 'right'){
 			logs("update", "give", $cusid);
-			$sql="SELECT * FROM crm_customer WHERE uid=$uid ORDER BY inputtime DESC";
+			$sql="SELECT * FROM crm_customer WHERE uid=$uid ORDER BY gettimes DESC";
 			$page=$_GET['page'] ?$_GET['page']:1;
 			$content=page($sql,$page);
 			$query=$content['content'];

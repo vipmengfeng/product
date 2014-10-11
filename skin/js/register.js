@@ -4,7 +4,7 @@ function getFocus()  //设置用户名文本框获取焦点
 {
     document.getElementById("username").focus();
 }
- 
+
 function checkname()  //检查用户名
 {
     var myname=document.getElementById("username").value;
@@ -44,7 +44,27 @@ function checkname()  //检查用户名
         
     }
 }
- 
+function checkcusname()  //检查客户名
+{
+    var myname=document.getElementById("username").value;
+    var myDivname=document.getElementById("mescus");
+    if(myname=="")
+    {
+        myDivname.innerHTML="<font color='red'>用户名不能为空!</font>";
+        return false;
+    }else{
+    	 $.get("cl_ghkh.php?file=checkhaha",{cusname:myname},function(data){
+ 			if(data == "ok"){
+ 			 myDivname.innerHTML = "<font color='red'>√</font>";
+ 				 return true;
+ 			}else{
+ 				myDivname.innerHTML = "<font color='red'>用户名已经被注册</font>";
+ 				 return false;
+ 			}
+ 		})
+    }
+  
+}
 function checkpwd()  //检查密码
 {
  var mypassword=document.getElementById("password").value;
@@ -172,13 +192,22 @@ function checkqq()  //检查QQ号码
  
 function checkall()  //检查所有
 {
-    if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail()&&checkqq())
+    if(checkname()&&checkpwd()&&checkrpwd()&&checktel()&&checkemail()&&checkqq())
     {
         return true;
     }
     return false;
 }
  
+function checktitle(){
+	var mytitle=document.getElementById("title").value;
+	 var mymestitle=document.getElementById("mestitle");
+	 if(mytitle==""){
+		 mymestitle.innerHTML="<font color='red'>标题不能为空！</font>";
+	 }else{
+		 mymestitle.innerHTML="<font color='red'>√</font>";
+	 }
+}
 //复选框的选中与否是按钮的状态
 function checkcjkx()
 {
