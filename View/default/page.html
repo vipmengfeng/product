@@ -7,25 +7,27 @@
 
 
       
-<div id="main_container">
+<div id="span6">
 
-  <div class="news_box">
-   
-    <div class="news_content scott" id="demo5" >
-	<a title="2" href="?page=1">首页</a>
-	<a title="2" href="?page={$front}">上一页</a>
+  <div class="dataTables_paginate paging_bootstrap pagination">
+   <ul>
+	<li {if $page == 1}class="prev disabled"{/if}><a title="2" href="?page=1">首页</a></li>
+	<li {if $page == 1}class="prev disabled"{/if}><a title="2" href="?page={$front}" >上一页</a></li>
 	{loop $count $k $v}
-	{if $page == $v}<span class="current" title="{$v}">{$v}</span>
+	{if $page == $v}<li class="active"><a title="{$v}" href="?page={$v}" >{$v}</a></li>
 	{else}
-	<a title="{$v}" href="?page={$v}"  class="current">{$v}</a>
+	<li><a title="{$v}" href="?page={$v}" >{$v}</a></li>
 	{/if}
 	{/loop}
-	
-	<a title="2" href="?page={$next}">下一页</a>
-	<a title="2" href="?page={$total}" >尾页</a>
+	{if $total >10}
+	<li class="prev disabled"><a title="" href="javascript:void(0)" >...</a></li>
+	<li><a title="" href="javascript:void(0)" >{$total}</a></li>
+	{/if}
+	<li {if $page == $total}class="prev disabled"{/if}><a title="{$v}+1" href="?page={$next}">下一页</a></li>
+	<li {if $page == $total}class="prev disabled"{/if}><a title="{$total}" href="?page={$total}" >尾页</a></li>
 	跳转到
 	<input type="text" value="{$page}" style="width: 30px; height:18px;margin-bottom:0px" onblur="jump(this.value)">/{$total}页
-	</div>
+	</ul>
   </div>
  <script type="text/javascript">
 	function jump(obj){

@@ -1406,6 +1406,9 @@ function back($arr){
 		if($pages == 0){
 		$result['count']=range(1,1);
 		$result['total']=1;
+		}elseif($pages >=10 ){
+		$result['count']=range(1,10);
+		$result['total']=$pages;
 		}else{
 		$result['count']=range(1,$pages);
 		$result['total']=$pages;
