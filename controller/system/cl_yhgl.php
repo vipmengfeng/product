@@ -64,7 +64,8 @@
 					'role'=>$_POST['role']
 			);
 		}
-		if($db->update(' where id='.$id,'crm_user',$info)){
+		$query=$db->update(' where id='.$id,'crm_user',$info);
+		if($query == 'right'){
 		    logs("update","member",$id);
 		    $sql="SELECT * FROM crm_user WHERE id=$id";
 		    $r=$db->get_one($sql);
@@ -102,7 +103,12 @@
 			$url="{$conf['log_out']}/controller/system/xgzl.php?file=mod&id=$uid";
 			$sql="SELECT * FROM crm_user WHERE id=$uid";
 			$r=$db->get_one($sql);
-			echo json_encode($r);
+			if(!empty($r)){
+				echo json_encode($r);
+			}else{
+				echo json_encode("nothing");
+			}
+			
 		}else{
 			echo 0;
 		}
@@ -112,7 +118,16 @@
 	if($_GET['file'] == 'myform'){
 		if(!empty($_POST)){
 			$chec=$_POST['id'];
-			$str=implode(",", $chec);
+			if(is_array($chec)){
+				foreach ($chec as $k=>$v){
+					if($v!=""){
+						$str.=$v.",";
+					}
+				}
+				$str=substr($str,0,-1);
+			}else {
+				$str=substr($str,1);
+			}
 			$data=array(
 					"disable"=>"0",
 			);

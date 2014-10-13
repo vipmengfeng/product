@@ -162,22 +162,21 @@
 	         data:{userpwd:userpwd,phone:phone,role:role,email:email},
 	         dataType: "json",
 	         success: function(data){
-	        	 if(data != 0){
+	        	 if(data == 0){
+	        		 $("#myModal").show();
+					 $("#content").append("修改失败");
+	        	 }else{
 	        		 $("#myModal").show();
 					 $("#content").append("修改成功");
 					 $(".help-inline").empty();
 					 $("#mespassword").append("不修改密码可不必填写");
 					 $("#mesrole").append("选择用户的角色信息");
-					 $("#myform").reset();
+					 $("#myform")[0].reset();
 					 $("#phone").val(data.phone);
 					 $("#role").val(data.role);
 					 $("#email").val(data.email);
 	        	 }
 	        	
-	         },
-	         error:function(){
-	        	 $("#content").empty();
-	        	 $("#content").append("操作失败");
 	         }
 	     });
 	}

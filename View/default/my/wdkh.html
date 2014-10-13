@@ -37,7 +37,7 @@
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
 			<!-- BEGIN PAGE CONTAINER-->        
-
+			
 			<div class="container-fluid">
 
 				<!-- BEGIN PAGE HEADER-->
@@ -69,7 +69,7 @@
 				</div>
 
 				<!-- END PAGE HEADER-->
-
+				{template "tishi"}
 				<!-- BEGIN PAGE CONTENT-->
 				
 				<div class="row-fluid">
@@ -215,6 +215,9 @@
 		    	if(data == "nothing"){
 					$("#tbody").empty();
 				    $("#tbody").append("<tr class='odd gradeX'><td colspan='6' text-align='center'>已经没有任何内容了</td></tr>");
+				}else if(data == 0){
+					$("#myModal").show();
+					$("#content").append("放弃失败");
 				}else{
 				var len=data.length;
 				var html="";

@@ -131,7 +131,7 @@
                  </div>
                 <div class="form-actions">
                   <button type="button" onclick="add()" class="btn blue">确认添加</button>
-                  <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消添加</button>
+                  <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/yhgl.php'" >取消添加</button>
                 </div>
               </form>
               
@@ -159,9 +159,9 @@
 <script type="text/javascript">
 function checkalls()
 {
-    if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail())
+    if(checkname()&&checkpwd()&&checkrpwd()&&checktel()&&checkemail())
     {
-        return true;
+       return true;
     }
     return false;
 }
@@ -172,24 +172,33 @@ function add(){
 	 var phone=$("#phone").val();
 	 var role=$("#role").val();
 	 var email=$("#email").val();
-	 $.ajax({
-         type: "POST",
-         url: "{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser",
-         data: {realname:realname,username:username,userpwd:password,phone:phone,role:role,email:email},
-         dataType: "text",
-         success: function(data){
-        	 $("#myModal").show();
-			 $("#content").append("添加成功");
-			 $(".help-inline").empty();
-			 $("#mesrole").append("选择用户的角色信息");
-			 $("#myform")[0].reset();
-         },
-         error:function(){
-        	 $("#content").empty();
-        	 $("#content").append("添加失败");
-        	 
-         }
-     });
+	 var mesname=$("#mesname").text();
+	 var mespassword=$("#mespassword").text();
+	 var mesrpassword=$("#mesrpassword").text();
+	 if(mesname != "√" || mespassword != "√" || mesrpassword != "√"){
+		 checkalls();
+	 }else{
+		 $.ajax({
+	         type: "POST",
+	         url: "{$conf['log_out']}/controller/system/cl_yhgl.php?file=adduser",
+	         data: {realname:realname,username:username,userpwd:password,phone:phone,role:role,email:email},
+	         dataType: "text",
+	         success: function(data){
+	        	 if(data == 1){
+	        		 $("#myModal").show();
+	    			 $("#content").append("添加成功");
+	    			 $(".help-inline").empty();
+	    			 $("#mesrole").append("选择用户的角色信息");
+	    			 $("#myform")[0].reset();
+	        	 }else{
+	        		 $("#myModal").show();
+	    			 $("#content").append("添加失败");
+	        	 }
+	        	
+	         }
+	     });
+	 }
+	 
 }
 </script>
 <!-- END CONTAINER --> 

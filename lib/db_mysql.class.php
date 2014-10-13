@@ -175,9 +175,7 @@ class db_mysql {
 		$sqla="";
 		    $sql= "UPDATE ".$table." SET ";
 			foreach($condition as $k => $v){
-				
 				$sqla .= ",$k='$v'";
-				
 			}
 			$sqla = substr($sqla, 1);
 			$sql .=$sqla;

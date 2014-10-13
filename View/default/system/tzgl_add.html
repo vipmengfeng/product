@@ -45,7 +45,8 @@
           
           <h3 class="page-title">通知管理 </h3>
           <ul class="breadcrumb">
-             <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/tzgl.php">通知中心</a> <i class="icon-angle-right"></i> </li>  
+             <li> <i class="icon-home"></i> <a href="{$conf[log_out]}/controller/system/index.php">客户中心</a> <i class="icon-angle-right"></i> </li>
+              <li> <a href="{$conf[log_out]}/controller/system/tzgl.php">通知管理</a> <i class="icon-angle-right"></i> </li>  
 			 <li> <a href="">{if $_GET['action']=='mod'}修改通知{elseif $_GET['action']=='info'}通知详细{else}添加新通知{/if}</a></li>
           </ul>
           
@@ -66,7 +67,7 @@
           <div class="portlet box blue">
             <div class="portlet-title">
                <div class="caption"><i class="icon-plus"></i>{if $_GET['action']=='mod'}修改通知{elseif $_GET['action']=='info'}通知详细{else}添加新通知{/if}</div>
-              <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="reload"></a> </div>
+              <div class="tools"> <a href="javascript:;" class="collapse"></a> </div>
             </div>
             <div class="portlet-body form"> 
               
@@ -95,20 +96,22 @@
                 <div class="control-group">
                   <label class="control-label">通知标题</label>
                   <div class="controls">
-                    <input type="text" class="span6 m-wrap" id="title" value="{$query['title']}" />
+                    <input type="text" class="span6 m-wrap" id="title" value="{$query['title']}" onblur="checktitle()" />
+                     <span class="help-inline" id="mestitle"></span> 
                    </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">通知内容</label>
                   <div class="controls">
                     <textarea class="span6 m-wrap" name="content" rows="3" id="qwer">{$query['content']}</textarea>
+                     
                    </div>
                 </div>
                
                {if $_GET['action']=='' || $_GET['action']=='mod'}
                 <div class="form-actions">
                   <button type="button" onclick="sub(this)" name="{$query['id']}" class="btn blue">确认</button>
-                  <button type="button" class="btn" onClick="javascript:location.href='{$conf['log_out']}/controller/system/index.php?menuid=6'" >取消</button>
+                  <button type="button" class="btn" onClick="window.location=('{$conf['log_out']}/controller/system/tzgl.php');" >取消</button>
                 </div>
                 {/if}
               </form>
@@ -137,7 +140,7 @@
 <script type="text/javascript">
 function checkalls()
 {
-    if(checkname()&&checkuserpassword()&&checkpwdagin()&&checktelephone()&&checkemail())
+    if(checktitle())
     {
         return true;
     }
@@ -155,6 +158,11 @@ function sub(obj){
 		}
 	}
 	var id=obj.name;
+	var mestitle=$("#mestitle").text();
+	if(mestitle != "√"){
+		checkalls();
+	}else{
+		
 	$.ajax({
 		type:"POST",
 		url:"{$conf['log_out']}/controller/system/tzgl.php?file=addtz&action={$action}&id={$id}",
@@ -165,14 +173,18 @@ function sub(obj){
 				$("#myModal").show();
 				$("#content").append("添加成功");
 				$("#myform")[0].reset();
+			}else if(data == 0){
+				$("#myModal").show();
+				$("#content").append("操作失败");
 			}else{
 				$("#myModal").show();
 				$("#content").append("修改成功");
 				$("#title").val(data.title);
 				$("#qwer").val(data.content);
 			}
-		}
-	})
+		})
+	}
+	
 }
 </script>
 <!-- END CONTAINER --> 
