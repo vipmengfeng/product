@@ -20,7 +20,7 @@
 			 $extra=array_diff($roleids,$checkrole);
 			 echo empty($extra)?"NO":"OK";
 			}else{
-				echo "OK";
+				echo "NO";
 			}
 	
 		}

@@ -162,7 +162,7 @@
 		}
 	})
 }		
-	setInterval("locktz()",1000);
+	setInterval("locktz()",15000);
 		function locktz(){
 	   $.post("{$conf[log_out]}/controller/header.php?lock=tz",function(data){
 		if(data=="OK"){
