@@ -86,7 +86,7 @@
                   <div class="controls">
 				
 				  {loop $role $rok $ro}
-				 <input type="checkbox" {if $query[roleid] == $ro['roleid']}checked{/if} value="{$ro['roleid']}">{$ro['rolename']}
+				 <input type="checkbox" {if in_array($ro['roleid'],$roles)}checked="checked"{/if} value="{$ro['roleid']}">{$ro['rolename']}
 				  {/loop}
 				  </select>
                    
@@ -161,14 +161,14 @@ function sub(obj){
 	var mestitle=$("#mestitle").text();
 	if(mestitle != "√"){
 		checkalls();
-	}else{
-		
+	}else{	
 	$.ajax({
 		type:"POST",
 		url:"{$conf['log_out']}/controller/system/tzgl.php?file=addtz&action={$action}&id={$id}",
 		data:{name:name,title:title,content:content,roleid:role},
 		dataType:"text",
 		success:function(data){
+		alert(data);
 			if(data == 1){
 				$("#myModal").show();
 				$("#content").append("添加成功");
@@ -182,9 +182,9 @@ function sub(obj){
 				$("#title").val(data.title);
 				$("#qwer").val(data.content);
 			}
-		})
-	}
-	
+		}
+	})
+}	
 }
 </script>
 <!-- END CONTAINER --> 
