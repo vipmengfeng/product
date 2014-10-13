@@ -13,11 +13,21 @@
 	if($_GET['file'] == 'add'){
 		$id=$_GET['id'];
 		$action=$_GET['action'];
+		if($action == "info"){
 		$sel="SELECT tz from crm_user WHERE id='$_SESSION[usernameid]'";
 		$read=$db->get_one($sel);
+		$reads=explode(",",substr($read['tz'],0,-1));
+		if(!in_array($id,$reads)){
 		$read['tz'] .=$id.",";
 		$db->update("WHERE id='$_SESSION[usernameid]'","crm_user",$read);
+		}
+		
+		}
 		if(!empty($id)){
+		$ids="SELECT roleid from crm_tz WHERE id='$id'";
+		$roleh=$db->get_one($ids);
+		$roles=substr($roleh['roleid'],0,-1);
+		$roles=explode(",",$roles);
 			$sql="SELECT * FROM crm_tz WHERE id=$id";
 			$query=$db->get_one($sql);
 		}

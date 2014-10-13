@@ -16,9 +16,9 @@
 			 $checkrole=explode(",",substr($usermes['tz'],0,-1));
 			 $sql2="SELECT tz from crm_role WHERE roleid='$usermes[role]'";
 			 $role=$db->get_one($sql2);
-			 $roleid=explode(",",substr($role['tz'],0,-1));
-			 $extra=array_diff($roleid,$checkrole);
-			 echo empty($extra)?"OK":"NO";
+			 $roleids=explode(",",substr($role['tz'],0,-1));
+			 $extra=array_diff($roleids,$checkrole);
+			 echo empty($extra)?"NO":"OK";
 			}else{
 				echo "OK";
 			}

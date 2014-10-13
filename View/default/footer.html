@@ -17,14 +17,15 @@
 		</div>
 
 	</div>
-	<div class='bubbleScroll'  style="bottom: 0px; right: 0px;display:none" id="bubbleScroll">
-	<div class='bubbleScroll_inner' style="border-color: rgb(0, 0, 0); background: none repeat scroll 0% 0% rgb(255, 255, 255); color: rgb(0, 0, 0);">
-	<a href='javascript:void(0)' class='bubbleScroll_close_button' title="关闭" onclick="lockon()">x</a>
-	<h3 id="ts">您有新的{$lock}</h3>
-	<p><a href="{$go}" id="go">去查看</a>
 	
-	</div>
-	</div>
+	<div style="width:330px; height:120px;  position:fixed; z-index:100; bottom:0px; right:0px; background-color: rgba(0, 0, 0, 0.6);display:none" id="bubbleScroll">
+<center>
+    <div style="margin-top:10px; text-align:right; margin-right:10px; "><a href="#" style="color:#FFF;" onclick="lockon()">关闭</a></div>
+	<h5 style="color:#FFF;" id="ts"></h5>
+    <dt><a href=""  class="btn blue" id="go">点击查看</a></dt>
+</center>    
+</div>
+
 <script type="text/javascript">
 	function lockon(){
 		$("#bubbleScroll").hide();
