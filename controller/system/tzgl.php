@@ -72,18 +72,38 @@
 				}
 			}
 	}else if($_GET['file'] == 'del'){
+
 		$id=$_POST['id'];
 		$info=array(
 			'disable'=>0,
 		);
 		$query=$db->update(" WHERE id=$id", "crm_tz" ,$info);
 		if($query == 'right'){
-			$sql="SELECT * FROM crm_tz WHERE disable=1 ORDER BY inputtime DESC";
+		$sql1="SELECT tz from crm_role WHERE roleid=' $_SESSION[mxrole]'";
+		$crole=$db->get_one($sql1);
+		$tz=substr($crole[tz],0,-1);
+		$sql2="SELECT tz from crm_user WHERE id='$_SESSION[usernameid]'";
+		$readtz=$db->get_one($sql2);
+		$nread=explode(",",$tz);
+		$read=explode(",",substr($readtz['tz'],0,-1));
+		$weidu=array_diff($nread,$read);
+			$sql="SELECT * FROM crm_tz WHERE disable=1 AND id in ($tz) ORDER BY inputtime DESC";
 			$page=$_GET['page'] ?$_GET['page']:1;
 			$content=page($sql,$page);
 			$con=$content['content'];
 			if(!empty($con)){
 				foreach($con as $k=>$v){
+					$roleid=explode(",",substr($v['roleid'],0,-1));
+				    $con[$k]['roleid']="";
+					if(in_array($v['id'],$weidu)){
+					 $con[$k]['title']=$v['title']."(未读)";
+					}
+					foreach($roleid as $key=>$val){
+			        if(!empty($role[$val])){
+			        $con[$k]['roleid'] .=$role[$val]['rolename'].",";
+			          }
+		           }	
+		            $con[$k]['roleid']=substr($con[$k]['roleid'],0,-1);
 					$con[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
 					$con[$k]['role']=$role[$v['role']]['rolename'];
 				}
@@ -146,7 +166,19 @@
 		$weidu=array_diff($nread,$read);
 		$page=$_GET['page'] ?$_GET['page']:1;
 		$content=page($sql,$page);
+
 		$query=$content['content'];
+			foreach($query as $k=>$v){
+		$roleid=explode(",",substr($v['roleid'],0,-1));
+				    $query[$k]['roleid']="";
+		foreach($roleid as $key=>$val){
+
+			if(!empty($role[$val])){
+			$query[$k]['roleid'] .=$role[$val]['rolename'].",";
+			}
+		}	
+		$query[$k]['roleid']=substr($query[$k]['roleid'],0,-1);
+		}
 		$count=$content['count'];
 		$total=$content['total'];
 		$front=$content['front'];
