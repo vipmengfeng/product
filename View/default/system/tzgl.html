@@ -81,23 +81,27 @@
                 <thead>
                   <tr>
                     <th width="20" style="width:8px;"><input type="checkbox" onclick="checkall(this)" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
-                    <th width="152" >发通知者</th>
+					 <th width="131" class="hidden-480">通知标题</th>
+					  <th width="155" class="hidden-480">通知内容</th>
                     <th width="131" class="hidden-480">通知时间</th>
                     <th width="131" class="hidden-480">通知角色</th>
-                     <th width="131" class="hidden-480">通知标题</th>
-                    <th width="155" class="hidden-480">通知内容</th>
+					<th width="152" >发通知者</th>
                     <th width="132" >操作</th>
                   </tr>
                 </thead>
                 <tbody id="tbody">
                 {loop $query $k $v}
                   <tr class="odd gradeX">
-                    <td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['id']}" /></td>
-                    <td class="hidden-480">{if in_array($v['id'],$weidu)}{$v['name']}(未读){else}{$v['name']}{/if}</td>
-                    <td class="hidden-480">{date("Y-m-d H:i",$v['inputtime'])}</td>
-                    <td class="hidden-480">{$role[$v['role']]['rolename']}</td>
-                    <td class="hidden-480">{$v['title']}</td>
-                    <td class="center hidden-480">{$v['content']}</td>
+				  <td><input type="checkbox" id="select" class="checkboxes" name="checkbox1[]" value="{$v['id']}" /></td>
+				  <td class="hidden-480">{if in_array($v['id'],$weidu)}{$v['title']}(未读){else}{$v['title']}{/if}</td>
+				   <td class="center hidden-480">{$v['content']}</td>
+				   <td class="hidden-480">{date("Y-m-d H:i",$v['inputtime'])}</td>
+                     <td class="hidden-480">{$v['roleid']}</td>
+                    <td class="hidden-480">{$v['name']}</td>
+                    
+                   
+                    
+                   
                     
                     <td><a href="{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="#" onclick="del(this)" title="{$v['id']}" class="btn mini red">删除</a> <a href="{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id={$v['id']}" class="btn mini green">详细</a></td> 
                   </tr>
@@ -156,7 +160,9 @@
 					var html="";
 					var len=data.length;
 					for(var i=0;i<len;i++){
-						html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].name+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'>"+data[i].role+"</td><td class='hidden-480'>"+data[i].title+"</td><td class='hidden-480'>"+data[i].content+"</td><td><a href=''{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id="+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
+						html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td>";
+						html +="<td class='hidden-480'>"+data[i].title+"</td>";
+						html +="<td class='hidden-480'>"+data[i].content+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'>"+data[i].roleid+"</td><td class='hidden-480'>"+data[i].name+"</td><td><a href=''{$conf['log_out']}/controller/system/tzgl.php?file=add&action=mod&id="+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
 					}
 					$("#tbody").empty();
 					$("#tbody").append(html);
