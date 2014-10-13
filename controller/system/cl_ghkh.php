@@ -247,4 +247,15 @@
 		}
 	
 		}
+		
+	if($_GET['file'] == 'info'){
+		$cusid=$_POST['id'];
+		$sql="SELECT * FROM crm_customer WHERE cusid=$cusid";
+		$query=$db->get_one($sql);
+		if(!empty($query)){
+			echo json_encode($query);
+		}else{
+			echo json_enocde("nothing");
+		}
+	}
 ?>
