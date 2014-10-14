@@ -138,14 +138,6 @@
 </div>
 <script type="text/javascript" src="{$conf['js']}/register.js"></script>
 <script type="text/javascript">
-function checkalls()
-{
-    if(checktitle())
-    {
-        return true;
-    }
-    return false;
-}
 function sub(obj){
 	var title=$("#title").val();
 	var content=$("#qwer").val();
@@ -160,7 +152,7 @@ function sub(obj){
 	var id=obj.name;
 	var mestitle=$("#mestitle").text();
 	if(mestitle != "√"){
-		checkalls();
+		checktitle();
 	}else{	
 	$.ajax({
 		type:"POST",

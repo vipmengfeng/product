@@ -168,7 +168,8 @@
 		$content=page($sql,$page);
 
 		$query=$content['content'];
-			foreach($query as $k=>$v){
+		if(!empty($query)){
+		foreach($query as $k=>$v){
 		$roleid=explode(",",substr($v['roleid'],0,-1));
 				    $query[$k]['roleid']="";
 		foreach($roleid as $key=>$val){
@@ -178,6 +179,7 @@
 			}
 		}	
 		$query[$k]['roleid']=substr($query[$k]['roleid'],0,-1);
+		}
 		}
 		$count=$content['count'];
 		$total=$content['total'];
