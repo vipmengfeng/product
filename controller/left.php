@@ -9,7 +9,5 @@
 	$mes=$db->get_all($sql1);
 	$nums=$db->get_one($sql2);
 	$num=$nums['num'];
-	//echo "<br>";
 	require ROOT_DIR."/caches/caches_common/menu.php";
-	//print_r($menu);die;
 ?>
