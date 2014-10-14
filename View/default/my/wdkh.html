@@ -219,7 +219,7 @@
 		    success:function(data){
 		    	if(data == "nothing"){
 					$("#tbody").empty();
-				    $("#tbody").append("<tr class='odd gradeX'><td colspan='6' text-align='center'>已经没有任何内容了</td></tr>");
+				    $("#tbody").append("<tr class='odd gradeX'><td colspan='7' text-align='center'>已经没有任何内容了</td></tr>");
 				}else if(data == 0){
 					$("#myModal").show();
 					$("#content").append("放弃失败");
@@ -227,8 +227,7 @@
 				var len=data.length;
 				var html="";
 				for(var i=0;i<len;i++){
-					html+="<tr id='tr'><td>"+data[i].cusname+"</td><td>"+data[i].connecter+"</td><td>"+data[i].cphone+"</td><td>"+data[i].cusinfo+"</td><td>"+data[i].ctype+"</td><td class='hidden-480'><a href='#' onclick='del(this)' title="+data[i].cusid+" class='btn mini red'>放弃</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id="+data[i].cusid+"' onclick='subform(mod)' class='btn mini blue'>修改资料</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id="+data[i].cusid+"' onclick='subform(log)' class='btn mini yellow'>跟进记录</a></td></tr>" ;
-					
+					html+="<tr id='tr'><td class=' '><span id='span"+data[i].cusid+"' class='row-details row-details-close'  onclick='aa(this)' title="+data[i].cusid+"></span></td><td>"+data[i].cusname+"</td><td>"+data[i].connecter+"</td><td>"+data[i].cphone+"</td><td>"+data[i].cusinfo+"</td><td>"+data[i].ctype+"</td><td class='hidden-480'><a href='#' onclick='del(this)' title="+data[i].cusid+" class='btn mini red'>放弃</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id="+data[i].cusid+"' onclick='subform(mod)' class='btn mini blue'>修改资料</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id="+data[i].cusid+"' onclick='subform(log)' class='btn mini yellow'>跟进记录</a></td></tr><tr id='none"+data[i].cusid+"' style='display:none'></tr>" ;
 				}
 				$("#tbody").empty();
 				$("#tbody").append(html);
