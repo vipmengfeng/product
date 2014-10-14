@@ -1386,6 +1386,7 @@ function back($arr){
 	function page($sql,$page = "1",$pagesize = "10"){
 		global $db;
 		$total=count($db->get_all($sql));
+		 $result['zs']=$total;
 		$pages=ceil($total/$pagesize);
 		if($page <= "1"){
 		   $page =1;

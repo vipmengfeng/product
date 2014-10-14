@@ -10,7 +10,7 @@
 			echo "NO";
 		}
 		}elseif($_GET['lock'] == 'tz'){
-			$sql1="SELECT tz,role FROM crm_user WHERE id='$_SESSION[usernameid]' AND disable !=0";
+			$sql1="SELECT tz,role FROM crm_user WHERE id='$_SESSION[usernameid]' AND disable !=1";
 			$usermes=$db->get_one($sql1);
 			if(!empty($usermes['tz'])){
 			 $checkrole=explode(",",substr($usermes['tz'],0,-1));
@@ -18,7 +18,14 @@
 			 $role=$db->get_one($sql2);
 			 $roleids=explode(",",substr($role['tz'],0,-1));
 			 $extra=array_diff($roleids,$checkrole);
-			 echo empty($extra)?"NO":"OK";
+			foreach($extra as $a=>$b){
+				$sqla="SELECT disable FROM crm_tz WHERE id ='$b'";
+				$rea=$db->get_one($sqla);
+				if($rea['disable'] !="0"){
+				$extras[]=0;
+			}
+			}
+			 echo empty($extras)?"NO":"OK";
 			}else{
 				echo "NO";
 			}
