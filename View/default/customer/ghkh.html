@@ -145,7 +145,7 @@
 											<td class="hidden-480">{$v['cphone']}</td>
 											<td class="hidden-480">{date("Y-m-d H:i",$v['inputtime'])}</td>
 											<td class="hidden-480">
-											<a class="btn mini green" onclick="huoqu(this)" title="{$v['cusid']}" href="#">获取</a>
+											<a class="btn mini green" onclick="huoqu(this)" title="{$v['cusid']}" href="#">获取</a> 
 											<a class="btn mini blue" href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}&page={$_GET['page']}">查看详细</a>
 											</td>
 										
@@ -226,7 +226,7 @@
 						 var html="";
 						 var len=data.length;
 						 for(var i=0;i<len;i++){
-							 html+="<tr><td><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+data[i].cusid+"' /></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+data[i].cusid+" href='#'>获取</a><a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
+							 html+="<tr><td><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+data[i].cusid+"' /></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+data[i].cusid+" href='#'>获取</a> <a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
 							 
 						 }
 						 $('#tbody').empty();

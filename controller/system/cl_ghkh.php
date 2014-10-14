@@ -165,7 +165,6 @@
 	
 	if($file == 'myform'){
 		if(!empty($_POST)){
-			//$chec=$_POST['checkbox1'];
 			$uid=$_SESSION['usernameid'];
 			$cusid=$_POST['id'];
 			if(is_array($cusid)){
@@ -184,7 +183,7 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query == 'right'){
-				    logs("update","move",$chec);
+				    logs("update","move",$cusid);
 				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
 				    $page=$_GET['page'] ?$_GET['page']:1;
 				    $content=page($sql,$page);
@@ -208,7 +207,7 @@
 				);
 				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
 				if($query == 'right'){
-				    logs("del","member",$chec);
+				    logs("del","customer",$cusid);
 				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
 				    $page=$_GET['page'] ?$_GET['page']:1;
 				    $content=page($sql,$page);
