@@ -103,8 +103,12 @@
 			'cphone'=>$_POST['cphone'],
 			'connecter'=>$_POST['connecter'],
 			'ctype'=>$_POST['ctype'],
-			'uid'=>$_POST['uid']
+			
 		);
+		if(!empty($_POST['uid'])){
+			$info['uid']=$_POST['uid'];
+			$info['gettimes']=time();
+		}
 		$info['inputtime']=time();
 		if($db->add('crm_customer',$info)){
 		logs("add","customer",$info['cusname']);

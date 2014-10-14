@@ -17,7 +17,7 @@
 	}else{
 		
 		$select=$_POST['hide'];
-		if(!empty($select) && $select !="status"){
+		if($select !='' && $select !="status"){
 			$sql="SELECT * FROM crm_customer WHERE uid='$uid' AND disable='1' AND ctype='$select'";
 		}else{
 			$sql="SELECT * FROM crm_customer WHERE uid='$uid' AND disable='1'";

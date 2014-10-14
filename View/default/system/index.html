@@ -81,14 +81,11 @@
                       <label class="control-label">客户类型</label>
                       <div class="controls">
                         <select class="span6 m-wrap" name="info[ctype]" id="ctype" data-placeholder="Choose a Category" tabindex="1">
-                          <option value="">--类型分类选择--</option>
-                          
-                                
-                               {loop $status $k $val}
-                                        
-                          <option value="{$k}">{$val}</option>
-                          
-                                    	{/loop}
+                         
+                          {loop $status $k $vals}
+                                       				 <option value="{$k}" {if $val['ctype'] == $k}selected{/if}>{$vals}</option>
+                                    			{/loop}
+                                    
 
                                 
                                 
@@ -270,10 +267,15 @@ function huoqu(obj){
 			 var phone=$("#phone").val();
 			 var connecter=$("#connecter").val();
 			 var ctype=$("#ctype").val();
-			 var uid=$("#uid").val();
-			 $mes=$("#mesphone").text();
-			 if($mes != "√"){
-				 
+			 var mes=$("#mesphone").text();
+			 var chec=$("#uid")[0].checked;
+			 if(chec == true){
+				 uid=$("#uid").val();
+			 }else{
+				 uid="";
+			 }
+			 if(mes != "√"){
+				 return false;
 			 }else{
 	         $.ajax({
 	             type: "POST",
@@ -286,11 +288,7 @@ function huoqu(obj){
 						 $("#content").append("添加成功");
 						 $("#mesphone").empty();
 						 $("#mesphone").append("必填");
-						 $(':input','#myform')  
-						 .not(':button, :submit, :reset, :hidden')  
-						 .val('')  
-						 .removeAttr('checked') 
-						 .removeAttr('selected');
+						 $("#myform")[0].reset();
 						 
 	            	 }
 	             },
