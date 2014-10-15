@@ -97,7 +97,7 @@
 
 							<div class="portlet-body">
 
-								<div class="clearfix">
+								<div class="clearfix" style="float:left">
 
 									<div class="btn-group"><a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add" class="btn blue"><i class="icon-plus"></i> 添加新客户</a> </div>
                                     <div class="btn-group"> <a href="#" onclick="mul('huoqu')" class="btn green"><i class="icon-share"></i> 获取选中客户</a> </div>
@@ -105,6 +105,9 @@
 									
 
 								</div>
+								<div class="span6"><div class="dataTables_filter" id="sample_1_filter" style="float:right"><label>搜索: <input type="text" aria-controls="sample_1" id="search" onblur="search()" class="m-wrap small"></label></div></div>
+							
+								
 								<form action="" method="post" id="myform" name="myform">
 								<input type="hidden" value="" name="hidden" id="hide">
 								<table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
@@ -268,6 +271,25 @@
 					$('#tbody').empty();
 					$('#tbody').append(html);
 				}
+			}
+		})
+	}
+	
+	function search(){
+		var search=$("#search").val();
+		$.ajax({
+			type:"POST",
+			url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file=search&page={$page}",
+			data:{search:search},
+			dataType:"json",
+			success:function(data){
+				var len=data.length;
+				var html="";
+				for(var i=0;i<len;i++){
+					html+="<tr><td><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+data[i].cusid+"' /></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+data[i].cusid+" href='#'>获取</a><a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
+				}
+				$('#tbody').empty();
+				$('#tbody').append(html);
 			}
 		})
 	}

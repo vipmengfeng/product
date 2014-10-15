@@ -1419,4 +1419,28 @@ function back($arr){
 		
 		return $result;
 	}
+	function search($table,$file,$val){
+		if(is_array($file)){
+			foreach ($file as $k=>$v){
+				$sqlv.=$v." LIKE '%$val%' OR ";
+			}
+			$sqlv=substr($sqlv,0,-3);
+			$sql="SELECT * FROM $table WHERE $sqlv";
+			$page=$_GET['page'] ?$_GET['page']:1;
+			$content=page($sql,$page);
+			$res=$content['content'];
+			foreach($res as $key=>$vals){
+				foreach($file as $a=>$b){
+					$res[$key][$b]=str_replace($val,"<font color='red'>$val</font>",$vals[$b]);
+				}
+			}
+			if(!empty($res)){
+				return $res;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
 ?>

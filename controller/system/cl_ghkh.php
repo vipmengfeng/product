@@ -261,4 +261,28 @@
 			echo json_enocde("nothing");
 		}
 	}
+	
+	if($_GET['file'] == 'search'){
+		$result=$_POST;
+		$search=$result['search'];
+		$file=array('connecter','cusname');
+		$res=search("crm_customer", $file, $search);
+		
+		if(!empty($res)){
+			echo json_encode($res);
+		}else{
+			echo json_encode("nothing");
+		}
+	}
+	if($_GET['file'] == 'pages'){
+		$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
+		$page=$_POST['page'] ?$_POST['page']:1;
+		$content=page($sql,$page);
+		$res=$content['content'];
+		if(!empty($res)){
+			echo json_encode($res);
+		}else{
+			echo json_encode("nothing");
+		}
+	}
 ?>
