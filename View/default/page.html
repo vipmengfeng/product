@@ -4,27 +4,28 @@
     </script>
 <script src="{$conf['js']}/jquery.myPagination.js" type="text/javascript">
     </script>
-
+<script src="{$conf['js']}/global.fun.js" type="text/javascript">
+    </script>
 
       
 <div id="span6">
 
   <div class="dataTables_paginate paging_bootstrap pagination">
    <ul>
-	<li {if $page == 1}class="prev disabled"{/if}><a title="2" href="?page=1">首页</a></li>
-	<li {if $page == 1}class="prev disabled"{/if}><a title="2" href="?page={$front}" >上一页</a></li>
+	<li {if $page == 1}class="prev disabled"{/if}><a title="1" href="javascript:void(0)" onclick="aavv(this.title)">首页</a></li>
+	<li {if $page == 1}class="prev disabled"{/if}><a {if $page == 1}title="{$page}"{else} title="{$page-1}"{/if} onclick="aavv(this.title)"  href="javascript:void(0)" >上一页</a></li>
 	{loop $count $k $v}
-	{if $page == $v}<li class="active"><a title="{$v}" href="?page={$v}" >{$v}</a></li>
+	{if $page == $v}<li class="active"><a title="{$v}" href="javascript:void(0)" onclick="aavv(this.title)" >{$v}</a></li>
 	{else}
-	<li><a title="{$v}" href="?page={$v}" >{$v}</a></li>
+	<li><a title="{$v}" href="javascript:void(0)" onclick="aavv(this.title)" >{$v}</a></li>
 	{/if}
 	{/loop}
 	{if $total >10}
-	<li class="prev disabled"><a title="" href="javascript:void(0)" >...</a></li>
+	<li class="prev disabled"><a title="" href="javascript:void(0)" onclick="aavv(this.title)" >...</a></li>
 	<li><a title="" href="javascript:void(0)" >{$total}</a></li>
 	{/if}
-	<li {if $page == $total}class="prev disabled"{/if}><a title="{$v}+1" href="?page={$next}">下一页</a></li>
-	<li {if $page == $total}class="prev disabled"{/if}><a title="{$total}" href="?page={$total}" >尾页</a></li>
+	<li {if $page == $total}class="prev disabled"{/if}><a title="{$page+1}" onclick="aavv(this.title)" href="javascript:void(0)">下一页</a></li>
+	<li {if $page == $total}class="prev disabled"{/if}><a title="{$total}" onclick="aavv(this.title)" href="javascript:void(0)" >尾页</a></li>
 	跳转到
 	<input type="text" value="{$page}" style="width: 30px; height:18px;margin-bottom:0px" onblur="jump(this.value)">/{$total}页
 	</ul>
@@ -34,9 +35,30 @@
 	if(obj > {$total}){
 		alert("请输入正确的页数");
 	}else{
-	window.location.href="?page="+obj;
+		aavv(obj);
 	}
-
+	}
+	
+	function aavv(obj){
+		var page=obj;
+		var search=$("#search").val();
+		if(search == ""){
+			$.ajax({
+				type:"POST",
+				url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file=pages",
+				data:{page:page},
+				dataType:"json",
+				success:function(data){
+					var len=data.length;
+					var html="";
+					for(var i=0;i<len;i++){
+						html+="<tr><td><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+data[i].cusid+"' /></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+data[i].cusid+" href='#'>获取</a><a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
+					}
+					$('#tbody').empty();
+					$('#tbody').append(html);
+				},
+			})
+		}
 	}
  </script>
   
