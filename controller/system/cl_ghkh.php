@@ -215,8 +215,7 @@
 				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
 				    $page=$_GET['page'] ?$_GET['page']:1;
 				    $content=page($sql,$page);
-				    $query=$content['content'];
-				    echo json_encode($query);
+				    echo json_encode($content[$content]);
 				}else {
 					echo json_encode(0);
 				}			
@@ -263,24 +262,30 @@
 	}
 	
 	if($_GET['file'] == 'search'){
-		$result=$_POST;
-		$search=$result['search'];
+		$sel=$_REQUEST['sel'];
+		$page=$_REQUEST['page']?$_REQUEST['page']:1;
 		$file=array('connecter','cusname');
-		$res=search("crm_customer", $file, $search);
-		
-		if(!empty($res)){
+		if(is_array($file)){
+			foreach ($file as $k=>$v){
+				$sqlv.=$v." LIKE '%$sel%' OR ";
+			}
+			}
+			$sqlv=substr($sqlv,0,-3);
+		   $sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=0  AND ($sqlv) ORDER BY inputtime DESC";
+			$res=search($sql,$file,$page,$sel);
+			if(!empty($res)){
 			echo json_encode($res);
 		}else{
 			echo json_encode("nothing");
 		}
+	
 	}
 	if($_GET['file'] == 'pages'){
 		$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
-		$page=$_POST['page'] ?$_POST['page']:1;
+		$page=$_POST['page']?$_POST['page']:1;
 		$content=page($sql,$page);
-		$res=$content['content'];
-		if(!empty($res)){
-			echo json_encode($res);
+		if(!empty($content)){
+			echo json_encode($content);
 		}else{
 			echo json_encode("nothing");
 		}

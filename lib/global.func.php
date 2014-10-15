@@ -1402,7 +1402,8 @@ function back($arr){
 		 }
 		$start=($page-1)*$pagesize;
 		
-		$sel=$sql .=" LIMIT $start,$pagesize";
+		$sel= $sql .=" LIMIT $start,$pagesize";
+		
 		$result['content']=$db->get_all($sel);
 		if($pages == 0){
 		$result['count']=range(1,1);
@@ -1414,33 +1415,21 @@ function back($arr){
 		$result['count']=range(1,$pages);
 		$result['total']=$pages;
 		}
-		
-		
-		
 		return $result;
 	}
-	function search($table,$file,$val){
-		if(is_array($file)){
-			foreach ($file as $k=>$v){
-				$sqlv.=$v." LIKE '%$val%' OR ";
-			}
-			$sqlv=substr($sqlv,0,-3);
-			$sql="SELECT * FROM $table WHERE $sqlv";
-			$page=$_GET['page'] ?$_GET['page']:1;
+	function search($sql,$file,$page,$sel){
 			$content=page($sql,$page);
-			$res=$content['content'];
-			foreach($res as $key=>$vals){
+			
+			foreach($content['content'] as $key=>$vals){
 				foreach($file as $a=>$b){
-					$res[$key][$b]=str_replace($val,"<font color='red'>$val</font>",$vals[$b]);
+					$content['content'][$key][$b]=str_replace($sel,"<font color='red'>$sel</font>",$vals[$b]);
 				}
 			}
-			if(!empty($res)){
-				return $res;
+			
+			if(!empty($content)){
+				return $content;
 			}else{
 				return false;
 			}
-		}else{
-			return false;
 		}
-	}
 ?>
