@@ -1,1 +1,0 @@
-<?php defined('IN_MXphp') or exit('访问出错！');?><html><head></head><body>请先登录</body></html>

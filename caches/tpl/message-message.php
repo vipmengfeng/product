@@ -1,1 +1,0 @@
-<?php defined('IN_MXphp') or exit('访问出错！');?>
