@@ -74,7 +74,7 @@
                 <div class="btn-group"> <a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=add" class="btn blue"><i class="icon-plus"></i> 添加新用户</a> </div>
                
                 <div class="btn-group"> <a href="#" onclick="subform()"  class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
-               
+               <div class="dataTables_filter" id="sample_1_filter" style="float:right"><label>搜索: <input type="text" aria-controls="sample_1" id="search" onblur="aavv('search')" class="m-wrap small"></label>
               </div>
            <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=myform" method="post" id="myform" name="myform">
               <table class="table table-striped table-bordered table-hover" id="sample_1">
@@ -195,7 +195,121 @@
 			})
 		}
 	}
-
+	function aavv(obj,id){
+		if(arguments[1]){
+			var id=arguments[1];
+			var page={$page};
+		}else{
+				var id="";
+				var page=1;
+		}
+		   var sea=$("#search").val();
+		   if(sea == ""){
+			   search="{$_GET['sel']}";
+		   }else{
+			   search=sea;
+		   }
+			if(search == "" && obj == "search"){
+				return false;
+			}else{
+				$.ajax({
+					type:"POST",
+					url:"{$conf['log_out']}/controller/system/cl_yhgl.php?file="+obj+"",
+					data:{sel:search,id:id,page:page},
+					dataType:"text",
+					success:function(data){
+						alert(data);
+						var html="";
+						if(data == "nothing"){
+							var pages=1;
+							html+="<tr class='odd gradeX'><td colspan='7' text-align='center'>很抱歉，没有您想要的内容</td></tr>";
+						}else{
+							var content=data.content;
+							var len=content.length;
+						
+						for(var i=0;i<len;i++){
+							html+="<tr id='tr'><td class=' '><span id='span"+content[i].id+"' class='row-details row-details-close'  onclick='aa(this)' title="+content[i].id+"></span></td><td>"+content[i].username+"</td><td>"+content[i].realname+"</td><td>"+content[i].phone+"</td><td>"+content[i].role+"</td><td class='hidden-480'><a href='#' onclick=aavv('fangqi',this.title) title="+content[i].cusid+" class='btn mini red'>放弃</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id="+content[i].cusid+"' onclick='subform(mod)' class='btn mini blue'>修改资料</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id="+content[i].cusid+"' onclick='subform(log)' class='btn mini yellow'>跟进记录</a></td></tr><tr id='none"+content[i].cusid+"' style='display:none'></tr>" ;
+							
+						}
+						var pages=data.total;
+						}
+						var tpage="";
+						if(search!=""){
+							tpage +="<li class='prev disabled'><a title='1' href='?page=1&sel="+search+"'  >首页</a></li>";
+						}else{
+							tpage +="<li class='prev disabled'><a title='1' href='?page=1'  >首页</a></li>";
+						}
+						
+						if(page == 1){
+							if(search!=""){
+								tpage+="<li class='prev disabled'><a title='1' href='?page=1&sel="+search+"' >上一页</a></li>";
+							}else{
+								tpage+="<li class='prev disabled'><a title='1' href='?page=1' >上一页</a></li>";
+							}
+						
+					}else{
+	                    var front=page-1;
+	                    if(search!=""){
+	                    	tpage +="<li class='prev'><a title="+front+" href='?page="+front+"&sel="+search+"' >上一页</a></li>";	
+	                    }else{
+	                    	tpage +="<li class='prev'><a title="+front+" href='?page="+front+"' >上一页</a></li>";
+	                    }
+					    
+					}
+					for (var j=1;j<=pages;j++){
+					if(j==page){
+	                 tpage+="<li class='active'>";
+					}else{
+					tpage+="<li>";
+					}
+						if(search!=""){
+							tpage+="<a title='"+j+"' href='?page="+j+"&sel="+search+"' >"+j+"</a></li>";
+						}else{
+							tpage+="<a title='"+j+"' href='?page="+j+"' >"+j+"</a></li>";
+						}
+						
+					}
+					if(pages >10){
+						if(search!=""){
+							tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"&sel="+search+"' >"+pages+"</a></li>";
+						}else{
+							tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"' >"+pages+"</a></li>";	
+						}
+						
+					}
+					if(page == pages){
+						if(search!=""){
+							tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"&sel="+search+"'>下一页</a></li>"
+						}else{
+							tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"'>下一页</a></li>"
+						}
+					
+					
+					}else{
+					var next=page+1;
+					if(search!=""){
+						tpage+="<li class='prev'><a title='"+next+"'  href='?page="+next+"&sel="+search+"'>下一页</a></li>";
+					}else{
+						tpage+="<li class='prev'><a title='"+next+"'  href='?page="+next+"'>下一页</a></li>";
+					}
+					
+					}	
+					if(search!=""){
+						tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"&sel="+search+"'>尾页</a></li>";
+						tpage+="跳转到<input type='text' value='"+page+"' style='width: 30px; height:18px;margin-bottom:0px' onblur='jump(this.value)'>/"+pages+"页";
+					}else{
+						tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"'>尾页</a></li>";
+						tpage+="跳转到<input type='text' value='"+page+"' style='width: 30px; height:18px;margin-bottom:0px' onblur='jump(this.value)'>/"+pages+"页";
+					}
+							
+						$("#ppage").empty();
+						$("#ppage").append(tpage);
+						$('#tbody').empty();
+						$('#tbody').append(html);
+					},
+				})
+			}
+		}
    </script>
   </div>
   

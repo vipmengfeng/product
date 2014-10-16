@@ -89,7 +89,7 @@
 
 									<a href="javascript:;" class="collapse"></a>
 
-									<a href="#" onclick="refresh()" class="reload"></a>
+									<a href="#" onclick="aavv('refresh')" class="reload"></a>
 
 								</div>
 
@@ -100,12 +100,12 @@
 								<div class="clearfix" style="float:left">
 
 									<div class="btn-group"><a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add" class="btn blue"><i class="icon-plus"></i> 添加新客户</a> </div>
-                                    <div class="btn-group"> <a href="#" onclick="updel('huoqu',{$conf['log_out']}/controller/system/cl_ghkh.php?file=myform&page={$page})" class="btn green"><i class="icon-share"></i> 获取选中客户</a> </div>
-									<div class="btn-group"> <a href="#" onclick="mul('del')" class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
+                                    <div class="btn-group"> <a href="#" onclick="aavv('huoqu')" class="btn green"><i class="icon-share"></i> 获取选中客户</a> </div>
+									<div class="btn-group"> <a href="#" onclick="aavv('del')" class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
 									
 
 								</div>
-								<div class="span6"><div class="dataTables_filter" id="sample_1_filter" style="float:right"><label>搜索: <input type="text" aria-controls="sample_1" id="search" onblur="aavv()" class="m-wrap small"></label></div>
+								<div class="span6" style="float:right"><div class="dataTables_filter" id="sample_1_filter" style="float:right"><label>搜索: <input type="text" aria-controls="sample_1" id="search" onblur="aavv('search')" class="m-wrap small"></label></div>
 								</div>
 							<div style="clear:both"></div>
 								
@@ -149,7 +149,7 @@
 											<td class="hidden-480">{$v['cphone']}</td>
 											<td class="hidden-480">{date("Y-m-d H:i",$v['inputtime'])}</td>
 											<td class="hidden-480">
-											<a class="btn mini green"  onclick="updel('crm_customer','{$conf['log_out']}/controller/system/cl_ghkh.php?file=hqkh')"title="{$v['cusid']}" href="#">获取</a> 
+											<a class="btn mini green"  onclick="aavv('hqkh',this.title)"title="{$v['cusid']}" href="#">获取</a> 
 											<a class="btn mini blue" href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}&page={$_GET['page']}">查看详细</a>
 											</td>
 										
@@ -204,49 +204,12 @@
 		}
 	}
 	
-	function mul(obj){
-		var hide=obj;
-		var lens=$(":checked").length;
-		var checkbox=$(":checked");
-		var id = new Array();
-		for(var j=0;j<lens;j++){
-		if(checkbox[j].value != "on"){
-		   id[j]=checkbox[j].value;
-			}
-		}
-		if(id == ""){
-			alert("请选择你要操作的客户");
-		}else{
-			$.ajax({
-				type:"POST",
-				url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file=myform&page={$page}",
-				data:{hidden:hide,id:id},
-				dataType:"json",
-				success:function(data){
-					if(data == "nothing"){
-						$("#tbody").empty();
-					    $("#tbody").append("<tr class='odd gradeX'><td colspan='6' text-align='center'>已经没有任何内容了</td></tr>");
-					}else{
-						 var html="";
-						 var len=data.length;
-						 for(var i=0;i<len;i++){
-							 html+="<tr><td><div class='checker'><span><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+data[i].cusid+"' /></span></div></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+data[i].cusid+" href='#'>获取</a> <a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
-							 
-						 }
-						 $('#tbody').empty();
-						 $('#tbody').append(html);
-					}
-				}
-			})
-		}
-	}
-	
 	function refresh(){
 		$.get("{$conf['log_out']}/controller/system/cl_ghkh.php?file=refresh&page={$page}",function(data){
 			var len=data.length;
 			var html="";
 			for(var i=0;i<len;i++){
-				html+="<tr><td><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+data[i].cusid+"' /></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+data[i].cusid+" href='#'>获取</a><a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
+				html+="<tr><td><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+data[i].cusid+"' /></td><td class='hidden-480'>"+data[i].cusname+"</td><td class='hidden-480'>"+data[i].connecter+"</td><td class='hidden-480'>"+data[i].cphone+"</td><td class='hidden-480'>"+data[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+data[i].cusid+" href='#'>获取</a> <a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+data[i].cusid+"'>查看详细</a></td></tr>";
 			}		 
 			$('#tbody').empty();
 			$('#tbody').append(html);
@@ -276,30 +239,72 @@
 		})
 	}
 	
-function aavv(){
-		var page=1;
-		var search=$("#search").val();
-		if(search != ""){
+function aavv(obj,id){
+	if(arguments[1]){
+		var id=arguments[1];
+		var page={$page};
+	}else{
+		var lens=$(":checked").length;
+		var checkbox=$(":checked");
+		if(lens>=1){
+			var id = new Array();
+			for(var j=0;j<lens;j++){
+			if(checkbox[j].value != "on"){
+			   id[j]=checkbox[j].value;
+				}
+			}
+			var page={$page};
+		}else{
+			var id="";
+			var page=1;
+		}
+	}
+	   var search="{$_GET['sel']}" ? "{$_GET['sel']}":$("#search").val();
+		if(search == "" && obj == "search"){
+			return false;
+		}else{	
 			$.ajax({
 				type:"POST",
-				url:"{$ajaxurl}",
-				data:{sel:search},
+				url:"{$conf['log_out']}/controller/system/cl_ghkh.php?file="+obj+"",
+				data:{sel:search,id:id,page:page},
 				dataType:"json",
 				success:function(data){
-					var content=data.content;
-					var len=content.length;
 					var html="";
+					if(data == "nothing"){
+						var pages=1;
+						html+="<tr class='odd gradeX'><td colspan='6' text-align='center'>很抱歉，没有您想要的内容</td></tr>";
+					}else{
+						var content=data.content;
+						var len=content.length;
+					
 					for(var i=0;i<len;i++){
-						html+="<tr><td><div class='checker'><span><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+content[i].cusid+"' /></span></div></td><td class='hidden-480'>"+content[i].cusname+"</td><td class='hidden-480'>"+content[i].connecter+"</td><td class='hidden-480'>"+content[i].cphone+"</td><td class='hidden-480'>"+content[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick='huoqu(this)' title="+content[i].cusid+" href='#'>获取</a> <a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+content[i].cusid+"'>查看详细</a></td></tr>";
+						html+="<tr><td><div class=''><span><input type='checkbox' class='checkboxes' name='checkbox1[]' value='"+content[i].cusid+"' /></span></div></td><td class='hidden-480'>"+content[i].cusname+"</td><td class='hidden-480'>"+content[i].connecter+"</td><td class='hidden-480'>"+content[i].cphone+"</td><td class='hidden-480'>"+content[i].inputtime+"</td><td class='hidden-480'><a class='btn mini green' onclick=aavv('hqkh',this.title) title="+content[i].cusid+" href='#'>获取</a> <a class='btn mini blue' href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=ghkh_info&cusid="+content[i].cusid+"'>查看详细</a></td></tr>";
 					}
 					var pages=data.total;
+					}
+					
 					var tpage="";
-					tpage +="<li class='prev disabled'><a title='1' href='?page=1&sel="+search+"'  >首页</a></li>";
+					if(search!=""){
+						tpage +="<li class='prev disabled'><a title='1' href='?page=1&sel="+search+"'  >首页</a></li>";
+					}else{
+						tpage +="<li class='prev disabled'><a title='1' href='?page=1'  >首页</a></li>";
+					}
+					
 					if(page == 1){
-					tpage+="<li class='prev disabled'><a title='1'    href='?page=1&sel="+search+"' >上一页</a></li>";
+						if(search!=""){
+							tpage+="<li class='prev disabled'><a title='1' href='?page=1&sel="+search+"' >上一页</a></li>";
+						}else{
+							tpage+="<li class='prev disabled'><a title='1' href='?page=1' >上一页</a></li>";
+						}
+					
 				}else{
                     var front=page-1;
-				    tpage +="<li class='prev'><a title="+front+"  href='?page="+front+"&sel="+search+"' >上一页</a></li>";
+                    if(search!=""){
+                    	tpage +="<li class='prev'><a title="+front+" href='?page="+front+"&sel="+search+"' >上一页</a></li>";	
+                    }else{
+                    	tpage +="<li class='prev'><a title="+front+" href='?page="+front+"' >上一页</a></li>";
+                    }
+				    
 				}
 				for (var j=1;j<=pages;j++){
 				if(j==page){
@@ -307,24 +312,49 @@ function aavv(){
 				}else{
 				tpage+="<li>";
 				}
-					tpage+="<a title='"+j+"' href='?page="+j+"&sel="+search+"' >"+j+"</a></li>";
+					if(search!=""){
+						tpage+="<a title='"+j+"' href='?page="+j+"&sel="+search+"' >"+j+"</a></li>";
+					}else{
+						tpage+="<a title='"+j+"' href='?page="+j+"' >"+j+"</a></li>";
+					}
+					
 				}
 				if(pages >10){
-					tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"&sel="+search+"' >"+pages+"</a></li>";
+					if(search!=""){
+						tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"&sel="+search+"' >"+pages+"</a></li>";
+					}else{
+						tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"' >"+pages+"</a></li>";	
+					}
+					
 				}
-				
 				if(page == pages){
-				tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"&sel="+search+"'>下一页</a></li>"
+					if(search!=""){
+						tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"&sel="+search+"'>下一页</a></li>"
+					}else{
+						tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"'>下一页</a></li>"
+					}
+				
 				
 				}else{
 				var next=page+1;
-				tpage+="<li class='prev'><a title='"+next+"'  href='?page="+next+"&sel="+search+"'>下一页</a></li>";
-				}		
-				tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"&sel="+search+"'>尾页</a></li>";
-	tpage+="跳转到<input type='text' value='"+page+"' style='width: 30px; height:18px;margin-bottom:0px' onblur='jump(this.value)'>/"+pages+"页";		
+				if(search!=""){
+					tpage+="<li class='prev'><a title='"+next+"'  href='?page="+next+"&sel="+search+"'>下一页</a></li>";
+				}else{
+					tpage+="<li class='prev'><a title='"+next+"'  href='?page="+next+"'>下一页</a></li>";
+				}
+				
+				}	
+				if(search!=""){
+					tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"&sel="+search+"'>尾页</a></li>";
+					tpage+="跳转到<input type='text' value='"+page+"' style='width: 30px; height:18px;margin-bottom:0px' onblur='jump(this.value)'>/"+pages+"页";
+				}else{
+					tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"'>尾页</a></li>";
+					tpage+="跳转到<input type='text' value='"+page+"' style='width: 30px; height:18px;margin-bottom:0px' onblur='jump(this.value)'>/"+pages+"页";
+				}
+						
 					$("#ppage").empty();
 					$("#ppage").append(tpage);
-					$('#tbody').empty();				
+					$('#tbody').empty();
 					$('#tbody').append(html);
 				},
 			})

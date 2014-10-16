@@ -126,26 +126,32 @@
 		$data=array(
 			'uid'=>$uid,
 			'gettimes'=>time(),
-		);
+		);	
+		$sel=$_REQUEST['sel'];
+		$page=$_REQUEST['page']?$_REQUEST['page']:1;
 		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
 		if($query == 'right'){
 		    logs("update","move",$cusid);
-		    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
-		    $page=$_GET['page'] ?$_GET['page']:1;
-		    $content=page($sql,$page);
-		    $res=$content['content'];
-		    if(!empty($res)){
-		    	foreach($res as $k=>$v){
-		    		$res[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
-		    	}
-		    	
-		    	echo json_encode($res);
+			if($sel !=""){		
+				$file=array('connecter','cusname');
+				$sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=0  AND (%s) ORDER BY inputtime DESC";
+				$content=search($sql,$file,$page,$sel);
+			}else{
+				$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
+				$content=page($sql,$page);
+				if(!empty($content['content'])){
+					foreach($content['content'] as $k=>$v){
+						$content['content'][$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+					}
+			
+				}else{
+					$content = "nothing";
+				}				    	   
+			}	
+		    	echo json_encode($content);
 		    }else{
-		    	echo json_encode("nothing");
+		    	echo json_encode("wrong");
 		    }
-		}else{
-			echo 0;
-		}
 	}
 	
 	if($file == "hqkhs"){
@@ -167,9 +173,54 @@
 		}
 	}
 	
-	if($file == 'myform'){
+	if($file == 'huoqu'){
 		if(!empty($_POST)){
 			$uid=$_SESSION['usernameid'];
+			$cusid=$_POST['id'];
+			$sel=$_REQUEST['sel'];
+			$page=$_REQUEST['page']?$_REQUEST['page']:1;
+			if(is_array($cusid)){
+				foreach ($cusid as $k=>$v){
+					if($v!=""){
+						$str.=$v.",";
+					}
+				}
+				$str=substr($str,0,-1);
+			}else {
+				$str=substr($str,1);
+			}
+			$data=array(
+					"uid"=>$uid,
+			);
+			$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
+		if($query == 'right'){
+		    logs("update","move",$cusid);
+			if($sel !=""){		
+				$file=array('connecter','cusname');
+				$sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=0  AND (%s) ORDER BY inputtime DESC";
+				$content=search($sql,$file,$page,$sel);
+			}else{
+				$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
+				$content=page($sql,$page);
+				if(!empty($content['content'])){
+					foreach($content['content'] as $k=>$v){
+						$content['content'][$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+					}
+			
+				}else{
+					$content = "nothing";
+				}				    	   
+			}	
+		    	echo json_encode($content);
+		    }else{
+		    	echo json_encode("wrong");
+		    }
+		}
+	}
+	if($file == 'del'){
+		if(!empty($_POST)){
+			$sel=$_REQUEST['sel'];
+			$page=$_REQUEST['page']?$_REQUEST['page']:1;
 			$cusid=$_POST['id'];
 			if(is_array($cusid)){
 				foreach ($cusid as $k=>$v){
@@ -181,62 +232,37 @@
 			}else {
 				$str=substr($str,1);
 			}
-			if($_POST['hidden'] == 'huoqu'){
-				$data=array(
-						"uid"=>$uid,
-				);
-				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
-				if($query == 'right'){
-				    logs("update","move",$cusid);
-				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
-				    $page=$_GET['page'] ?$_GET['page']:1;
-				    $content=page($sql,$page);
-				    $query=$content['content'];
-				    if(!empty($query)){
-				    	foreach($query as $k=>$v){
-				    		$query[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
-				    	}
-				    	echo json_encode($query);
-				    }else{
-				    	echo json_encode("nothing");
-				    }
-				    
-				}else {
-					echo json_encode(0);
-				}
-			}
-			if($_POST['hidden'] == 'del'){
-				$data=array(
+			$data=array(
 					"disable"=>"0",
-				);
-				$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
-				if($query == 'right'){
-				    logs("del","customer",$cusid);
-				    $sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
-				    $page=$_GET['page'] ?$_GET['page']:1;
-				    $content=page($sql,$page);
-				    echo json_encode($content[$content]);
-				}else {
-					echo json_encode(0);
-				}			
+			);
+			$query=$db->update(" where cusid in ($str)", "crm_customer" ,$data);
+			if($query == 'right'){
+				logs("update","move",$cusid);
+				if($sel !=""){
+					$file=array('connecter','cusname');
+					$sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=0  AND (%s) ORDER BY inputtime DESC";
+					$content=search($sql,$file,$page,$sel);
+				}else{
+					$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
+					$content=page($sql,$page);
+					if(!empty($content['content'])){
+						foreach($content['content'] as $k=>$v){
+							$content['content'][$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+						}
+							
+					}else{
+						$content = "nothing";
+					}
+				}
+				echo json_encode($content);
+			}else{
+				echo json_encode("wrong");
 			}
-		
-		}
+		}	
 	}
 	
 	if($_GET['file'] == 'refresh'){
-		$sql="SELECT * FROM crm_customer  WHERE  disable=1 AND uid=0 ORDER BY inputtime DESC";
-		$page=$_GET['page'] ?$_GET['page']:1;
-		$content=page($sql,$page);
-		$res=$content['content'];
-		if(!empty($res)){
-			foreach($res as $k=>$v){
-				$res[$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
-			}
-			echo json_encode($res);
-		}else{
-			echo json_encode("nothing");
-		}
+		window.reload();
 	}
 	if($_GET['file'] == 'checkhaha'){
 		$cusname=$_GET['cusname'];
@@ -268,6 +294,10 @@
 		   $sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=0  AND (%s) ORDER BY inputtime DESC";
 			$res=search($sql,$file,$page,$sel);
 			if(!empty($res)){
+			foreach($res['content'] as $k=>$v){
+				$res['content'][$k]['inputtime']=date("Y-m-d H:i",$v['inputtime']);
+			}
+			
 			echo json_encode($res);
 		}else{
 			echo json_encode("nothing");
@@ -278,10 +308,7 @@
 		$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
 		$page=$_POST['page']?$_POST['page']:1;
 		$content=page($sql,$page);
-		if(!empty($content)){
 			echo json_encode($content);
-		}else{
-			echo json_encode("nothing");
-		}
+
 	}
 ?>

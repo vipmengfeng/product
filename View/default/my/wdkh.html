@@ -107,19 +107,17 @@
                                     	{/loop}
                                     
                                     </select>
-                                  
-                                   <div class="input-append date date-picker" data-date="2012-12-01" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+				 						 <input type="text" value="{date('Y/m/d H:i')}" id="datetimepicker" name="time"/>
+                                      
+                                    		 ~
+                                    		 
+                                         <input type="text" value="{date('Y/m/d H:i')}" id="datetimepicker1" name="time" />
                                     
-                                        <input class="m-wrap m-ctrl-medium date-picker" readonly size="16" type="text" value="" /><span class="add-on"><i class="icon-calendar"></i></span>
                                     
-                                    </div>     ~ <div class="input-append date date-picker" data-date="2012-12-01" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                    
-                                        <input class="m-wrap m-ctrl-medium date-picker" readonly size="16" type="text" value="" /><span class="add-on"><i class="icon-calendar"></i></span>
-                                    
-                                    </div>    
                                    <div class="btn-group"> <a href="#" class="btn green" onclick="sel()"><i class="icon-screenshot"></i> 确认筛选</a> </div>
-                          
+                         <div class="dataTables_filter" id="sample_1_filter" style="float:right"><label>搜索: <input type="text" aria-controls="sample_1" id="search" onblur="aavv('search')" class="m-wrap small"></label>
   </form>
+  
                                 </div>
                                 
       
@@ -156,7 +154,7 @@
 
 											<td class="hidden-480">{$v['cusinfo']}</td>
                                              <td class="hidden-480">{$status[$v['ctype']]}</td>
-											<td class="hidden-480"><a href="#" onclick="del(this)" title="{$v['cusid']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(mod)" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(log)" class="btn mini yellow">跟进记录</a>
+											<td class="hidden-480"><a href="#" onclick="aavv('fangqi',this.title)" title="{$v['cusid']}" class="btn mini red">放弃</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(mod)" class="btn mini blue">修改资料</a> <a href="{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id={$v[cusid]}&page={$_GET['page']}" onclick="subform(log)" class="btn mini yellow">跟进记录</a>
 											</td>
 
 										</tr>
@@ -265,5 +263,202 @@
 						}
 		
 	}
+	function aavv(obj,id){
+		if(arguments[1]){
+			var id=arguments[1];
+			var page={$page};
+		}else{
+				var id="";
+				var page=1;
+		}
+		   var sea=$("#search").val();
+		   if(sea == ""){
+			   search="{$_GET['sel']}";
+		   }else{
+			   search=sea;
+		   }
+			if(search == "" && obj == "search"){
+				return false;
+			}else{
+				$.ajax({
+					type:"POST",
+					url:"{$conf['log_out']}/controller/system/cl_my.php?file="+obj+"",
+					data:{sel:search,id:id,page:page},
+					dataType:"json",
+					success:function(data){
+						var html="";
+						if(data == "nothing"){
+							var pages=1;
+							html+="<tr class='odd gradeX'><td colspan='7' text-align='center'>很抱歉，没有您想要的内容</td></tr>";
+						}else{
+							var content=data.content;
+							var len=content.length;
+						
+						for(var i=0;i<len;i++){
+							html+="<tr id='tr'><td class=' '><span id='span"+content[i].cusid+"' class='row-details row-details-close'  onclick='aa(this)' title="+content[i].cusid+"></span></td><td>"+content[i].cusname+"</td><td>"+content[i].connecter+"</td><td>"+content[i].cphone+"</td><td>"+content[i].cusinfo+"</td><td>"+content[i].ctype+"</td><td class='hidden-480'><a href='#' onclick=aavv('fangqi',this.title) title="+content[i].cusid+" class='btn mini red'>放弃</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id="+content[i].cusid+"' onclick='subform(mod)' class='btn mini blue'>修改资料</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id="+content[i].cusid+"' onclick='subform(log)' class='btn mini yellow'>跟进记录</a></td></tr><tr id='none"+content[i].cusid+"' style='display:none'></tr>" ;
+							
+						}
+						var pages=data.total;
+						}
+						var tpage="";
+						if(search!=""){
+							tpage +="<li class='prev disabled'><a title='1' href='?page=1&sel="+search+"'  >首页</a></li>";
+						}else{
+							tpage +="<li class='prev disabled'><a title='1' href='?page=1'  >首页</a></li>";
+						}
+						
+						if(page == 1){
+							if(search!=""){
+								tpage+="<li class='prev disabled'><a title='1' href='?page=1&sel="+search+"' >上一页</a></li>";
+							}else{
+								tpage+="<li class='prev disabled'><a title='1' href='?page=1' >上一页</a></li>";
+							}
+						
+					}else{
+	                    var front=page-1;
+	                    if(search!=""){
+	                    	tpage +="<li class='prev'><a title="+front+" href='?page="+front+"&sel="+search+"' >上一页</a></li>";	
+	                    }else{
+	                    	tpage +="<li class='prev'><a title="+front+" href='?page="+front+"' >上一页</a></li>";
+	                    }
+					    
+					}
+					for (var j=1;j<=pages;j++){
+					if(j==page){
+	                 tpage+="<li class='active'>";
+					}else{
+					tpage+="<li>";
+					}
+						if(search!=""){
+							tpage+="<a title='"+j+"' href='?page="+j+"&sel="+search+"' >"+j+"</a></li>";
+						}else{
+							tpage+="<a title='"+j+"' href='?page="+j+"' >"+j+"</a></li>";
+						}
+						
+					}
+					if(pages >10){
+						if(search!=""){
+							tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"&sel="+search+"' >"+pages+"</a></li>";
+						}else{
+							tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"' >"+pages+"</a></li>";	
+						}
+						
+					}
+					if(page == pages){
+						if(search!=""){
+							tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"&sel="+search+"'>下一页</a></li>"
+						}else{
+							tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"'>下一页</a></li>"
+						}
+					
+					
+					}else{
+					var next=page+1;
+					if(search!=""){
+						tpage+="<li class='prev'><a title='"+next+"'  href='?page="+next+"&sel="+search+"'>下一页</a></li>";
+					}else{
+						tpage+="<li class='prev'><a title='"+next+"'  href='?page="+next+"'>下一页</a></li>";
+					}
+					
+					}	
+					if(search!=""){
+						tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"&sel="+search+"'>尾页</a></li>";
+						tpage+="跳转到<input type='text' value='"+page+"' style='width: 30px; height:18px;margin-bottom:0px' onblur='jump(this.value)'>/"+pages+"页";
+					}else{
+						tpage+="<li class='prev disabled'><a title='"+pages+"'  href='?page="+pages+"'>尾页</a></li>";
+						tpage+="跳转到<input type='text' value='"+page+"' style='width: 30px; height:18px;margin-bottom:0px' onblur='jump(this.value)'>/"+pages+"页";
+					}
+							
+						$("#ppage").empty();
+						$("#ppage").append(tpage);
+						$('#tbody').empty();
+						$('#tbody').append(html);
+					},
+				})
+			}
+		}
+	</script>
+	<script type="text/javascript">
+	$('#datetimepicker10').datetimepicker({
+		step:5,
+		inline:true
+	});
+	$('#datetimepicker_mask').datetimepicker({
+		mask:'9999/19/39 29:59'
+	});
+	$('#datetimepicker').datetimepicker();
+	$('#datetimepicker').datetimepicker({value:"{date('Y/m/d H:i')}",step:10});
+	$('#datetimepicker1').datetimepicker({
+		datepicker:false,
+		format:'H:i',
+		step:5
+	});
+	$('#datetimepicker2').datetimepicker({
+		yearOffset:222,
+		lang:'ch',
+		timepicker:false,
+		format:'d/m/Y',
+		formatDate:'Y/m/d',
+		minDate:'-1970/01/02', 
+		maxDate:'+1970/01/02'
+	});
+	$('#datetimepicker3').datetimepicker({
+		inline:true
+	});
+	$('#datetimepicker4').datetimepicker();
+	$('#open').click(function(){
+		$('#datetimepicker4').datetimepicker('show');
+	});
+	$('#close').click(function(){
+		$('#datetimepicker4').datetimepicker('hide');
+	});
+	$('#reset').click(function(){
+		$('#datetimepicker4').datetimepicker('reset');
+	});
+	$('#datetimepicker5').datetimepicker({
+		datepicker:false,
+		allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00']
+	});
+	$('#datetimepicker6').datetimepicker();
+	$('#destroy').click(function(){
+		if( $('#datetimepicker6').data('xdsoft_datetimepicker') ){
+			$('#datetimepicker6').datetimepicker('destroy');
+			this.value = 'create';
+		}else{
+			$('#datetimepicker6').datetimepicker();
+			this.value = 'destroy';
+		}
+	});
+	var logic = function( currentDateTime ){
+		if( currentDateTime.getDay()==6 ){
+			this.setOptions({
+				minTime:'11:00'
+			});
+		}else
+			this.setOptions({
+				minTime:'8:00'
+			});
+	};
+	$('#datetimepicker7').datetimepicker({
+		onChangeDateTime:logic,
+		onShow:logic
+	});
+	$('#datetimepicker8').datetimepicker({
+		onGenerate:function( ct ){
+			$(this).find('.xdsoft_date')
+				.toggleClass('xdsoft_disabled');
+		},
+		minDate:'-1970/01/2',
+		maxDate:'+1970/01/2',
+		timepicker:false
+	});
+	$('#datetimepicker9').datetimepicker({
+		onGenerate:function( ct ){
+			$(this).find('.xdsoft_date.xdsoft_weekend')
+				.addClass('xdsoft_disabled');
+		},
+		weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
+		timepicker:false
+	});
 	</script>
 	{template "footer"}

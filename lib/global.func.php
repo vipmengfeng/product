@@ -1426,16 +1426,16 @@ if(is_array($file)){
 			$sqlv=substr($sqlv,0,-3);
 			$sql=sprintf($sql,$sqlv);
 			$content=page($sql,$page);
-			foreach($content['content'] as $key=>$vals){
-				foreach($file as $a=>$b){
-					$content['content'][$key][$b]=str_replace($sel,"<font color='red'>$sel</font>",$vals[$b]);
-				}
-			}
 			
-			if(!empty($content)){
+			if(!empty($content['content'])){
+				foreach($content['content'] as $key=>$vals){
+					foreach($file as $a=>$b){
+						$content['content'][$key][$b]=str_replace($sel,"<font color='red'>$sel</font>",$vals[$b]);
+					}
+				}
 				return $content;
 			}else{
-				return false;
+				return "nothing";
 			}
 		}
 ?>

@@ -189,4 +189,21 @@
 		}
 		
 	}
+	if($_GET['file'] == 'search'){
+		$sel=$_REQUEST['sel'];
+		$page=$_REQUEST['page']?$_REQUEST['page']:1;
+		$file=array('username','realname','phone','role');
+		$sql="SELECT * FROM crm_user WHERE disable=1 AND (%s) ORDER BY inputtime DESC";
+		$res=search($sql,$file,$page,$sel);
+		if(!empty($res)){
+			foreach($res['content'] as $k=>$v){
+				$res['content'][$k]['role']=$role[$k][$v['rolename']];
+				echo $role[$k][$v['rolename']];die;
+			}
+			echo json_encode($res);
+		}else{
+			echo json_encode("nothing");
+		}
+	
+	}
 ?>
