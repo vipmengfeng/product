@@ -262,16 +262,10 @@
 	}
 	
 	if($_GET['file'] == 'search'){
-		$sel=$_REQUEST['sel'];
-		$page=$_REQUEST['page']?$_REQUEST['page']:1;
-		$file=array('connecter','cusname');
-		if(is_array($file)){
-			foreach ($file as $k=>$v){
-				$sqlv.=$v." LIKE '%$sel%' OR ";
-			}
-			}
-			$sqlv=substr($sqlv,0,-3);
-		   $sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=0  AND ($sqlv) ORDER BY inputtime DESC";
+		   $sel=$_REQUEST['sel'];
+		   $page=$_REQUEST['page']?$_REQUEST['page']:1;
+		   $file=array('connecter','cusname');
+		   $sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=0  AND (%s) ORDER BY inputtime DESC";
 			$res=search($sql,$file,$page,$sel);
 			if(!empty($res)){
 			echo json_encode($res);

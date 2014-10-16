@@ -1418,8 +1418,14 @@ function back($arr){
 		return $result;
 	}
 	function search($sql,$file,$page,$sel){
+if(is_array($file)){
+			foreach ($file as $k=>$v){
+				$sqlv.=$v." LIKE '%$sel%' OR ";
+			}
+			}
+			$sqlv=substr($sqlv,0,-3);
+			$sql=sprintf($sql,$sqlv);
 			$content=page($sql,$page);
-			
 			foreach($content['content'] as $key=>$vals){
 				foreach($file as $a=>$b){
 					$content['content'][$key][$b]=str_replace($sel,"<font color='red'>$sel</font>",$vals[$b]);
