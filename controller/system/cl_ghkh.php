@@ -154,6 +154,28 @@
 		    }
 	}
 	
+	if($file == 'indexhq'){
+		$uid=$_SESSION['usernameid'];
+		$cusid=$_POST['id'];
+		$data=array(
+				'uid'=>$uid,
+				'gettimes'=>time(),
+		);
+		$query=$db->update(" where cusid=".$cusid, "crm_customer" ,$data);
+		if($query == 'right'){
+			logs("update","move",$cusid);
+			$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=0 ORDER BY inputtime DESC";
+			$query=$db->get_all($sql);
+			if(!empty($query)){
+				echo json_encode($query);
+			}else{
+				echo json_encode("nothing");
+			}
+		}else{
+			echo json_encode("wrong");
+		}
+	}
+	
 	if($file == "hqkhs"){
 		$uid=$_SESSION['usernameid'];
 		$cusid=$_GET['cusid'];

@@ -27,7 +27,7 @@
 			logs("update", "give", $cusid);
 			if($sel !=""){
 				$file=array('connecter','cusname','cphone','cusinfo','ctype');
-				$sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=$uid  AND (%s) ORDER BY inputtime DESC";
+				$sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=$uid  AND (%s) ORDER BY gettimes DESC";
 				$content=search($sql,$file,$page,$sel);
 				if(!empty($content['content'])){
 					foreach($content['content'] as $k=>$v){
@@ -36,7 +36,7 @@
 				
 				}
 			}else{
-				$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=$uid ORDER BY inputtime DESC";
+				$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=$uid ORDER BY gettimes DESC";
 				$content=page($sql,$page);
 				if(!empty($content['content'])){
 					foreach($content['content'] as $k=>$v){
@@ -71,7 +71,7 @@
 		$uid=$_SESSION['usernameid'];
 		$page=$_REQUEST['page']?$_REQUEST['page']:1;
 		$file=array('connecter','cusname','cphone','cusinfo','ctype');
-		$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=$uid  AND (%s) ORDER BY inputtime DESC";
+		$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=$uid  AND (%s) ORDER BY gettimes DESC";
 		$res=search($sql,$file,$page,$sel);
 		if($res!="nothing"){
 			foreach($res['content'] as $k=>$v){

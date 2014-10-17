@@ -107,12 +107,8 @@
                                     	{/loop}
                                     
                                     </select>
-				 						 <input type="text" value="{date('Y/m/d H:i')}" id="datetimepicker" name="time"/>
+				 						  <input type="text" value="{date('Y/m/d H:i')}" id="datetimepicker" name="time"/>
                                       
-                                    		 ~
-                                    		 
-                                         <input type="text" value="{date('Y/m/d H:i')}" id="datetimepicker1" name="time" />
-                                    
                                     
                                    <div class="btn-group"> <a href="#" class="btn green" onclick="sel()"><i class="icon-screenshot"></i> 确认筛选</a> </div>
                          <div class="dataTables_filter" id="sample_1_filter" style="float:right"><label>搜索: <input type="text" aria-controls="sample_1" id="search" onblur="aavv('search')" class="m-wrap small"></label>
@@ -203,11 +199,11 @@
 	function sel(obj){
 
 			$("#myform").submit();
-		}
+		};
 	function subform(obj){
 		$("#hidden").val(obj);
 		$("#submyform").submit();
-	}
+	};
 	function del(obj){
 		$.ajax({
 			type:"POST",
@@ -232,7 +228,7 @@
 				}
 		    }
 		})
-	}
+	};
 	function aa(obj){
 		var id=obj.title;
 						var classes=$("#span"+id).attr('class');
@@ -262,7 +258,7 @@
 							$("#none"+id).hide();
 						}
 		
-	}
+	};
 	function aavv(obj,id){
 		if(arguments[1]){
 			var id=arguments[1];
@@ -376,9 +372,8 @@
 					},
 				})
 			}
-		}
-	</script>
-	<script type="text/javascript">
+		};
+	
 	$('#datetimepicker10').datetimepicker({
 		step:5,
 		inline:true
@@ -461,4 +456,5 @@
 		timepicker:false
 	});
 	</script>
+	
 	{template "footer"}
