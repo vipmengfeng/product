@@ -11,15 +11,21 @@
 	}
     require ROOT_DIR.'/caches/caches_common/role.php';
 	$table_pre=$conf['pre'];
-	$sql="select * from ".$table_pre.'user where disable=1 ORDER BY inputtime DESC';
 	$page=$_GET['page'] ?$_GET['page']:1;
-	$content=page($sql,$page);
+	if(trim($_GET['sel']) == ""){
+		$sql="SELECT * FROM ".$table_pre.'user WHERE disable=1 ORDER BY inputtime DESC';
+		$content=page($sql,$page);
+	}else{
+		$sel=$_REQUEST['sel'];
+		$page=$_REQUEST['page']?$_REQUEST['page']:1;
+		$file=array('username','realname','phone','role');
+		$sql="SELECT * FROM ".$table_pre."user WHERE disable=1 AND (%s) ORDER BY inputtime DESC";
+		$content=search($sql,$file,$page,$sel);
+	}
 	$res=$content['content'];
 	$count=$content['count'];
 	$total=$content['total'];
 	$front=$content['front'];
 	$next=$content['next'];
-	//$res=$db->get_all($sql);
-	//$page->fpage();
 	include template('yhgl','system');
 ?>

@@ -17,7 +17,7 @@
 	}else{
 	    $sel=$_REQUEST['sel'];
 		$page=$_REQUEST['page']?$_REQUEST['page']:1;
-		$file=array('connecter','cusname');	
+		$file=array('connecter','cusname','cphone');	
 		   $sql="SELECT * FROM ".$table_pre."customer WHERE disable=1 AND uid=0  AND (%s) ORDER BY inputtime DESC";
 	        $content=search($sql,$file,$page,$sel);
 	}

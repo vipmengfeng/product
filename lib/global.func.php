@@ -1434,6 +1434,7 @@ if(is_array($file)){
 					}
 				}
 				return $content;
+				
 			}else{
 				return "nothing";
 			}

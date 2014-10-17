@@ -73,12 +73,14 @@
 		$file=array('connecter','cusname','cphone','cusinfo','ctype');
 		$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=$uid  AND (%s) ORDER BY inputtime DESC";
 		$res=search($sql,$file,$page,$sel);
-		if(!empty($res)){
+		if($res!="nothing"){
 			foreach($res['content'] as $k=>$v){
 				$res['content'][$k]['ctype']=$status[$k][$v['ctype']];
 			}
+			
 			echo json_encode($res);
 		}else{
+			
 			echo json_encode("nothing");
 		}
 	

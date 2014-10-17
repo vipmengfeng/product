@@ -116,8 +116,9 @@
 	
 	//删除
 	if($_GET['file'] == 'myform'){
-		if(!empty($_POST)){
-			$chec=$_POST['id'];
+		$sel=$_REQUEST['sel'];
+		$page=$_REQUEST['page']?$_REQUEST['page']:1;
+		$chec=$_POST['id'];
 			if(is_array($chec)){
 				foreach ($chec as $k=>$v){
 					if($v!=""){
@@ -134,49 +135,64 @@
 			$query=$db->update(" where id in ($str)", "crm_user" ,$data);
 			if($query == 'right'){
 			    logs("del","member",$chec);
-				$sql="SELECT * FROM crm_user WHERE disable=1 ORDER BY inputtime DESC";
-				$page=$_GET['page'] ?$_GET['page']:1;
-				$content=page($sql,$page);
-				$con=$content['content'];
-				if(!empty($con)){
-					foreach($con as $k=>$v){
-						$con[$k]['role']=$role[$v['role']]['rolename'];
+			if($sel !=""){
+					$file=array('username','realname','phone','role');
+					$sql="SELECT * FROM crm_user WHERE disable=1  AND (%s) ORDER BY inputtime DESC";
+					$content=search($sql,$file,$page,$sel);
+				}else{
+					$sql="SELECT * FROM crm_user WHERE disable=1 ORDER BY inputtime DESC";
+					$content=page($sql,$page);
+					if(!empty($content['content'])){
+						foreach($content['content'] as $k=>$v){
+							$content['content'][$k]['role']=$role[$k+1]['rolename'];
+						}
+							
+					}else{
+						$content = "nothing";
 					}
-					echo json_encode($con);
-				}else{
-					echo json_encode("nothing");
 				}
-				}else{
-					echo json_encode($re);
-				
-				}
-					
-				
-		}
+				echo json_encode($content);
+			}else{
+				echo json_encode("wrong");
+			}
 	}
 	if($_GET['file'] == 'del'){
 		$id=$_POST['id'];
+		$sel=$_REQUEST['sel'];
+		$page=$_REQUEST['page']?$_REQUEST['page']:1;
 		$info=array(
 				'disable'=>0,
 		);
 		$query=$db->update(" WHERE id=$id", "crm_user" ,$info);
 		if($query == 'right'){
-			$sql="SELECT * FROM crm_user WHERE disable=1 ORDER BY inputtime DESC";
-			$page=$_GET['page'] ?$_GET['page']:1;
-			$content=page($sql,$page);
-			$con=$content['content'];
-			if(!empty($con)){
-				foreach($con as $k=>$v){
-					$con[$k]['role']=$role[$v['role']]['rolename'];
-				}
-				echo json_encode($con);
-			}else{
-				echo json_encode("nothing");
-			}
-		}else{
-			echo json_encode($re);
+			logs("del","member",$id);
+			if($sel !=""){
+				$file=array('username','realname','phone','role');
+				$sql="SELECT * FROM crm_user WHERE disable=1 AND (%s) ORDER BY inputtime DESC";
+				$content=search($sql,$file,$page,$sel);
+				if(!empty($content['content'])){
+					foreach($content['content'] as $k=>$v){
+						$content['content'][$k]['role']=$role[$k+1]['rolename'];
+					}
 				
+				}
+			}else{
+				$sql="SELECT * FROM crm_user WHERE disable=1 ORDER BY inputtime DESC";
+				$content=page($sql,$page);
+				if(!empty($content['content'])){
+					foreach($content['content'] as $k=>$v){
+						$content['content'][$k]['role']=$role[$k+1]['rolename'];
+					}
+						
+				}else{
+					$content = "nothing";
+				}
+			}
+			echo json_encode($content);
+		}else{
+			echo json_encode("wrong");
 		}
+		
 	}
 	if($_GET['file'] == 'checkhaha'){
 		$username=$_GET['username'];
@@ -195,10 +211,9 @@
 		$file=array('username','realname','phone','role');
 		$sql="SELECT * FROM crm_user WHERE disable=1 AND (%s) ORDER BY inputtime DESC";
 		$res=search($sql,$file,$page,$sel);
-		if(!empty($res)){
+		if($res!="nothing"){
 			foreach($res['content'] as $k=>$v){
-				$res['content'][$k]['role']=$role[$k][$v['rolename']];
-				echo $role[$k][$v['rolename']];die;
+				$res['content'][$k]['role']=$role[$k+1]['rolename'];
 			}
 			echo json_encode($res);
 		}else{

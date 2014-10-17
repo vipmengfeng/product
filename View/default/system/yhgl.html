@@ -73,7 +73,7 @@
                  
                 <div class="btn-group"> <a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=add" class="btn blue"><i class="icon-plus"></i> 添加新用户</a> </div>
                
-                <div class="btn-group"> <a href="#" onclick="subform()"  class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
+                <div class="btn-group"> <a href="#" onclick="aavv('myform')"  class="btn red"><i class="icon-trash"></i> 删除选中项</a> </div>
                <div class="dataTables_filter" id="sample_1_filter" style="float:right"><label>搜索: <input type="text" aria-controls="sample_1" id="search" onblur="aavv('search')" class="m-wrap small"></label>
               </div>
            <form action="{$conf['log_out']}/controller/system/cl_yhgl.php?file=myform" method="post" id="myform" name="myform">
@@ -96,7 +96,7 @@
                     <td class="hidden-480">{$v['realname']}</td>
                     <td class="center hidden-480">{$v['phone']}</td>
 					<td class="center hidden-480">{$role[$v['role']]['rolename']}</td>
-                    <td ><a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="#" class="btn mini red" onclick="del(this)" title="{$v['id']}">删除</a> <a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=info&id={$v['id']}" class="btn mini green">详细</a></td> 
+                    <td ><a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id={$v['id']}" class="btn mini blue">修改</a> <a href="#" class="btn mini red" onclick="aavv('del',this.title)" title="{$v['id']}">删除</a> <a href="{$conf['log_out']}/controller/system/cl_yhgl.php?file=info&id={$v['id']}" class="btn mini green">详细</a></td> 
                   </tr>
                  {/loop}
                  
@@ -137,30 +137,7 @@
 			}
 		}
 	}
-   function del(obj){
-	   var id=obj.title;
-	   $.ajax({
-		    type:"POST",
-			url:"{$conf[log_out]}/controller/system/cl_yhgl.php?file=del&page={$page}",
-			data:{id:id},
-		    dataType: "json",
-			success:function(data){
-				if(data == 'nothing'){
-					$("#tbody").empty();
-				    $("#tbody").append("<tr class='odd gradeX'><td colspan='6' text-align='center'>已经没有任何用户了</td></tr>");
-				    
-				}else{
-					var html="";
-					var len=data.length;
-					for(var i=0;i<len;i++){
-						html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].username+"</td><td class='hidden-480'>"+data[i].realname+"</td><td class='hidden-480'>"+data[i].phone+"</td><td class='hidden-480'>"+data[i].role+"</td><td><a href='{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id"+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
-					}
-					$("#tbody").empty();
-					$("#tbody").append(html);
-				}
-			}	
-	   })
-   }
+   
    function subform(){
 	   var lens=$(":checked").length;
 		var checkbox=$(":checked");
@@ -186,7 +163,7 @@
 						var html="";
 						var len=data.length;
 						for(var i=0;i<len;i++){
-							html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].username+"</td><td class='hidden-480'>"+data[i].realname+"</td><td class='hidden-480'>"+data[i].phone+"</td><td class='hidden-480'>"+data[i].role+"</td><td><a href='{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id="+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/tzgl.php?file=add&action=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
+							html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+data[i].id+" /></td><td class='hidden-480'>"+data[i].username+"</td><td class='hidden-480'>"+data[i].realname+"</td><td class='hidden-480'>"+data[i].phone+"</td><td class='hidden-480'>"+data[i].role+"</td><td><a href='{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id="+data[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick='del(this)' title='"+data[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/cl_yhgl.php?file=info&id="+data[i].id+"' class='btn mini green'>详细</a></td></tr> ";
 						}
 						$("#tbody").empty();
 						$("#tbody").append(html);
@@ -200,8 +177,21 @@
 			var id=arguments[1];
 			var page={$page};
 		}else{
+			var lens=$(":checked").length;
+			var checkbox=$(":checked");
+			if(lens>=1){
+				var id = new Array();
+				for(var j=0;j<lens;j++){
+				if(checkbox[j].value != "on"){
+				   id[j]=checkbox[j].value;
+					}
+				}
+				
+				var page={$page};
+			}else{
 				var id="";
 				var page=1;
+			}
 		}
 		   var sea=$("#search").val();
 		   if(sea == ""){
@@ -216,9 +206,8 @@
 					type:"POST",
 					url:"{$conf['log_out']}/controller/system/cl_yhgl.php?file="+obj+"",
 					data:{sel:search,id:id,page:page},
-					dataType:"text",
+					dataType:"json",
 					success:function(data){
-						alert(data);
 						var html="";
 						if(data == "nothing"){
 							var pages=1;
@@ -228,8 +217,7 @@
 							var len=content.length;
 						
 						for(var i=0;i<len;i++){
-							html+="<tr id='tr'><td class=' '><span id='span"+content[i].id+"' class='row-details row-details-close'  onclick='aa(this)' title="+content[i].id+"></span></td><td>"+content[i].username+"</td><td>"+content[i].realname+"</td><td>"+content[i].phone+"</td><td>"+content[i].role+"</td><td class='hidden-480'><a href='#' onclick=aavv('fangqi',this.title) title="+content[i].cusid+" class='btn mini red'>放弃</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=xiugai&id="+content[i].cusid+"' onclick='subform(mod)' class='btn mini blue'>修改资料</a> <a href='{$conf['log_out']}/controller/system/cl_ghkh.php?file=add&action=jilu&id="+content[i].cusid+"' onclick='subform(log)' class='btn mini yellow'>跟进记录</a></td></tr><tr id='none"+content[i].cusid+"' style='display:none'></tr>" ;
-							
+							html+="<tr class='odd gradeX'><td><input type='checkbox' id='select' class='checkboxes' name='checkbox1[]' value="+content[i].id+" /></td><td class='hidden-480'>"+content[i].username+"</td><td class='hidden-480'>"+content[i].realname+"</td><td class='hidden-480'>"+content[i].phone+"</td><td class='hidden-480'>"+content[i].role+"</td><td><a href='{$conf['log_out']}/controller/system/cl_yhgl.php?file=mod&id="+content[i].id+"' class='btn mini blue'>修改</a> <a href='#' class='btn mini red' onclick=aavv('del',this.title) title='"+content[i].id+"'>删除</a> <a href='{$conf['log_out']}/controller/system/cl_yhgl.php?file=info&id="+content[i].id+"' class='btn mini green'>详细</a></td></tr> ";
 						}
 						var pages=data.total;
 						}
