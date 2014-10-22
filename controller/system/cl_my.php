@@ -56,10 +56,29 @@
 	}
 	
 	if($_GET['file'] == 'sel'){
-		$select=$_POST['hide'];
-		$sql="SELECT * FROM crm_customer where uid=0 and disable=1 and ctype=$select";
-		$r=$db->get_all($sql);
-		include template('wdkh','my');
+		$uid=$_SESSION['usernameid'];
+		$select=$_REQUEST['select'];
+		$start=strtotime($_REQUEST['start']);
+		$end=strtotime($_REQUEST['end']);
+		$page=$_REQUEST['page']?$_REQUEST['page']:1;
+		if($select !='' && $select !="status" ){
+			$sql="SELECT * FROM crm_customer WHERE uid='$uid' AND disable='1' AND ctype=$select AND gettimes BETWEEN $start AND	$end  ORDER BY gettimes DESC";
+		}else{
+			$sql="SELECT * FROM crm_customer WHERE uid='$uid' AND disable='1' AND gettimes BETWEEN $start AND $end  ORDER BY gettimes DESC";
+		}
+		$content=page($sql,$page);
+		
+		if(!empty($content['content'])){
+			foreach($content['content'] as $k=>$v){
+				$content['content'][$k]['ctype']=$status[$v['ctype']];
+			}
+			$content['starttime']=$start;
+			$content['endtime']=$end;
+			echo json_encode($content);
+		}else{
+			echo json_encode("nothing");
+		}
+		
 	}
 	
 	if($_GET['file'] == 'mod'){
@@ -73,16 +92,10 @@
 		$file=array('connecter','cusname','cphone','cusinfo','ctype');
 		$sql="SELECT * FROM crm_customer WHERE disable=1 AND uid=$uid  AND (%s) ORDER BY gettimes DESC";
 		$res=search($sql,$file,$page,$sel);
-		if($res!="nothing"){
 			foreach($res['content'] as $k=>$v){
 				$res['content'][$k]['ctype']=$status[$k][$v['ctype']];
 			}
-			
 			echo json_encode($res);
-		}else{
-			
-			echo json_encode("nothing");
-		}
 	
 	}
 	

@@ -97,7 +97,7 @@
 							<div class="portlet-body">
                             	
                                 <div class="clearfix">
-                                <form id="myform" name="myform" action="{$conf['log_out']}/controller/system/my.php" method="post">
+                                <form id="myform" name="myform" action="{$conf['log_out']}/controller/system/my.php?file=sel" method="post">
                                     <select class="span2 m-wrap" data-placeholder="Choose a Category" id="sel" name="hide" onchange="sel(this)" tabindex="1">
                                     
                                         <option value="status" {if $select == "status"}selected{/if}>---跟进状态---</option>
@@ -107,10 +107,10 @@
                                     	{/loop}
                                     
                                     </select>
-				 						  <input type="text" value="{date('Y/m/d H:i')}" id="datetimepicker" name="time"/>
-                                      
+				 						  <input type="text" value="{date('Y-m-d H:i',strtotime("-1 Week"))}" id="datetimepicker" name="time"/>
+                                      ~   <input type="text" value="{date('Y/m/d H:i')}" id="datetimepicker4" name="time"/>
                                     
-                                   <div class="btn-group"> <a href="#" class="btn green" onclick="sel()"><i class="icon-screenshot"></i> 确认筛选</a> </div>
+                                   <div class="btn-group"> <a href="#" class="btn green" onclick="aavv('sel')"><i class="icon-screenshot"></i> 确认筛选</a> </div>
                          <div class="dataTables_filter" id="sample_1_filter" style="float:right"><label>搜索: <input type="text" aria-controls="sample_1" id="search" onblur="aavv('search')" class="m-wrap small"></label>
   </form>
   
@@ -194,6 +194,7 @@
 
 	<!-- BEGIN FOOTER -->
 	<script src="{$conf['js']}/jquery-1.10.1.min.js" type="text/javascript"></script>
+	<script src="{$conf['js']}/jquery.datetimepicker.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	
 	function sel(obj){
@@ -259,6 +260,7 @@
 						}
 		
 	};
+
 	function aavv(obj,id){
 		if(arguments[1]){
 			var id=arguments[1];
@@ -267,6 +269,9 @@
 				var id="";
 				var page=1;
 		}
+		var sel=$("#sel").val();
+		var start=$("#datetimepicker").val();
+		var end=$("#datetimepicker4").val();
 		   var sea=$("#search").val();
 		   if(sea == ""){
 			   search="{$_GET['sel']}";
@@ -279,7 +284,7 @@
 				$.ajax({
 					type:"POST",
 					url:"{$conf['log_out']}/controller/system/cl_my.php?file="+obj+"",
-					data:{sel:search,id:id,page:page},
+					data:{sel:search,id:id,page:page,select:sel,start:start,end:end},
 					dataType:"json",
 					success:function(data){
 						var html="";
@@ -299,6 +304,8 @@
 						var tpage="";
 						if(search!=""){
 							tpage +="<li class='prev disabled'><a title='1' href='?page=1&sel="+search+"'  >首页</a></li>";
+						}else if(sel!=""){
+							tpage +="<li class='prev disabled'><a title='1' href='?page=1&&select="+sel+"&start="+data.starttime+"&end="+data.endtime+"'  >首页</a></li>";
 						}else{
 							tpage +="<li class='prev disabled'><a title='1' href='?page=1'  >首页</a></li>";
 						}
@@ -319,7 +326,7 @@
 	                    }
 					    
 					}
-					for (var j=1;j<=pages;j++){
+					for (var j=1;j<=10;j++){
 					if(j==page){
 	                 tpage+="<li class='active'>";
 					}else{
@@ -334,9 +341,9 @@
 					}
 					if(pages >10){
 						if(search!=""){
-							tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"&sel="+search+"' >"+pages+"</a></li>";
+							tpage+="<li class='prev disabled'><a href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"&sel="+search+"' >"+pages+"</a></li>";
 						}else{
-							tpage+="<li class='prev disabled'><a  href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"' >"+pages+"</a></li>";	
+							tpage+="<li class='prev disabled'><a href='javascript:void(0)'>...</a></li><li><a title='"+pages+"' href='?page="+pages+"' >"+pages+"</a></li>";	
 						}
 						
 					}
@@ -382,7 +389,7 @@
 		mask:'9999/19/39 29:59'
 	});
 	$('#datetimepicker').datetimepicker();
-	$('#datetimepicker').datetimepicker({value:"{date('Y/m/d H:i')}",step:10});
+	$('#datetimepicker').datetimepicker();
 	$('#datetimepicker1').datetimepicker({
 		datepicker:false,
 		format:'H:i',

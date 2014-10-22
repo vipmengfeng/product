@@ -52,7 +52,7 @@
               <div class="portlet box blue">
                 <div class="portlet-title">
                   <div class="caption"><i class="icon-plus"></i>快捷添加客户</div>
-                  <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="reload"></a> </div>
+                  <div class="tools"> <a href="javascript:;" class="collapse"></a> </div>
                 </div>
                 <div class="portlet-body form"> 
                   
@@ -145,12 +145,12 @@
                                     <div class="label label-success"> <i class="icon-bullhorn"></i> </div>
                                   </div>
                                   <div class="cont-col2">
-                                    <div class="desc"><a href="{$conf[log_out]}/controller/system/tzgl.php?file=add&action=info&id={$tval[id]}">{$tval['title']}</a><span class="label label-important label-mini">{$tval['name']}</span> </div>
+                                    <div class="desc"><a href="{$conf[log_out]}/controller/system/tzgl.php?file=add&action=info&id={$tval[id]}">{$tval['title']}</a> <span class="label label-important label-mini">{$tval['name']}</span> </div>
                                   </div>
                                 </div>
                               </div>
                               <div class="col2">
-                                <div style="float:right">{date("Y-m-d H:i:s",$tval['inputtime'])}</div>
+                                <div style="float:right">{date("m-d H:i",$tval['inputtime'])}</div>
                               </div>
                             </li>
                             {/loop}
@@ -174,7 +174,7 @@
                                 </div>
                               </div>
                               <div class="col2">
-                                <div class="date">{date("Y-m-d H:i",$tv['time'])}</div>
+                                <div style="float:right">{date("m-d H:i",$tv['time'])}</div>
                               </div>
                               </a> </li>
                            {/loop}
@@ -188,7 +188,7 @@
                             <div class="span6 user-info"> <img alt="" src="{$conf['image']}/avatar.png" />
                               <div class="details">
                                 <div> <a href="{$conf[log_out]}/controller/system/cl_ghkh.php?file=ghkh_info&cusid={$v['cusid']}">{$v['cusname']}</a> <span class="label label-success">{$v['connecter']}</span> <a class="btn mini blue" onclick="huoqu(this)" title="{$v['cusid']}" href="#">获取</a> </div>
-                                <div>{date('Y-m-d H:i:s',$v['inputtime'])}</div>
+                                <div>{date('m-d H:i',$v['inputtime'])}</div>
                               </div>
                             </div>
                            
@@ -301,7 +301,6 @@ function huoqu(obj){
 	         });
 			 }
 		}
-
 </script> 
 <!-- BEGIN 底部 --> 
 

@@ -25,16 +25,8 @@
 			   
 		        $content=search($sql,$file,$page,$sel);
 		}
-	}else{
-		$select=$_POST['hide'];
-		if($select !='' && $select !="status"){
-			$sql="SELECT * FROM crm_customer WHERE uid='$uid' AND disable='1' AND ctype=$select ORDER BY gettimes DESC";
-		}else{
-			$sql="SELECT * FROM crm_customer WHERE uid='$uid' AND disable='1'ORDER BY gettimes DESC";
-		}
-		$page=$_GET['page'] ?$_GET['page']:1;
-		$content=page($sql,$page);
 	}
+	
 	
 	$r=$content['content'];
 	$count=$content['count'];

@@ -158,7 +158,7 @@
 		$sql1="SELECT tz from crm_role WHERE roleid=' $_SESSION[mxrole]'";
 		$crole=$db->get_one($sql1);
 		$tz=substr($crole[tz],0,-1);
-		$sql="SELECT * FROM crm_tz WHERE disable=1 AND id in ($tz) ORDER BY inputtime DESC";
+		$sql="SELECT * FROM crm_tz WHERE disable=1 AND id in ($tz) ORDER BY inputtime DESC"; 
 		$sql2="SELECT tz from crm_user WHERE id='$_SESSION[usernameid]'";
 		$readtz=$db->get_one($sql2);
 		$nread=explode(",",$tz);
@@ -166,7 +166,6 @@
 		$weidu=array_diff($nread,$read);
 		$page=$_GET['page'] ?$_GET['page']:1;
 		$content=page($sql,$page);
-
 		$query=$content['content'];
 		if(!empty($query)){
 		foreach($query as $k=>$v){
